@@ -11,25 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
-
-void		shell_init(void)
-{
-	char	*username;
-
-	username = getenv("USER");
-	CLEAR();
-	ft_printf("\n\n\n\n******************"
-	"****************************");
-	ft_printf("\n\n\n\t*******MINISHELL PROJECT*******");
-	ft_printf("\n\n\t-school 21 unix branch project-");
-	ft_printf("\n\t-use   at  your  own  risk  :D-");
-	ft_printf("\n\n\n\n*******************"
-	"***************************");
-	ft_printf("\n\n\nUSER is: @%s", username);
-	ft_printf("\n");
-	sleep(1);
-	CLEAR();
-}
+static struct termios	stored_settings;
 
 void sigint_handler(int signal)
 {
@@ -93,32 +75,103 @@ void sh_print_promt(void)
 {
 //	printf(COLOR_CYAN "%s" COLOR_NONE " in " COLOR_YELLOW "%s" COLOR_NONE "\n", shell->cur_user, shell->cur_dir);
 	if (shell->signal == 0)
-		printf(COLOR_GREEN "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ", basename(shell->cur_dir));
+		ft_printf(COLOR_GREEN "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ", basename(shell->cur_dir));
 	else
-		printf(COLOR_RED "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ", basename(shell->cur_dir));
+		ft_printf(COLOR_RED "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ", basename(shell->cur_dir));
 //	printf(COLOR_YELLOW "21sh>" COLOR_NONE " ");
 }
 
 
-void		shell_loop()
+
+
+
+
+void	set_keypress(void)
+{
+	struct termios	new_settings;
+
+	tcgetattr(0, &stored_settings);
+	new_settings = stored_settings;
+	new_settings.c_lflag &= (~ICANON & ~ECHO);
+	new_settings.c_cc[VTIME] = 0;
+	new_settings.c_cc[VMIN] = 1;
+	tcsetattr(0, TCSANOW, &new_settings);
+	return ;
+}
+
+void	reset_keypress(void)
+{
+	tcsetattr(0, TCSANOW, &stored_settings);
+	return;
+}
+
+char		*get_termcap(char **environ)
+{
+	char	*term;
+	char	*term_edit;
+	
+	if ((term = ft_strnew(2048)))
+	{
+		if ((term_edit = ft_strdup(getenv("TERM"))))
+		{
+			tgetent(term, term_edit);
+			if (tgetent(term, term_edit) == 1)
+				return (term);
+		}
+		free(term);
+	}
+	return (NULL);
+}
+
+void	set_termenv(char *termcap)
+{
+	term = (t_term *)malloc(sizeof(t_term));
+	term->le = tgetstr("le", &termcap);
+	term->nd = tgetstr("nd", &termcap);
+	term->cd = tgetstr("cd", &termcap);
+	term->dc = tgetstr("dc", &termcap);
+	term->im = tgetstr("im", &termcap);
+	term->ei = tgetstr("ei", &termcap);
+	term->so = tgetstr("so", &termcap);
+	term->se = tgetstr("se", &termcap);
+	term->up = tgetstr("up", &termcap);
+	term->do_ = tgetstr("do", &termcap);
+
+
+}
+
+
+
+
+
+
+void		shell_loop(char **env)
 {
 	char		*line;
 	char		**args;
 	job			*job;
 	int			status;
+	t_history_session *h_session;
+	char	*termcap;
+
 
 //	shell_init();
 	sh_init();
 	status = 1;
+	h_session = NULL;
+	if ((termcap = get_termcap(env)))
+		set_termenv(termcap);
+	set_keypress();
 	while (status >= 0)
 	{
 		sh_print_promt();
 		shell->signal = 0;
 
 //		line = read_ln(); ///
-		line = read_ln(); ///
-
-		if (strlen(line) == 0)
+		// line = read_ln(); ///
+		line = input(&h_session, ft_strlen(basename(shell->cur_dir)));
+		// ft_printf("%i\n", ft_strlen(line));
+		if (ft_strlen(line) == 0)
 		{
 			check_zombie();
 			continue ;
@@ -128,12 +181,13 @@ void		shell_loop()
 		job = shell_parse_command(line);
 		status = shell_launch_job(job);
 	}
+	reset_keypress();
 }
 
 int			main(int argc, char **argv, char **env)
 {
 
-	shell_loop();
+	shell_loop(env);
 
 	return (0);
 }
