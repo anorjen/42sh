@@ -12,7 +12,7 @@ FT_MINISHELL = minishell
 # GCC COMPILATOR PART CONF
 
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
+# FLAGS = -Wall -Wextra -Werror
 LIBRARIES = -lft -L$(PRINTF_DIR)
 INCLUDES = -I$(HEADERS_DIRECTORY) -I$(PRINTF_HEADERS)ft_printf.h
 
@@ -30,9 +30,13 @@ HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 #	которые задает второй аргумент.
 
 SRC_DIR = ./src/
-SRC_LST = built_ins.c built_ins2.c cpy_func.c launch.c linked_list.c\
-linked_list2.c linked_list3.c sig_handler.c split_line.c utilities.c utilities2.c
+# SRC_DIR2 = ./src/launch/
 
+SRC_LST = built_ins.c built_ins2.c cpy_func.c launch.c linked_list.c\
+linked_list2.c linked_list3.c sig_handler.c split_line.c utilities.c utilities2.c\
+aux_utilities.c job_process_status.c job_utils.c jobs_builtins.c launch_pro.c parse_helpers.c
+
+# SRC_LST2 = aux_utilities.c job_process_status.c job_utils.c jobs_builtins.c launch_pro.c parse_helpers.c
 
 SRC_FT_MINISHELL = main.c
 
