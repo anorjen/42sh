@@ -2,7 +2,7 @@
 // Created by Yoshiko Harwyn hoare on 2019-07-13.
 //
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 int			shell_jobs(process *proc)
 {

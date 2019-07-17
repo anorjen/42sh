@@ -2,7 +2,7 @@
 // Created by Yoshiko Harwyn hoare on 2019-07-02.
 //
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 
 static h_launch	*h_launch_init(void)

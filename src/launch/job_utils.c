@@ -2,7 +2,7 @@
 // Created by Yoshiko Harwyn hoare on 2019-07-03.
 //
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 int			release_job(int id)
 {

@@ -2,7 +2,7 @@
 // Created by Yoshiko Harwyn hoare on 2019-07-13.
 //
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 static int  wait_for_job_ext(int wait_count, int proc_count, int id, int wait_pid)
 {

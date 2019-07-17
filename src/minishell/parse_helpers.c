@@ -1,5 +1,5 @@
-
 #include "../../headers/minishell.h"
+
 
 
 int			get_command_type(char *command)
