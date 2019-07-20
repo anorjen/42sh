@@ -6,30 +6,12 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/17 14:56:58 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/20 15:42:15 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void		shell_init(void)
-{
-	char	*username;
-
-	username = getenv("USER");
-	CLEAR();
-	ft_printf("\n\n\n\n******************"
-	"****************************");
-	ft_printf("\n\n\n\t*******MINISHELL PROJECT*******");
-	ft_printf("\n\n\t-school 21 unix branch project-");
-	ft_printf("\n\t-use   at  your  own  risk  :D-");
-	ft_printf("\n\n\n\n*******************"
-	"***************************");
-	ft_printf("\n\n\nUSER is: @%s", username);
-	ft_printf("\n");
-	sleep(1);
-	CLEAR();
-}
 
 void sigint_handler(int signal)
 {
@@ -96,7 +78,6 @@ void sh_print_promt(void)
 		printf(COLOR_GREEN "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ", basename(shell->cur_dir));
 	else
 		printf(COLOR_RED "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ", basename(shell->cur_dir));
-//	printf(COLOR_YELLOW "21sh>" COLOR_NONE " ");
 }
 
 
@@ -114,17 +95,13 @@ void		shell_loop()
 	{
 		sh_print_promt();
 		shell->signal = 0;
-
-//		line = read_ln(); ///
-		line = read_ln(); ///
+		line = read_ln();
 
 		if (strlen(line) == 0)
 		{
 			check_zombie();
 			continue ;
 		}
-//		char **ARG = parser();
-//		function()
 		job = shell_parse_command(line);
 		status = shell_launch_job(job);
 	}

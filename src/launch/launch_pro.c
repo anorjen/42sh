@@ -51,10 +51,7 @@ static int		launch_proc_cycle(process *proc, h_launch *launch, job *job)
 		}
 		else
 		{
-			if (proc->type == HEREDOC_EXECUTION)
-				launch->out_fd = 0;
-			else
-				launch->out_fd = 1;
+			launch->out_fd = 1;
 			if (proc->output_path != NULL)
 			{
 				launch->out_fd = open(proc->output_path, O_CREAT|O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
