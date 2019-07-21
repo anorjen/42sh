@@ -17,15 +17,11 @@ void		print_ch(t_history_session *h_session, char key, int fl)
 	char *temp;
 	char *temp2;
 	char buff[2];
-
-	if (fl)
-	{
-		tputs(term->im, 1, putchar_);
+	
+	tputs(term->im, 1, putchar_);
+	if (key != '\n')
 		write(1, &key, 1);
-		tputs(term->ei, 1, putchar_);
-	}
-	else
-		write(1, "\n", 1);
+	tputs(term->ei, 1, putchar_);	
 	buff[0] = key;
 	buff[1] = '\0';
 	if (h_session->line)
@@ -142,8 +138,8 @@ void		backspace_ch(t_history_session *h_session)
 		}
 		else
 		{
-			if (h_session->line[h_session->left - 1] == h_session->comm.ch)
-				--(h_session->comm.fd);
+			// if (h_session->line[h_session->left - 1] == h_session->comm.ch)
+			// 	--(h_session->comm.fd);
 			tputs(term->le, 1, putchar_);
 			tputs(term->dc, 1, putchar_);
 			h_session->victor->array[h_session->victor->curr_arr]--;

@@ -29,7 +29,7 @@
 #define BACKGROUND_EXECUTION 0
 #define FOREGROUND_EXECUTION 1
 #define PIPELINE_EXECUTION 2
-#define HEREDOC_EXECUTION 3
+#define HEREDOC_EXECUTION 11
 
 #define COMMAND_EXTERNAL 0
 #define COMMAND_EXIT 1
@@ -79,14 +79,14 @@
 
 typedef struct 			s_process
 {
-	char				*command;
-	int					argc;
-	char				**argv;
+	char				*command;//
+	int					argc;//
+	char				**argv;//
 	char 				**query;
 	char				*input_path;
 	char				*output_path;
-	pid_t				pid;
-	int					type;
+	pid_t				pid; // -1
+	int					type;//
 	int					status;
 	struct s_process	*next;
 }						process;

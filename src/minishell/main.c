@@ -55,7 +55,7 @@ void sh_init()
 	sigemptyset(&sigint_action.sa_mask);
 	sigaction(SIGINT, &sigint_action, NULL);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
+	// signal(SIGTSTP, SIG_IGN);
 	signal(SIGTTIN, SIG_IGN);
 	pid = getpid();
 	setpgid(pid, pid);
@@ -80,11 +80,6 @@ void sh_print_promt(void)
 		ft_printf(COLOR_RED "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ", basename(shell->cur_dir));
 //	printf(COLOR_YELLOW "21sh>" COLOR_NONE " ");
 }
-
-
-
-
-
 
 void	set_keypress(void)
 {
@@ -145,6 +140,15 @@ void	set_termenv(char *termcap)
 
 
 
+
+
+
+
+
+
+
+
+
 void		shell_loop(char **env)
 {
 	char		*line;
@@ -166,23 +170,34 @@ void		shell_loop(char **env)
 	{
 		sh_print_promt();
 		shell->signal = 0;
-
-//		line = read_ln(); ///
+		args = parser(&h_session, env, ft_strlen(basename(shell->cur_dir)) + ft_strlen("⦿") + 1);
 		// line = read_ln(); ///
-		line = input(&h_session, ft_strlen(basename(shell->cur_dir)));
-		// ft_printf("%i\n", ft_strlen(line));
-		if (ft_strlen(line) == 0)
-		{
-			check_zombie();
-			continue ;
-		}
-//		char **ARG = parser();
-//		function()
-		job = shell_parse_command(line);
-		status = shell_launch_job(job);
+// 		if (ft_strlen(line) == 0)
+// 		{
+// 			check_zombie();
+// 			continue ;
+// 		}
+// //		char **ARG = parser();
+// //		function()
+// 		job = shell_parse_command(line);
+// 		status = shell_launch_job(job);
 	}
 	reset_keypress();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 int			main(int argc, char **argv, char **env)
 {

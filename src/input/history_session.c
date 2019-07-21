@@ -48,6 +48,8 @@ t_history_session	*add_history(t_history_session *h_session, int lenght_hello)
 	h_session->victor->push_back(&h_session->victor, 0);
 	h_session->number_hist = 0;
 	h_session->fl = 0;
+	h_session->pipe = 0;
+
 	h_session->lenght_hello = 1 + lenght_hello;
 	return (h_session);
 }

@@ -16,7 +16,8 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include "./launch.h"
-# include "./input.h"
+// # include "./input.h"
+#include "parser.h"
 # include "term.h"
 
 # include "../lib/printf/ft_printf.h"

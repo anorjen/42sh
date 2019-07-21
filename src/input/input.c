@@ -57,7 +57,8 @@ void	key_func(t_history_session *h_session, int key)
 		navigation(h_session, key);
 	else if (key == KEY_SHIFT_LEFT || key == KEY_SHIFT_RIGHT)
 		navigation_words(h_session, key);
-
+	else if (key == KEY_PASTE)
+		cut_copy_paste(h_session, key); 
 
 }
 
@@ -69,44 +70,73 @@ int		_enter(t_history_session *h_session, int key)
 
 	i = 0;
 	sum = 0;
-	if (h_session->comm.fd % 2 == 0)
-	{
+	// if (h_session->comm.fd % 2 == 0 && h_session->pipe != 1)
+	// {
 		if (h_session->line && h_session->line[0] == '\0')
 		{
 			free(h_session->line);
 			h_session->line = NULL;
 		}
-		write(1, "\n", 1);
-		return (1);
-	}
-	while (h_session->victor->curr_arr < h_session->victor->lenght - 1)
+		while (h_session->victor->curr_arr < (h_session->victor->lenght - 1))
+		{
+			h_session->victor->curr_arr++;
+			tputs(term->do_, 1, putchar_);
+		}
+		write(1, "\n", 1);                          
+		// return (1);
+	// }
+	// while (h_session->victor->curr_arr < h_session->victor->lenght - 1)
+	// {
+	// 	h_session->victor->curr_arr++;
+	// 	tputs(term->do_, 1, putchar_);
+	// }
+	// h_session->victor->push_back(&(h_session->victor), 0);
+	// h_session->left = h_session->lenght;
+	// print_ch(h_session, "\n", 0);
+	// (h_session)->fl = 1;
+	// if (h_session->comm.fd % 2 != 0)
+	// 	ft_printf("%s", "dquote> ");
+	// else if ((h_session->pipe % 2 ) == 1)
+	// 	ft_printf("%s", "pipe> ");
+	return (1);
+}
+
+int		key_control_C(t_history_session *h_session)
+{
+	while (h_session->victor->curr_arr < (h_session->victor->lenght - 1))
 	{
 		h_session->victor->curr_arr++;
 		tputs(term->do_, 1, putchar_);
+			ft_printf("!");
 	}
-	h_session->victor->push_back(&(h_session->victor), 0);
-	h_session->left = h_session->lenght;
-	print_ch(h_session, key, 0);
-	(h_session)->fl = 1;
-	ft_printf("%s", "dquote> ");
-	return (0);
+	if (h_session->line)
+		free(h_session->line);
+	h_session->line = NULL;
+	return (1);
 }
 
-
-
-char	*input(t_history_session **h_session, int lenght_hello)
+char	*input(t_history_session **h_session, int lenght_hello, int mode)
 {
 	int		key;
 	int		temp;
 
 	temp = 1;
-	*h_session = add_history(*h_session, lenght_hello);
+	if (mode == COMMANDID_QUOTE)
+	{
+		(*h_session)->victor->push_back(&((*h_session)->victor), 0);
+		print_ch(*h_session, '\n', 0);
+		ft_printf("%s", COMMAND_QUOTE);
+	}
+	(*h_session)->fl = mode ? 1 : 0;
 	while (21)
 	{
 		key = ft_readkey(0);
 
 		// ft_printf("%i\n", key);
-		(key == '\"' || key == '\'') ? _commas(*h_session, key) : 0;
+		if (key == -1 && key_control_C(*h_session))
+		{
+			break ;
+		}
 		if (key == KEY_COPY_LEFT || key == KEY_COPY_RIGHT)
 		{
 			temp = 0;
@@ -120,8 +150,6 @@ char	*input(t_history_session **h_session, int lenght_hello)
 			else if (g_dispersion)
 				save_buff(*h_session);
 		}
-		if (key == KEY_PASTE)
-			cut_copy_paste(*h_session,key); 
 		if (key == KEY_NL && _enter(*h_session, key))
 			break ;
 		if ((key == KEY_UP || key == KEY_DOWN) && !(*h_session)->fl)
@@ -173,6 +201,7 @@ void _debb(t_history_session **h_session)
 	ft_printf("(*h_session)->victor->curr_arr = %i\n", (*h_session)->victor->curr_arr);
 	ft_printf("(*h_session)->lenght = %i\n", (*h_session)->lenght);
 	ft_printf("(*h_session)->dispersion = %i\n", g_dispersion);
+	ft_printf("(*h_session)->pipe = %i\n", (*h_session)->pipe);
 	ft_printf("buffer = %s\n", g_buffer);
 
 	ft_printf("--------------------------------------\nvector:\n");

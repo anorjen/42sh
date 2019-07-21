@@ -69,6 +69,7 @@ typedef struct			s_history_session
 	int							number_hist;
 	int							lenght_hello;
 	int							fl;
+	int							pipe;
 	t_vector					*victor;
 	struct s_history_session	*up;
 	struct s_history_session	*down;
@@ -93,8 +94,10 @@ void 	_commas(t_history_session *h_session, int key);
 void    save_buff(t_history_session *h_session);
 void    key_paste(t_history_session *h_session);
 void	key_cut(t_history_session *h_session, int temp);
-char	*input(t_history_session **h_session, int lenght_hello);
+
+
 void	cut_str(char **comm, int i, int lenght);
+char	*input(t_history_session **h_session, int lenght_hello, int mode);
 
 
 
