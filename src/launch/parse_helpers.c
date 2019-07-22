@@ -109,6 +109,13 @@ int		parse_cycle(process *new_proc, char **tokens, int i, int position, int j)
 			strcpy(new_proc->output_path, tokens[i + 1]);
 			i++;
 		}
+		else if (strlen(tokens[i]) == 2 && tokens[i][1] == '>')
+		{
+			new_proc->output_path = ft_memalloc(PATH_BUFSIZE);
+			strcpy(new_proc->output_path, tokens[i + 1]);
+			i++;
+			new_proc->type = APPEND;
+		}
 		else
 		{
 			new_proc->output_path = ft_memalloc(PATH_BUFSIZE);
@@ -158,7 +165,7 @@ void		parse_helper2(process *new_proc, char **tokens, char *segment)
 	new_proc->argv = tokens;
 	new_proc->argc = j;
 	new_proc->pid = -1;
-	if (new_proc->type != HEREDOC_EXECUTION)
+	if (new_proc->type != HEREDOC_EXECUTION && new_proc->type != APPEND)
 		new_proc->type = get_command_type(tokens[0]);
 	new_proc->next = NULL;
 }

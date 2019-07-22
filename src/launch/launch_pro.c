@@ -109,6 +109,7 @@ static int		launch_proc_cycle(process *proc, h_launch *launch, job *job)
 			else
 			{
 				launch_heredoc(job, proc, launch);
+//				proc->type = COMMAND_EXTERNAL;
 				launch->in_fd = open(proc->input_path, O_RDONLY);
 //				return (launch->status);
 			}
@@ -138,7 +139,15 @@ static int		launch_proc_cycle(process *proc, h_launch *launch, job *job)
 			launch->out_fd = 1;
 			if (proc->output_path != NULL)
 			{
-				launch->out_fd = open(proc->output_path, O_CREAT|O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+				if (proc->type == APPEND)
+				{
+					if (access (proc->output_path, F_OK) != -1)
+						launch->out_fd = open(proc->output_path, O_APPEND |O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+					else
+						launch->out_fd = open(proc->output_path, O_CREAT | O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+				}
+				else
+					launch->out_fd = open(proc->output_path, O_CREAT | O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
 				if (launch->out_fd < 0)
 					launch->out_fd = 1;
 			}
@@ -162,7 +171,7 @@ int				shell_launch_job(job *job)
 
 	launch = h_launch_init();
 	check_zombie();
-	if (job->root->type == COMMAND_EXTERNAL || job->root->type == HEREDOC_EXECUTION)
+	if (job->root->type == COMMAND_EXTERNAL || job->root->type == HEREDOC_EXECUTION || job->root->type == APPEND)
 		launch->job_id = insert_job(job);
 	proc = job->root;
 //	print2dim(shell->jobs[1]->root->argv); //remove it
