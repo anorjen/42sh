@@ -18,6 +18,86 @@ static h_launch	*h_launch_init(void)
 }
 
 
+
+//int launch_heredoc(job *job, process *proc,h_launch *launch)
+//{
+//	pid_t	rdr;  /* input reader process */
+//	pid_t	cmd;  /* command runner process */
+//	pid_t	wres; /* wait() result */
+//
+//	/* pipe for passing input from rdr to cmd */
+//	int pipefd[2] = {0};
+//	/* command and args to pass to execvp() */
+//	char *command = "ls";
+//	char *cmdargs[] = { "ls", "-l", NULL };
+//	/* end of input marker */
+//	char *endinp = "END\n";
+//
+//	/* create a pipe:
+//	   - read end's fd will be pipefd[0],
+//	   - write end's fd will be pipefd[1] */
+//	pipe(pipefd);
+//
+//	cmd = fork();
+//	if (cmd == 0) {  /* COMMAND RUNNER PROCESS */
+//		dup2(pipefd[0],0); /* set stdin to pipe's read end */
+//		close(pipefd[1]);  /* close pipe's write end */
+//		/* exec command (will read from stdin) */
+//		execvp(command, cmdargs);
+//	}
+//
+//	rdr = fork();
+//	if (rdr == 0) {   /* INPUT READER PROCESS */
+//		close(pipefd[0]); /* close pipe's read end */
+//
+//		/* read input from stdin until a line containing only
+//		   the end of input marker is found */
+//		char buf[1024];
+//		while (fgets(buf,sizeof(buf),stdin)) {
+//			/* break when end of input marker is read */
+//			if (!strcmp(buf,endinp)) break;
+//			/* write data to pipe */
+//			write(pipefd[1],buf,strlen(buf));
+//		}
+//		exit(0);
+//	}
+//
+//	/* PARENT PROCESS */
+//
+//	close(pipefd[0]); /* close pipe's read end */
+//	close(pipefd[1]); /* close pipe's write end */
+//
+//	/* wait for both children to exit */
+//	do {
+//		wres = wait(NULL);
+//		if (wres == rdr) rdr = 0;
+//		if (wres == cmd) cmd = 0;
+//	} while (rdr || cmd);
+//
+//	return(0);
+//}
+
+void launch_heredoc(job *job, process *proc,h_launch *launch)
+{
+	char *str;
+
+	while (ft_strcmp(str = read_ln(), proc->input_path))
+		;
+//	printf("%s\n", str);
+	proc->heredoc = str;
+//	launch->out_fd = open("/tmp/stdin", O_CREAT|O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+	FILE * fp;
+	fp = fopen ("/tmp/stdin","w");
+	fprintf (fp,"%s\n", str);
+	fclose (fp);
+	proc->input_path = "/tmp/stdin";
+//	printf("%s", proc->output_path);
+//	exit(2);
+//	proc->ou
+//	return(0);
+}
+
+
 static int		launch_proc_cycle(process *proc, h_launch *launch, job *job)
 {
 	while(proc != NULL)
@@ -27,12 +107,16 @@ static int		launch_proc_cycle(process *proc, h_launch *launch, job *job)
 			if (proc->type != HEREDOC_EXECUTION)
 				launch->in_fd = open(proc->input_path, O_RDONLY);
 			else
-				launch->in_fd = 0;
+			{
+				launch_heredoc(job, proc, launch);
+				launch->in_fd = open(proc->input_path, O_RDONLY);
+//				return (launch->status);
+			}
 			if (launch->in_fd < 0)
 			{
-				printf("mysh: no such file or directory: %s\n", proc->input_path);
+				printf("21sh: no such file or directory: %s\n", proc->input_path);
 				remove_job(launch->job_id);
-				return (-1);
+				return (0);
 			}
 		}
 		if (proc->next != NULL)

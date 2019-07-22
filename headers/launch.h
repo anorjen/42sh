@@ -85,6 +85,7 @@ typedef struct 			s_process
 	char 				**query;
 	char				*input_path;
 	char				*output_path;
+	char 				*heredoc;
 	pid_t				pid;
 	int					type;
 	int					status;
@@ -199,6 +200,8 @@ int					set_process_status(int pid, int status);
 int					print_job_status(int id);
 void                built_init(void);
 int					parse_cycle(process *new_proc, char **tokens, int i, int position, int j);
+void 				child_launch_proc(job *job, process *proc, int in_fd, int out_fd);
+
 
 /*
 ** 				built-ins
@@ -212,6 +215,6 @@ int					wait_for_pid(int pid);
 int					shell_kill(process *proc);
 int					shell_bg(process *proc);
 int					shell_fg(process *proc);
-
+char				*read_ln_heredoc(char *eof);
 
 #endif
