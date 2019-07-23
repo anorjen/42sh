@@ -147,7 +147,14 @@ typedef struct 			s_parse
 	struct s_process	*new_proc;
 } 						g_parse;
 
-
+typedef struct			s_job_pid
+{
+	int 				proc_count;
+	int 				wait_pid;
+	int 				wait_count;
+	int 				status;
+	int 				exit_status;
+}						g_job_pid;
 
 
 shell_info	*shell;

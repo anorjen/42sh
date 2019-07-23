@@ -141,13 +141,15 @@ static int		launch_proc_cycle(process *proc, h_launch *launch, job *job)
 			{
 				if (proc->type == APPEND)
 				{
-					if (access (proc->output_path, F_OK) != -1)
+					if (access(proc->output_path, F_OK) != -1)
 						launch->out_fd = open(proc->output_path, O_APPEND |O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
 					else
-						launch->out_fd = open(proc->output_path, O_CREAT | O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+						launch->out_fd = open(proc->output_path, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
 				}
 				else
-					launch->out_fd = open(proc->output_path, O_CREAT | O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+				{
+					launch->out_fd = open(proc->output_path, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+				}
 				if (launch->out_fd < 0)
 					launch->out_fd = 1;
 			}
@@ -271,6 +273,7 @@ int				shell_launch_process(job *job, process *proc, int in_fd, int out_fd, int 
 			signal(SIGTTOU, SIG_IGN);
 			tcsetpgrp(0, getpid());
 			signal(SIGTTOU, SIG_DFL);
+//			check_zombie();
 		}
 	}
 	return (status);
