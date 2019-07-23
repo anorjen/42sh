@@ -6,17 +6,18 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 18:16:52 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/23 15:04:06 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/23 19:05:18 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-static int	wait_for_job_ext(g_job_pid *job_pids, int id)
+static int		wait_for_job_ext(g_job_pid *job_pids, int id)
 {
 	while (job_pids->wait_count < job_pids->proc_count)
 	{
-		job_pids->wait_pid = waitpid(-shell->jobs[id]->pgid, &job_pids->status, WUNTRACED);
+		job_pids->wait_pid = waitpid(-shell->jobs[id]->pgid,
+				&job_pids->status, WUNTRACED);
 		kill(shell->jobs[id]->root->pid, SIGQUIT);
 		job_pids->wait_count++;
 //		printf("waitpid: %d | job_pids->status: %d\n", job_pids->wait_pid, job_pids->status);
@@ -60,10 +61,10 @@ int				wait_for_job(int id)
 	return (status);
 }
 
-int			get_proc_count(int id, int filter)
+int				get_proc_count(int id, int filter)
 {
-	int		count;
-	process	*proc;
+	int			count;
+	process		*proc;
 
 	if (id > NR_JOBS || shell->jobs[id] == NULL)
 		return (-1);
@@ -81,10 +82,10 @@ int			get_proc_count(int id, int filter)
 	return (count);
 }
 
-int			set_process_status(int pid, int status)
+int				set_process_status(int pid, int status)
 {
-	int		i;
-	process	*proc;
+	int			i;
+	process		*proc;
 
 	i = 0;
 	while (++i <= NR_JOBS)

@@ -183,10 +183,13 @@ process		*shell_parse_command_segment(char *segment)
 		exit(EXIT_FAILURE);
 	}
 	new_proc = (process*)malloc(sizeof(process));
+	new_proc->aggregate = (aggregation*)malloc(sizeof(aggregation));
+
 	new_proc->output_path = NULL;
 	new_proc->input_path = NULL;
 	parse_helper2(new_proc, tokens, segment);
-	return new_proc;
+	new_proc->aggregate->out = -1;
+	return (new_proc);
 }
 
 

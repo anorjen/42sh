@@ -124,7 +124,7 @@ static int		launch_proc_cycle(process *proc, h_launch *launch, job *job)
 		{
 			if (proc->output_path != NULL)
 			{
-				launch->out_fd = open(proc->output_path, O_CREAT|O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+				launch->out_fd = open(proc->output_path, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 				if (launch->out_fd < 0)
 					launch->out_fd = 1;
 				launch->status = shell_launch_process(job, proc, launch->in_fd, launch->out_fd, PIPELINE_EXECUTION);
@@ -153,6 +153,10 @@ static int		launch_proc_cycle(process *proc, h_launch *launch, job *job)
 				if (launch->out_fd < 0)
 					launch->out_fd = 1;
 			}
+//			if (proc->aggregate->out == -1)
+//			{
+//				printf("aggro: %d\n", proc->aggregate->out);
+//			}
 			launch->status = shell_launch_process(job, proc, launch->in_fd, launch->out_fd, job->mode);
 		}
 		proc = proc->next;
@@ -177,6 +181,7 @@ int				shell_launch_job(job *job)
 		launch->job_id = insert_job(job);
 	proc = job->root;
 //	print2dim(shell->jobs[1]->root->argv); //remove it
+
 	launch->status = launch_proc_cycle(proc, launch, job);
 
 	if (job->root->type == COMMAND_EXTERNAL)
@@ -229,9 +234,15 @@ void 			child_launch_proc(job *job, process *proc, int in_fd, int out_fd)
 	paths = ft_strsplit(getenv("PATH"), ':');
 	while (paths[++i] != NULL)
 	{
+		if (proc->aggregate->out == -1)
+		{
+//			printf("aggro: %d\n", proc->aggregate->out);
+			close(2);
+		}
 		path = ft_strjoiner(paths[i], proc->argv[0]);
 		if (execve(path, proc->query, shell->env) != -1)
 		{
+			printf("HELLo\n");
 			free(path);
 			free(paths);
 			exit(0);

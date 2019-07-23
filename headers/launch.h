@@ -78,11 +78,17 @@
  * 				list structure
 */
 
+typedef struct			s_aggregation
+{
+	int out; // if -1 this is close mode, default: -2
+	int in;
+}						aggregation;
+
 typedef struct 			s_process
 {
-	char				*command;
-	int					argc;
-	char				**argv;
+	char				*command; // -
+	int					argc; // -
+	char				**argv; // -
 	char 				**query;
 	char				*input_path;
 	char				*output_path;
@@ -90,6 +96,7 @@ typedef struct 			s_process
 	pid_t				pid;
 	int					type;
 	int					status;
+	aggregation			*aggregate;
 	struct s_process	*next;
 }						process;
 
