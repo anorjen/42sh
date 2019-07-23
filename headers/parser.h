@@ -16,10 +16,10 @@
 # define COMMANDID_QUOTE 1
 
 # define COMMAND_QUOTE "dquote> "
-# define COMMAND_END "cmdand> "
-# define COMMAND_ELSE "cmdor> "
-# define COMMAND_PIPE "pipe> "
-# define COMMAND_NEW_LINE "> "
+// # define COMMAND_END "cmdand> "
+// # define COMMAND_ELSE "cmdor> "
+// # define COMMAND_PIPE "pipe> "
+// # define COMMAND_NEW_LINE "> "
 # define COMMAND_ERROR "21sh: parse error near "
 
 # define TOKEN_BACKGRAUND 1

@@ -66,18 +66,18 @@ int						multiply_line(char *line)
 	{
 		if ((line[i] == '\"' || line[i] == '\'') && !(i > 0 && line[i - 1] == '\\'))
 			check_quote(&control, line[i++]);
-		else if (!control.quote && spec_token(line, i))
-		{
-			if (!control.ch && line[i] != '<' && !(line[i] == '&' && line[i + 1] == '>'))
-			{
-				write(2, "21sh: parse error near `", ft_strlen("21sh: parse error near `"));
-				write(2, &line[i], spec_token(line, i));
-				write(2, "\'\n", 2);
-				return (-1);
-			}
-			i += spec_token(line, i);
-			// if ()
-		}
+		// else if (!control.quote && spec_token(line, i))
+		// {
+		// 	if (!control.ch && line[i] != '<' && !(line[i] == '&' && line[i + 1] == '>'))
+		// 	{
+		// 		write(2, "21sh: parse error near `", ft_strlen("21sh: parse error near `"));
+		// 		write(2, &line[i], spec_token(line, i));
+		// 		write(2, "\'\n", 2);
+		// 		return (-1);
+		// 	}
+		// 	i += spec_token(line, i);
+		// 	// if ()
+		// }
 		else
 		{
 			++i;
@@ -115,9 +115,10 @@ char					**parser(t_history_session **h_session, char **env, int lenght_hello)
 	line = replace_env(line, env);
 	line = replace_dir(line, env);
 	arg = write_arg(line);
-	// int i = 0;
+	int i = 0;
 	// while (arg && arg[i])
 	// 	ft_printf("%s\n", arg[i++]);
+	// ft_printf("\n\n");
 	free(line);
 	return (arg);
 }

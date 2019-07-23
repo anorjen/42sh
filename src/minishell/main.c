@@ -75,9 +75,9 @@ void sh_print_promt(void)
 {
 //	printf(COLOR_CYAN "%s" COLOR_NONE " in " COLOR_YELLOW "%s" COLOR_NONE "\n", shell->cur_user, shell->cur_dir);
 	if (shell->signal == 0)
-		printf(COLOR_GREEN "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ", basename(shell->cur_dir));
+		ft_printf(COLOR_GREEN "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ", basename(shell->cur_dir));
 	else
-		printf(COLOR_RED "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ", basename(shell->cur_dir));
+		ft_printf(COLOR_RED "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ", basename(shell->cur_dir));
 }
 
 void	set_keypress(void)
@@ -189,30 +189,32 @@ void		shell_loop(char **env)
 		args = parser(&h_session, env, ft_strlen(basename(shell->cur_dir)) + ft_strlen("⦿") + 1);
 		if (args && !ft_strcmp(args[0], "end"))
 			break ;
-		int i = 0;
-		while (args && args[i])
-			free(args[i++]);
-		free(args);
-		// line = read_ln(); ///
-// 		if (ft_strlen(line) == 0)
-// 		{
-// 			check_zombie();
-// 			continue ;
-// 		}
-// //		char **ARG = parser();
-// //		function()
-// 		job = shell_parse_command(line);
-// 		status = shell_launch_job(job);
+		if (args == NULL)
+			continue ;
+		lexer(args);
+		// // int i = 0;
+		// // while (args && args[i])
+		// // 	free(args[i++]);
+		// // free(args);
+		// // line = read_ln(); ///
+		// if (ft_strlen(line) == 0)
+		// {
+		// 	check_zombie();
+		// 	continue ;
+		// }
+		// job = lexer(args);
+		// job = shell_parse_command(line);
+		// status = shell_launch_job(job);
 	}
 	reset_keypress();
 	free_hsess(h_session);
 	free(termcap);
 
 
-	int i = 0;
-	while (args && args[i])
-		free(args[i++]);
-	free(args);
+	// int i = 0;
+	// while (args && args[i])
+	// 	free(args[i++]);
+	// free(args);
 	free(term);
 }
 

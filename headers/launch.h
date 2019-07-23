@@ -33,16 +33,7 @@
 
 #define APPEND 12
 
-#define COMMAND_EXTERNAL 0
-#define COMMAND_EXIT 1
-#define COMMAND_CD 2
-#define COMMAND_JOBS 3
-#define COMMAND_FG 4
-#define COMMAND_BG 5
-#define COMMAND_KILL 6
-#define COMMAND_EXPORT 7
-#define COMMAND_UNSET 8
-#define COMMAND_HELP 9
+
 
 #define STATUS_RUNNING 0
 #define STATUS_DONE 1
@@ -79,11 +70,62 @@
  * 				list structure
 */
 
+typedef struct 			k_process
+{
+	char 				**query;
+
+	char				**output_file; // файлы которые нужно создать
+	char				*output_path;
+	int					output_mode; // 0 - stdout, 1 - replace, 2 append
+
+	char 				**heredoc;
+	char				*input_path; // я сюда запишу либо имя файла, либо NULL(stdin)
+	char 				**input_file; // файлы нужно првоерить на access
+
+	pid_t				pid;
+	int					type;
+	int					status;
+	struct s_process	*next;
+}						t_process;
+
+typedef struct			k_job
+{
+	int					id; //!
+	t_process			*root;
+	pid_t				pgid; //!
+	int					mode; //!
+}						t_job;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 typedef struct 			s_process
 {
-	char				*command;//
-	int					argc;//
-	char				**argv;//
+	char				*command;// --
+	int					argc; //--
+	char				**argv;// --
+
 	char 				**query;
 	char				*input_path;
 	char				*output_path;
@@ -96,11 +138,11 @@ typedef struct 			s_process
 
 typedef struct			s_job
 {
-	int					id;
+	int					id; //!
 	process				*root;
-	char				*command;
-	pid_t				pgid;
-	int					mode;
+	char				*command; // --
+	pid_t				pgid; //!
+	int					mode; //!
 //	char
 }						job;
 
