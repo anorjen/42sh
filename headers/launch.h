@@ -31,6 +31,8 @@
 #define PIPELINE_EXECUTION 2
 #define HEREDOC_EXECUTION 11
 
+#define APPEND 12
+
 #define COMMAND_EXTERNAL 0
 #define COMMAND_EXIT 1
 #define COMMAND_CD 2
@@ -85,8 +87,9 @@ typedef struct 			s_process
 	char 				**query;
 	char				*input_path;
 	char				*output_path;
-	pid_t				pid; // -1
-	int					type;//
+	char 				*heredoc;
+	pid_t				pid;
+	int					type;
 	int					status;
 	struct s_process	*next;
 }						process;
@@ -145,7 +148,14 @@ typedef struct 			s_parse
 	struct s_process	*new_proc;
 } 						g_parse;
 
-
+typedef struct			s_job_pid
+{
+	int 				proc_count;
+	int 				wait_pid;
+	int 				wait_count;
+	int 				status;
+	int 				exit_status;
+}						g_job_pid;
 
 
 shell_info	*shell;
@@ -199,6 +209,8 @@ int					set_process_status(int pid, int status);
 int					print_job_status(int id);
 void                built_init(void);
 int					parse_cycle(process *new_proc, char **tokens, int i, int position, int j);
+void 				child_launch_proc(job *job, process *proc, int in_fd, int out_fd);
+
 
 /*
 ** 				built-ins
@@ -212,6 +224,6 @@ int					wait_for_pid(int pid);
 int					shell_kill(process *proc);
 int					shell_bg(process *proc);
 int					shell_fg(process *proc);
-
+char				*read_ln_heredoc(char *eof);
 
 #endif
