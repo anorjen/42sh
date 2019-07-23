@@ -12,80 +12,33 @@
 
 #include "../../headers/minishell.h"
 
-t_history_session	*add_history(t_history_session *h_session, int lenght_hello)
-{
-	t_history_session *temp;
-
-	if (!h_session)
-	{
-		if ((h_session =
-		(t_history_session*)malloc(sizeof(t_history_session))) == NULL)
-			exit(1);
-		h_session->up = NULL;
-		h_session->number_hist = 0;
-		g_buffer = NULL;
-		g_dispersion = 0;
-	}
-	else
-	{
-		if (h_session->line)
-		{
-			if ((h_session->down =
-			(t_history_session*)malloc(sizeof(t_history_session))) == NULL)
-				exit(1);
-			temp = h_session;
-			h_session = h_session->down;
-			h_session->up = temp;
-		}
-	}
-	h_session->comm.ch = '\0';
-	h_session->comm.fd = 0;
-	h_session->left = 0;
-	h_session->lenght = 0;
-	h_session->line = NULL;
-	h_session->down = NULL;
-	h_session->victor = init_vector();
-	h_session->victor->push_back(&h_session->victor, 0);
-	h_session->number_hist = 0;
-	h_session->fl = 0;
-	h_session->pipe = 0;
-
-	h_session->lenght_hello = 1 + lenght_hello;
-	return (h_session);
-}
-
 static void			clear_line(t_history_session *h_session)
 {
 	int i;
 	int j;
 
+	i = 0;
 	if (h_session->victor->lenght > 1)
 	{
-		i = 0;
 		j = h_session->victor->lenght;
 		while (++h_session->victor->curr_arr < h_session->victor->lenght)
 			tputs(term->do_, 1, putchar_);
 		h_session->victor->curr_arr--;
-		while (--j > 0)
+		while (--j > 0 && !(i = 0))
 		{
-			i = 0;
 			while (i++ < h_session->victor->array[j])
 				tputs(term->le, 1, putchar_);
 			tputs(term->cd, 1, putchar_);
 			tputs(term->up, 1, putchar_);
 		}
-		i = 0;
-		while (++i < h_session->lenght_hello)
+		while (++j < h_session->lenght_hello)
 			tputs(term->nd, 1, putchar_);
 		tputs(term->cd, 1, putchar_);
+		return ;
 	}
-	else
-	{
-		i = 0;
-		while (i++ < h_session->left)
-			tputs(term->le, 1, putchar_);
-		tputs(term->cd, 1, putchar_);
-	}
+	while (i++ < h_session->left)
+		tputs(term->le, 1, putchar_);
+	tputs(term->cd, 1, putchar_);
 }
 
 static void			key_upp(t_history_session *h_session)
@@ -103,10 +56,10 @@ static void			key_upp(t_history_session *h_session)
 	(h_session->number_hist)++;
 	free(h_session->line);
 	h_session->line = ft_strdup(temp->line);
-	h_session->comm = temp->comm;
 	h_session->left = temp->left;
 	h_session->lenght = temp->lenght;
-	h_session->victor = h_session->victor->copy(temp->victor);
+	h_session->victor->del(&(h_session->victor));
+	h_session->victor = temp->victor->copy(temp->victor);
 	ft_printf("%s", h_session->line);
 }
 
@@ -126,18 +79,15 @@ static void			key_dow(t_history_session *h_session)
 	(h_session->number_hist)--;
 	free(h_session->line);
 	h_session->line = ft_strdup(temp->line);
-	h_session->comm = temp->comm;
 	h_session->left = temp->left;
 	h_session->lenght = temp->lenght;
-	h_session->victor = h_session->victor->copy(temp->victor);
+	h_session->victor->del(&(h_session->victor));
+	h_session->victor = temp->victor->copy(temp->victor);
 	ft_printf("%s", h_session->line);
 }
 
 void				key_history(t_history_session *h_session, int key)
 {
-	int	i;
-
-	i = 0;
 	if (key == KEY_UP)
 		key_upp(h_session);
 	else if (key == KEY_DOWN && h_session->number_hist > 1)

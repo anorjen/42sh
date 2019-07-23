@@ -12,7 +12,7 @@
 
 #include "../../headers/vector.h"
 
-static void		push_back(t_vector **victor, int data)
+static void	push_back(t_vector **victor, int data)
 {
 	int *temp;
 	int	i;
@@ -20,11 +20,10 @@ static void		push_back(t_vector **victor, int data)
 	i = -1;
 	if (!(*victor)->array)
 	{
-		++i;
 		(*victor)->array = (int*)malloc(sizeof(int));
 		if (!(*victor)->array)
 			exit(1);
-		(*victor)->array[i] = data;
+		(*victor)->array[++i] = data;
 	}
 	else
 	{
@@ -42,7 +41,7 @@ static void		push_back(t_vector **victor, int data)
 	(*victor)->curr_left = (*victor)->array[i];
 }
 
-static void		pop(t_vector **victor, int number_del)
+static void	pop(t_vector **victor, int number_del)
 {
 	int *temp;
 	int	i;
@@ -56,8 +55,7 @@ static void		pop(t_vector **victor, int number_del)
 		(*victor) = init_vector();
 		return ;
 	}
-	temp = (int*)malloc(sizeof(int) * ((*victor)->lenght - 1));
-	if (!temp)
+	if ((temp = (int*)malloc(sizeof(int) * ((*victor)->lenght - 1))) == NULL)
 		exit(1);
 	if (number_del > (*victor)->lenght)
 		number_del = (*victor)->lenght - 1;
@@ -72,19 +70,21 @@ static void		pop(t_vector **victor, int number_del)
 	(*victor)->curr_arr--;
 }
 
-void		del(t_vector **victor)
+static void	del(t_vector **victor)
 {
 	int i;
 
+	if (!(*victor))
+		return ;
 	if ((*victor)->array)
 		free((*victor)->array);
 	free(*victor);
 	*victor = NULL;
 }
 
-t_vector	 *copy(struct s_vector *victor)
+t_vector	*copy(struct s_vector *victor)
 {
-	t_vector 	*victor_ret;
+	t_vector	*victor_ret;
 	int			i;
 
 	victor_ret = (t_vector*)malloc(sizeof(t_vector));
@@ -111,7 +111,7 @@ t_vector	 *copy(struct s_vector *victor)
 	return (victor_ret);
 }
 
-t_vector	 *init_vector(void)
+t_vector	*init_vector(void)
 {
 	t_vector *victor;
 
@@ -122,11 +122,9 @@ t_vector	 *init_vector(void)
 	victor->pop = &pop;
 	victor->copy = &copy;
 	victor->del = &del;
-
 	victor->array = NULL;
 	victor->curr_arr = 0;
 	victor->lenght = 0;
 	victor->curr_left = 0;
-
 	return (victor);
 }

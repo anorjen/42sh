@@ -53,7 +53,7 @@ typedef struct  s_control_multiply_line
 char    **parser(t_history_session **h_session, char **env, int lenght_hello);
 char    *replace_env(char *line, char **env);
 void	replace_str(char **chang_line, int i, int lenght, char *env_verb);
-int			is_delimetr(char ch);
+int		is_delimetr(char ch);
 char    *replace_dir(char *line, char **env);
 int		spec_token(char *line, int j);
 

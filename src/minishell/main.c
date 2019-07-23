@@ -111,7 +111,11 @@ char		*get_termcap(char **environ)
 		{
 			tgetent(term, term_edit);
 			if (tgetent(term, term_edit) == 1)
+			{
+				free(term_edit);
 				return (term);
+			}
+			free(term_edit);
 		}
 		free(term);
 	}
@@ -136,7 +140,20 @@ void	set_termenv(char *termcap)
 }
 
 
+void		free_hsess(t_history_session *h_session)
+{
+	t_history_session *temp;
 
+	while (h_session)
+	{
+		h_session->victor->del(&h_session->victor);
+		if (h_session->line)
+			free(h_session->line);
+		temp = h_session;
+		h_session = h_session->up;
+		free(temp);
+	}
+}
 
 
 
@@ -171,6 +188,12 @@ void		shell_loop(char **env)
 		sh_print_promt();
 		shell->signal = 0;
 		args = parser(&h_session, env, ft_strlen(basename(shell->cur_dir)) + ft_strlen("⦿") + 1);
+		if (args && !ft_strcmp(args[0], "end"))
+			break ;
+			int i = 0;
+		while (args && args[i])
+			free(args[i++]);
+		free(args);
 		// line = read_ln(); ///
 // 		if (ft_strlen(line) == 0)
 // 		{
@@ -183,6 +206,15 @@ void		shell_loop(char **env)
 // 		status = shell_launch_job(job);
 	}
 	reset_keypress();
+	free_hsess(h_session);
+	free(termcap);
+
+
+	int i = 0;
+	while (args && args[i])
+		free(args[i++]);
+	free(args);
+	free(term);
 }
 
 

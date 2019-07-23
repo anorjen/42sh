@@ -45,7 +45,6 @@ int		lenght_token(char *line, int j)
 	int		lenght;
 	char	temp;
 
-	lenght = 0;
 	if ((lenght = spec_token(line, j)))
 		return (lenght);
 	while (line[j] && !is_delimetr(line[j]) && !spec_token(line, j))
@@ -71,32 +70,44 @@ int		lenght_token(char *line, int j)
 	return (lenght);
 }
 
-char    *get_token(char *line, int j, int lenght)
+char	*get_token(char *line, int j, int lenght)
 {
 	char	*token;
-	int i;
+	int		i;
 
 	i = 0;
-	token = (char*)malloc(sizeof(char) * lenght + 1);
+	token = (char*)malloc(sizeof(char) * (lenght + 1));
 	if (!token)
 		exit(1);
 	while (i < lenght)
 		token[i++] = line[j++];
+	token[i] = '\0';
 	return (token);
 }
 
-int			is_delimetr(char ch)
+int		is_delimetr(char ch)
 {
 	if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r' || ch == '\v')
 		return (1);
 	return (0);
 }
 
-int	count_argv(char *line)
+int		miss_quote(char *line, int i)
+{
+	char temp;
+
+	temp = (line[i++] == '\"') ? '\"' : '\'';
+	while (line[i] && line[i] != temp)
+		++i;
+	i += line[i] ? 1 : 0;
+	return (i);
+}
+
+int		count_argv(char *line)
 {
 	int		i;
 	char	temp;
-	int count;
+	int		count;
 
 	i = 0;
 	count = 0;
@@ -104,10 +115,7 @@ int	count_argv(char *line)
 	{
 		if (line[i] == '\"' || line[i] == '\'')
 		{
-			temp = (line[i++] == '\"') ? '\"' : '\'';
-			while (line[i] && line[i] != temp)
-				++i;
-			i += line[i] ? 1 : 0;
+			i = miss_quote(line, i);
 			++count;
 		}
 		else if ((temp = spec_token(line, i)))
@@ -118,8 +126,13 @@ int	count_argv(char *line)
 		else if (!(is_delimetr(line[i])))
 		{
 			while (line[i] && !(is_delimetr(line[i])) && !spec_token(line, i))
-				++i;
-			++count;			
+			{
+				if (line[i] == '\"' || line[i] == '\'')
+					i = miss_quote(line, i);
+				else
+					++i;
+			}
+			++count;
 		}
 		else
 			++i;
@@ -127,11 +140,11 @@ int	count_argv(char *line)
 	return (count);
 }
 
-char    **write_arg(char *line)
+char	**write_arg(char *line)
 {
-	char    **arg;
-	int     i;
-	int     j;
+	char	**arg;
+	int		i;
+	int		j;
 	int		lenght;
 	int		count_arg;
 
@@ -148,12 +161,10 @@ char    **write_arg(char *line)
 		while (line[j] && is_delimetr(line[j]))
 			++j;
 		lenght = lenght_token(line, j);
-		arg[i] = get_token(line, j, lenght);       
+		arg[i] = get_token(line, j, lenght);
 		j += lenght;
 		++i;
 	}
 	arg[i] = NULL;
-	
 	return (arg);
 }
-

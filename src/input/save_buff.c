@@ -95,11 +95,10 @@ void	clean_right(t_history_session *h_session)
 	temp = h_session->victor->curr_arr;
 	while (g_dispersion > 0)
 	{
-		if (h_session->line[i - 1] == '\n')
+		if (h_session->line[--i] == '\n')
 		{
 			tputs(term->up, 1, putchar_);
-			temp--;
-			tmp = !temp ? -h_session->lenght_hello : 0;
+			tmp = !(--temp) ? -h_session->lenght_hello : 0;
 			while (++tmp < h_session->victor->array[temp])
 				tputs(term->nd, 1, putchar_);
 		}
@@ -107,10 +106,9 @@ void	clean_right(t_history_session *h_session)
 		{
 			tputs(term->le, 1, putchar_);
 			tputs(term->dc, 1, putchar_);
-			write(1, &(h_session->line[i - 1]), 1);
+			write(1, &(h_session->line[i]), 1);
 			tputs(term->le, 1, putchar_);
 		}
-		i--;
 		g_dispersion--;
 	}
 	clean_right_assist(h_session, temp, i);

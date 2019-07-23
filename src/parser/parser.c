@@ -12,7 +12,24 @@
 
 #include "../../headers/minishell.h"
 
-void	check_quote(t_control_multiply_line *control, char ch)
+void					replace_str(char **chang_line, int i, int lenght, char *env_verb)
+{
+	char *temp;
+	char *tmp;
+
+	temp = *chang_line;
+	*chang_line = ft_strsub(temp, 0, i);
+	tmp = *chang_line;
+	*chang_line = ft_strjoin(tmp, env_verb);
+	free(tmp);
+	tmp = *chang_line;
+	*chang_line = ft_strjoin(tmp, &temp[lenght]);
+	free(tmp);
+	free(temp);
+	
+}
+
+void					check_quote(t_control_multiply_line *control, char ch)
 {
 
 	if ((ch == '\"' || ch == '\'') && (control->quote % 2) == 0)
@@ -26,7 +43,7 @@ void	check_quote(t_control_multiply_line *control, char ch)
 	}
 }
 
-t_control_multiply_line init_control(void)
+t_control_multiply_line	init_control(void)
 {
 	t_control_multiply_line control;
 
@@ -38,7 +55,7 @@ t_control_multiply_line init_control(void)
 	return (control);
 }
 
-int		multiply_line(char *line)
+int						multiply_line(char *line)
 {
 	int i;
 	t_control_multiply_line control;
@@ -59,7 +76,7 @@ int		multiply_line(char *line)
 				return (-1);
 			}
 			i += spec_token(line, i);
-			if ()
+			// if ()
 		}
 		else
 		{
@@ -73,7 +90,7 @@ int		multiply_line(char *line)
 		return (0);
 }
 
-char    **parser(t_history_session **h_session, char **env, int lenght_hello)
+char					**parser(t_history_session **h_session, char **env, int lenght_hello)
 {
 	char	**arg;
 	char	*line;
@@ -92,17 +109,15 @@ char    **parser(t_history_session **h_session, char **env, int lenght_hello)
 			return (NULL);
 		}
 		if (!mode)
-			break;
+			break ;
 		free(line);
 	}
 	line = replace_env(line, env);
 	line = replace_dir(line, env);
-	
 	arg = write_arg(line);
-
 	// int i = 0;
-	// while(arg[i])
+	// while (arg && arg[i])
 	// 	ft_printf("%s\n", arg[i++]);
-
+	free(line);
 	return (arg);
 }

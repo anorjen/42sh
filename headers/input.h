@@ -53,23 +53,14 @@ typedef struct	s_term
 }				t_term;
 
 
-
-typedef struct s_commas
-{
-	char	ch;
-	int		fd;
-}				t_commas;
-
 typedef struct			s_history_session
 {
-	t_commas					comm;
 	int							left;
 	int							lenght;
 	char						*line;
 	int							number_hist;
 	int							lenght_hello;
 	int							fl;
-	int							pipe;
 	t_vector					*victor;
 	struct s_history_session	*up;
 	struct s_history_session	*down;
@@ -87,10 +78,10 @@ void    left_ch(t_history_session *h_session);
 void    right_ch(t_history_session *h_session);
 t_history_session	*add_history(t_history_session *h_session, int lenght_hello);
 void	key_history(t_history_session *h_session, int key);
-void    navigation(t_history_session *h_session, int key);
+void	navigation_line(t_history_session *h_session, int key);
+
 void	navigation_words(t_history_session *h_session, int key);
-void    cut_copy_paste(t_history_session *h_session, int key);
-void 	_commas(t_history_session *h_session, int key);
+
 void    save_buff(t_history_session *h_session);
 void    key_paste(t_history_session *h_session);
 void	key_cut(t_history_session *h_session, int temp);
@@ -98,6 +89,12 @@ void	key_cut(t_history_session *h_session, int temp);
 
 void	cut_str(char **comm, int i, int lenght);
 char	*input(t_history_session **h_session, int lenght_hello, int mode);
+void	write_vector(t_history_session *h_session);
+void		key_cop(t_history_session *h_session, int key);
+
+int			is_delim(char ch);
+void	key_endhome(t_history_session *h_session, int key);
+
 
 
 

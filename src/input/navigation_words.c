@@ -37,8 +37,7 @@ void	key_shift_left(t_history_session *h_session)
 	if (h_session->line[i] == 32 ||
 	(h_session->line[i] > 8 && h_session->line[i] < 14))
 	{
-		while (i >= 0 && (h_session->line[i] == 32
-		|| (h_session->line[i] > 8 && h_session->line[i] < 14)))
+		while (i >= 0 && is_delim(h_session->line[i]))
 		{
 			if (h_session->line[i] == '\n' && h_session->fl)
 				break ;
@@ -50,8 +49,7 @@ void	key_shift_left(t_history_session *h_session)
 		}
 		return ;
 	}
-	while (i >= 0 && h_session->line[i] && !(h_session->line[i] == 32
-	|| (h_session->line[i] > 8 && h_session->line[i] < 14)))
+	while (i >= 0 && h_session->line[i] && !is_delim(h_session->line[i]))
 	{
 		tputs(term->le, 1, putchar_);
 		h_session->left--;
@@ -87,9 +85,7 @@ void	key_shift_right(t_history_session *h_session)
 	if (h_session->line[i] == 32 ||
 	(h_session->line[i] > 8 && h_session->line[i] < 14))
 	{
-		while (i < (h_session->lenght)
-		&& (h_session->line[i] == 32 ||
-		(h_session->line[i] > 8 && h_session->line[i] < 14)))
+		while (i < h_session->lenght && is_delim(h_session->line[i]))
 		{
 			if (h_session->line[i] == '\n' && h_session->fl)
 				break ;
@@ -102,9 +98,7 @@ void	key_shift_right(t_history_session *h_session)
 		}
 		return ;
 	}
-	while (h_session->line[i] &&
-	!(h_session->line[i] == 32 ||
-	(h_session->line[i] > 8 && h_session->line[i] < 14)))
+	while (h_session->line[i] && !is_delim(h_session->line[i]))
 	{
 		tputs(term->nd, 1, putchar_);
 		h_session->left++;

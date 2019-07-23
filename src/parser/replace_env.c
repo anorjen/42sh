@@ -12,24 +12,7 @@
 
 #include "../../headers/minishell.h"
 
-void	replace_str(char **chang_line, int i, int lenght, char *env_verb)
-{
-	char *temp;
-	char *tmp;
-
-	temp = *chang_line;
-	*chang_line = ft_strsub(temp, 0, i);
-	tmp = *chang_line;
-	*chang_line = ft_strjoin(tmp, env_verb);
-	free(tmp);
-	tmp = *chang_line;
-	*chang_line = ft_strjoin(tmp, &temp[lenght]);
-	free(tmp);
-	free(temp);
-	
-}
-
-char	*check_env_verb(char *line, int i, int *lenght, char **environ)
+static char	*check_env_verb(char *line, int i, int *lenght, char **environ)
 {
 	char	*temp;
 	char	*temp2;
@@ -53,38 +36,41 @@ char	*check_env_verb(char *line, int i, int *lenght, char **environ)
 	return (" ");
 }
 
-static int		miss_quote(char **chang_line, int i, char **env)
+static int	envin_quote(char **chang_line, int i, char **env)
 {
-	int	lenght;
-	char *env_verb;
+	int		lenght;
+	char	*env_verb;
 
-	lenght = 0;
+	lenght = i;
+	env_verb = check_env_verb(*chang_line, i, &lenght, env);
+	if (!ft_strcmp(env_verb, " "))
+		cut_str(chang_line, i, lenght);
+	else if (ft_strcmp(env_verb, "$"))
+	{
+		replace_str(chang_line, i, lenght, env_verb);
+		i += ft_strlen(env_verb);
+	}
+	else
+		++i;
+	return (i);
+}
+
+static int	miss_quote(char **chang_line, int i, char **env)
+{
 	if ((*chang_line)[i] == '\'')
 	{
-        ++i;
+		++i;
 		while ((*chang_line)[i] && (*chang_line)[i] != '\'')
 			++i;
 		i += (*chang_line)[i] ? 1 : 0;
 	}
 	else if ((*chang_line)[i] == '\"')
 	{
-        ++i;
+		++i;
 		while ((*chang_line)[i] && (*chang_line)[i] != '\"')
 		{
 			if ((*chang_line)[i] == '$')
-			{
-				lenght = i;
-				env_verb = check_env_verb(*chang_line, i, &lenght, env);
-				if (!ft_strcmp(env_verb, " "))
-					cut_str(chang_line, i, lenght);
-				else if (ft_strcmp(env_verb, "$"))
-				{
-					replace_str(chang_line, i, lenght, env_verb);
-					i += ft_strlen(env_verb);
-				}
-				else
-					++i;
-			}
+				i = envin_quote(chang_line, i, env);
 			else
 				++i;
 		}
@@ -93,33 +79,28 @@ static int		miss_quote(char **chang_line, int i, char **env)
 	return (i);
 }
 
-char    *replace_env(char *line, char **env)
+char		*replace_env(char *chang_line, char **env)
 {
-	int	i;
-	int	lenght;
-	char *chang_line;
-	char *env_verb;
-
+	int		i;
+	int		lenght;
+	char	*env_verb;
 
 	i = 0;
-	chang_line = line;
 	while (chang_line && chang_line[i])
 	{
 		if (chang_line[i] == '\'' || chang_line[i] == '\"')
 			i = miss_quote(&chang_line, i, env);
 		else if (chang_line[i] == '$')
 		{
-			lenght = i;
 			env_verb = check_env_verb(chang_line, i, &lenght, env);
 			if (!ft_strcmp(env_verb, " "))
 				cut_str(&chang_line, i, lenght);
-			else if (ft_strcmp(env_verb, "$"))
-			{
-			    replace_str(&chang_line, i, lenght, env_verb);
-				i += ft_strlen(env_verb);
-			}
 			else
-			    ++i;
+			{
+				if (ft_strcmp(env_verb, "$"))
+					replace_str(&chang_line, i, lenght, env_verb);
+				i += ft_strcmp(env_verb, "$") ? ft_strlen(env_verb) : 1;
+			}
 		}
 		else
 			++i;

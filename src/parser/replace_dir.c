@@ -12,13 +12,13 @@
 
 #include "../../headers/minishell.h"
 
-int		exist_dir(char *line, int i, int lenght)
+static int	exist_dir(char *line, int i, int lenght)
 {
 	char	*temp;
 	char	*tmp;
 	int		status;
 
-	temp = ft_strsub(line, i, lenght);
+	temp = ft_strsub(line, i, lenght - i);
 	tmp = ft_strjoin("/Users/", temp);
 	status = access(tmp, 0);
 	if (status == -1)
@@ -35,7 +35,29 @@ int		exist_dir(char *line, int i, int lenght)
 		return (1);
 }
 
-char	*tilde(char *line, int *i, char **env)
+static char	*assist_tilde(char *chang_line, int *i)
+{
+	int lenght;
+	int j;
+
+	j = *i;
+	lenght = j;
+	while (chang_line[lenght] && !is_delimetr(chang_line[lenght]))
+		++lenght;
+	if (exist_dir(chang_line, j + 1, lenght))
+		replace_str(&chang_line, j, j + 1, "/Users/");
+	else
+	{
+		free(chang_line);
+		chang_line = NULL;
+	}
+	while (chang_line && chang_line[j] && !is_delimetr(chang_line[j]))
+		++j;
+	*i = j;
+	return (chang_line);
+}
+
+static char	*tilde(char *line, int *i, char **env)
 {
 	char	*chang_line;
 	int		j;
@@ -43,7 +65,8 @@ char	*tilde(char *line, int *i, char **env)
 
 	j = *i;
 	chang_line = line;
-	if (!chang_line[j + 1] || is_delimetr(chang_line[j + 1]) || chang_line[j + 1] == '/')
+	if (!chang_line[j + 1] ||
+	is_delimetr(chang_line[j + 1]) || chang_line[j + 1] == '/')
 	{
 		if (getenv("HOME"))
 			replace_str(&chang_line, j, j + 1, getenv("HOME"));
@@ -52,25 +75,12 @@ char	*tilde(char *line, int *i, char **env)
 			++j;
 	}
 	else
-	{
-		lenght = j;
-		while (chang_line[lenght] && !is_delimetr(chang_line[lenght]))
-			++lenght;
-		if (exist_dir(chang_line, j + 1, lenght))
-			replace_str(&chang_line, j, j + 1, "/Users/");
-		else
-		{
-			free(chang_line);
-			chang_line = NULL;
-		}
-		while (chang_line && chang_line[j] && !is_delimetr(chang_line[j]))
-			++j;
-	}
+		chang_line = assist_tilde(chang_line, &j);
 	*i = j;
 	return (chang_line);
 }
 
-char    *replace_dir(char *line, char **env)
+char		*replace_dir(char *line, char **env)
 {
 	int		i;
 	char	*chang_line;
