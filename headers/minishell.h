@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:41:22 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/10 15:49:01 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/24 14:00:41 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include "launch.h"
-
-
+// # include "./input.h"
+#include "parser.h"
+# include "term.h"
+# include "lexer.h"
 
 # include "../lib/printf/ft_printf.h"
 # include "../lib/printf/libft/get_next_line.h"
