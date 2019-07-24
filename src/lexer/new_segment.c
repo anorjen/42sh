@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:13:28 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/24 18:32:47 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/24 19:43:42 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,10 @@ t_process	*new_segment(char **arg, int i)
     new_process = init_process();
     new_process->query = new_query(arg, i);
     if (!new_process->query)
-        return (NULL);
+    {
+		free(new_process);
+		return (NULL);
+	}
 	new_process->type = get_command_type_(new_process->query[0]);
 	input_path(arg, i, new_process);
     output_path(arg, i, new_process);

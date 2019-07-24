@@ -6,71 +6,11 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:53:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/24 18:29:22 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/24 19:43:42 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
-
-static struct termios	stored_settings;
-
-void	set_keypress(void)
-{
-	struct termios	new_settings;
-
-	tcgetattr(0, &stored_settings);
-	new_settings = stored_settings;
-	new_settings.c_lflag &= (~ICANON & ~ECHO);
-	new_settings.c_cc[VTIME] = 0;
-	new_settings.c_cc[VMIN] = 1;
-	tcsetattr(0, TCSANOW, &new_settings);
-}
-
-void	reset_keypress(void)
-{
-	tcsetattr(0, TCSANOW, &stored_settings);
-	return;
-}
-
-char		*get_termcap(char **environ)
-{
-	char	*term;
-	char	*term_edit;
-
-	if ((term = ft_strnew(2048)))
-	{
-		if ((term_edit = ft_strdup(getenv("TERM"))))
-		{
-			tgetent(term, term_edit);
-			if (tgetent(term, term_edit) == 1)
-			{
-				free(term_edit);
-				return (term);
-			}
-			free(term_edit);
-		}
-		free(term);
-	}
-	return (NULL);
-}
-
-void	set_termenv(char *termcap)
-{
-	term = (t_term *)malloc(sizeof(t_term));
-	term->le = tgetstr("le", &termcap);
-	term->nd = tgetstr("nd", &termcap);
-	term->cd = tgetstr("cd", &termcap);
-	term->dc = tgetstr("dc", &termcap);
-	term->im = tgetstr("im", &termcap);
-	term->ei = tgetstr("ei", &termcap);
-	term->so = tgetstr("so", &termcap);
-	term->se = tgetstr("se", &termcap);
-	term->up = tgetstr("up", &termcap);
-	term->do_ = tgetstr("do", &termcap);
-
-
-}
-
 
 void					replace_str(char **chang_line, int i, int lenght, char *env_verb)
 {
@@ -151,13 +91,13 @@ int						multiply_line(char *line)
 }
 
 
+
 char					**parser(t_history_session **h_session, char **env, int lenght_hello)
 {
 	char	**arg;
 	char	*line;
 	int		mode;
 	int		count_arg;
-	char	*termcap;
 
 
 //--------------------------------
@@ -186,6 +126,7 @@ char					**parser(t_history_session **h_session, char **env, int lenght_hello)
 
 
 	line = read_ln();
+
 	line = replace_env(line, env);
 	line = replace_dir(line, env);
 	arg = write_arg(line);
@@ -195,12 +136,6 @@ char					**parser(t_history_session **h_session, char **env, int lenght_hello)
 //	ft_printf("\n\n");
 	free(line);
 
-
-	//-----------
-//	reset_keypress();
-//	free(termcap);
-//	free(term);
-	//-----------
 
 
 	return (arg);

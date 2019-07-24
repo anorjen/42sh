@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 15:55:22 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/23 15:55:23 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/07/24 19:43:42 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ t_process	*new_segment(char **arg, int i);
 
 void    input_path(char **arg, int i, t_process *new_process); 
 void    output_path(char **arg, int i, t_process *new_process);
+void    free_job(t_job *job);
+
 
 
 
