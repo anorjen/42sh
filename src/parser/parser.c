@@ -12,8 +12,6 @@
 
 #include "../../headers/minishell.h"
 
-
-
 void					replace_str(char **chang_line, int i, int lenght, char *env_verb)
 {
 	char *temp;

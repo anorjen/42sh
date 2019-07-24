@@ -14,8 +14,8 @@ NAME_LAUNCH = aux_utilities.c job_process_status.c job_utils.c jobs_builtins.c l
 NAME_INPUT = assist_func.c key_backspace.c key_copy.c key_cut.c key_paste.c key_endhome.c history_session.c input.c\
 			navigation_words.c navigation_line.c save_buff.c spec_key.c
 NAME_VECTOR = vector.c
-NAME_PARSER = parser.c replace_env.c write_arg.c replace_dir.c
-NAME_LEXER = lexer.c new_segment.c input_path.c output_path.c  free_job.c
+NAME_PARSER = parser.c replace_env.c write_arg.c replace_dir.c get_token.c assist_parser.c
+NAME_LEXER = lexer.c new_segment.c input_path.c output_path.c  free_job.c new_query.c new_agregation.c
 
 SRC = 	$(addprefix $(SRC_MINISHELL), $(NAME_MINISHELL))\
 		$(addprefix $(SRC_LAUNCH), $(NAME_LAUNCH))\

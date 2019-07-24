@@ -149,6 +149,19 @@ void		inf_process(t_process		*new_process)
     
 }
 
+void		*free_arg(char **arg)
+{
+	int i;
+
+	i = 0;
+	if (arg == NULL)
+		return (NULL);
+	while (arg[i])
+		free(arg[i++]);
+	free(arg);
+	return (NULL);
+}
+
 void		shell_loop(char **env)
 {
 	char		*line;
@@ -175,11 +188,8 @@ void		shell_loop(char **env)
 		if (args == NULL)
 			continue ;
 		job = lexer(args);
+		args = free_arg(args);
 		// inf_process(job->root);
-		// // int i = 0;
-		// // while (args && args[i])
-		// // 	free(args[i++]);
-		// // free(args);
 		// // line = read_ln(); ///
 		// if (ft_strlen(line) == 0)
 		// {
@@ -191,12 +201,11 @@ void		shell_loop(char **env)
 		// status = shell_launch_job(job);
 	}
 	free_hsess(h_session);
+	args = free_arg(args); 
+	job = free_job(job);
 
 
-	// int i = 0;
-	// while (args && args[i])
-	// 	free(args[i++]);
-	// free(args);
+	
 }
 
 

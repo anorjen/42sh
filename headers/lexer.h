@@ -53,7 +53,13 @@ t_process	*new_segment(char **arg, int i);
 
 void    input_path(char **arg, int i, t_process *new_process); 
 void    output_path(char **arg, int i, t_process *new_process);
-void    free_job(t_job *job);
+void    *free_job(t_job	*job);
+
+void    *free_process(t_process *proc);
+char    **new_query(char **arg, int i);
+void        new_agregation(char **arg, int i, t_process *new_process);
+int		is_agrarg(char *line);
+
 
 
 
