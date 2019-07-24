@@ -116,9 +116,9 @@ char					**parser(t_history_session **h_session, char **env, int lenght_hello)
 	line = replace_dir(line, env);
 	arg = write_arg(line);
 	int i = 0;
-	// while (arg && arg[i])
-	// 	ft_printf("%s\n", arg[i++]);
-	// ft_printf("\n\n");
+	while (arg && arg[i])
+		ft_printf("%s\n", arg[i++]);
+	ft_printf("\n\n");
 	free(line);
 	return (arg);
 }

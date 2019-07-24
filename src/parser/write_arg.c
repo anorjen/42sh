@@ -12,6 +12,22 @@
 
 #include "../../headers/minishell.h"
 
+int		is_agregation(char *line, int j)
+{
+	if (line[j] && line[j] >= '0' && line[j] <= '2')
+	{
+		if (line[j + 1] == '>' )
+		{
+			if (line[j + 2] == '&')
+			{
+				if ((line[j + 3] >= '0' && line[j + 3] <= '2') || line[j + 3] == '-')
+					return (1);
+			}
+		}
+	}
+	return (0);
+}
+
 int		spec_token(char *line, int j)
 {
 	if (!line || !line[j])
@@ -26,14 +42,10 @@ int		spec_token(char *line, int j)
 		return (TOKEN_PIPE);
 	else if (line[j] == '<' && line[j + 1] == '<')
 		return (TOKEN_HEREDOK);
-	else if (line[j] == '<' && line[j + 1] == '&')
-		return (TOKEN_AGRAGATION);
 	else if (line[j] == '<')
 		return (TOKEN_INPUTPATH);
 	else if (line[j] == '>' && line[j + 1] == '>')
 		return (TOKEN_UPPEND);
-	else if (line[j] == '>' && line[j + 1] == '&')
-		return (TOKEN_AGRAGATION);
 	else if (line[j] == '>')
 		return (TOKEN_OUTPUTPATH);
 	else
@@ -45,6 +57,8 @@ int		lenght_token(char *line, int j)
 	int		lenght;
 	char	temp;
 
+	if (is_agregation(line, j))
+		return (4);
 	if ((lenght = spec_token(line, j)))
 		return (lenght);
 	while (line[j] && !is_delimetr(line[j]) && !spec_token(line, j))
@@ -135,14 +149,21 @@ int		count_argv(char *line)
 			++count;
 		}
 		else
+		{
 			++i;
+			if (is_agregation(line, i))
+			{
+				i += 4;
+				++count;
+			}
+		}
 	}
 	return (count);
 }
 
 char	**write_arg(char *line)
 {
-	char	**arg;
+	char	**arg = NULL;
 	int		i;
 	int		j;
 	int		lenght;
@@ -152,6 +173,7 @@ char	**write_arg(char *line)
 	j = 0;
 	lenght = 0;
 	count_arg = count_argv(line);
+	ft_printf("%i\n", count_arg);
 	if (!count_arg)
 		return (NULL);
 	if ((arg = (char**)malloc(sizeof(char*) * (count_arg + 1))) == NULL)

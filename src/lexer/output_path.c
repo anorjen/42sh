@@ -45,11 +45,17 @@ void    output_path(char **arg, int i, t_process *new_process)
         {
             new_process->output_file[j++] = ft_strdup(arg[i + 1]);
             new_process->output_mode = 1;
+            if (new_process->output_path)
+                free(new_process->output_path);
+            new_process->output_path = ft_strdup(arg[i + 1]);
         }
         else if (!ft_strcmp(arg[i], ">>"))
         {
             new_process->output_file[j++] = ft_strdup(arg[i + 1]);
             new_process->output_mode = 2;
+            if (new_process->output_path)
+                free(new_process->output_path);
+            new_process->output_path = ft_strdup(arg[i + 1]);
         }
         ++i;
     }  

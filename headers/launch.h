@@ -55,20 +55,17 @@
 
 
 
-//char* STATUS_STRING[] = {
-//		"running",
-//		"done",
-//		"suspended",
-//		"continued",
-//		"terminated"
-//};
-
-
 
 /*
 ** 				process and job
  * 				list structure
 */
+
+typedef struct			s_aggregation
+{
+	int out; // if -1 this is close mode, default: -2
+	int in;
+}						t_aggregation;
 
 typedef struct 			k_process
 {
@@ -81,6 +78,8 @@ typedef struct 			k_process
 	char 				**heredoc;
 	char				*input_path; // я сюда запишу либо имя файла, либо NULL(stdin)
 	char 				**input_file; // файлы нужно првоерить на access
+
+	t_aggregation		*aggregate;
 
 	pid_t				pid;
 	int					type;
