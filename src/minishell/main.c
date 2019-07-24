@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/24 18:29:22 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/24 20:52:39 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ void		shell_loop(char **env)
 		// 	continue ;
 		// }
 		job = lexer(args);
+//		inf_process(job->root);
 		if (job)
 		{
 //		 	 job = shell_parse_command(line);

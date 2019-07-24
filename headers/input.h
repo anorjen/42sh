@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 16:43:12 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/24 19:43:42 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/24 19:44:39 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void		key_cop(t_history_session *h_session, int key);
 
 int			is_delim(char ch);
 void	key_endhome(t_history_session *h_session, int key);
+void		free_hsess(t_history_session *h_session);
 
 
 

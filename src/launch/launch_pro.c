@@ -19,122 +19,195 @@ static h_launch	*h_launch_init(void)
 }
 
 
-void launch_heredoc(t_process *proc,h_launch *launch)
+void stdin_heredoc(t_process *proc,h_launch *launch, char *line)
 {
-	char	*str;
 	FILE	*fp;
 
-	while (ft_strcmp(str = read_ln(), proc->heredoc[0]))
-		;
-	proc->heredoc[0] = str;
 	fp = fopen ("/tmp/stdin","w");
-	fprintf (fp,"%s\n", str);
+	fprintf (fp,"%s\n", line);
 	fclose (fp);
-	proc->input_path = "/tmp/stdin";
-	exit(0);
+	if (proc->input_path == NULL)
+		proc->input_path = "/tmp/stdin";
 }
 
-
-void 		pre_launch_config(t_process *proc, h_launch *launch)
+char *str_join_her(char *s1, char *s2)
 {
-	if (proc->heredoc == NULL)
-		launch->in_fd = open(proc->input_path, O_RDONLY);
+	char *temp;
+
+	if (!s1)
+	{
+		if (s2)
+			s1 = ft_strdup(s2);
+		else
+			return (ft_strdup("\n"));
+	}
 	else
 	{
-		ft_printf("HELP\n");
-		launch_heredoc(proc, launch);
-//				proc->type = COMMAND_EXTERNAL;
-		launch->in_fd = open(proc->input_path, O_RDONLY);
-//				return (launch->status);
+		if (s2)
+		{
+			temp = s1;
+			s1 = ft_strjoin(s1, "\n");
+			free(temp);
+			temp = s1;
+			s1 = ft_strjoin(s1, s2);
+			free(temp);
+		} else
+		{
+			temp = s1;
+			s1 = ft_strjoin(s1, "\n");
+			free(temp);
+		}
 	}
+	return (s1);
+}
+
+char *readline_her(t_process *proc, int i)
+{
+	char *line;
+	char *temp;
+	t_history_session *h_session;
+
+	line = NULL;
+	temp = NULL;
+	h_session = NULL;
+	while(21)
+	{
+		h_session = add_history(h_session, ft_strlen("heredoc> "));
+//		ft_printf("THIS\n");
+		temp = input(&h_session, ft_strlen("heredoc> "), MODE_HEREDOC, shell->env);
+		free_hsess(h_session);
+		h_session = NULL;
+		if (temp && !ft_strcmp(temp, proc->heredoc[i]))
+			break ;
+		line = str_join_her(line, temp);
+		if (temp)
+			free(temp);
+	}
+
+	return (line);
 }
 
 
-//void		launch_base_config(h_launch *launch, t_process *proc, t_job *job)
-//{
-//	launch->out_fd = 1;
-//	if (proc->output_path != NULL)
-//	{
-//		if (proc->output_mode == APPEND)
-//		{
-//			if (access(proc->output_path, F_OK) != -1)
-//				launch->out_fd = open(proc->output_path, O_APPEND |O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
-//			else
-//				launch->out_fd = open(proc->output_path, CREATE_ATTR);
-//		}
-//		else
-//		{
-//			launch->out_fd = open(proc->output_path, CREATE_ATTR);
-//		}
-//		if (launch->out_fd < 0)
-//			launch->out_fd = 1;
-//	}
-//	launch->status = shell_launch_process(job, proc, launch->in_fd, launch->out_fd, job->mode);
-//}
+void launch_heredoc(t_process *proc, h_launch *launch)
+{
+	int i;
+	char *line;
 
+	i = 0;
+	line = NULL;
+	while (proc->heredoc && proc->heredoc[i])
+	{
+		if (line)
+			free(line);
+		line = readline_her(proc, i);
+		++i;
+	}
+	stdin_heredoc(proc, launch, line);
+}
+
+
+int			check_access(char **files)
+{
+	int i;
+
+	i = 0;
+	while (files[i])
+	{
+		if (access(files[i], F_OK) == -1)
+		{
+			printf("21sh: %s: No such file or directory\n", files[i]);
+			return (0);
+		}
+		++i;
+	}
+	return (1);
+}
+
+int 		pre_launch_config(t_process *proc, h_launch *launch)
+{
+	if (proc->heredoc == NULL)
+	{
+		if (check_access(proc->input_file))
+			launch->in_fd = open(proc->input_path, O_RDONLY);
+		else
+		{
+			remove_job(launch->job_id);
+			return (0);
+		}
+	}
+	else
+	{
+		launch_heredoc(proc, launch);
+		launch->in_fd = open(proc->input_path, O_RDONLY);
+		if (proc->input_file)
+			if (!check_access(proc->input_file))
+			{
+				remove_job(launch->job_id);
+				return (0);
+			}
+	}
+	if (launch->in_fd < 0)
+	{
+		printf("21sh: no such file or directory: %s\n", proc->input_path);
+		remove_job(launch->job_id);
+		return (0);
+	}
+	else
+		return (1);
+}
+
+
+void		launch_base_config(h_launch *launch, t_process *proc, t_job *job)
+{
+	launch->out_fd = 1;
+	if (proc->output_path != NULL)
+	{
+		if (proc->output_mode == APPEND)
+		{
+			if (access(proc->output_path, F_OK) != -1)
+				launch->out_fd = open(proc->output_path, O_APPEND |O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+			else
+				launch->out_fd = open(proc->output_path, CREATE_ATTR);
+		}
+		else
+		{
+			launch->out_fd = open(proc->output_path, CREATE_ATTR);
+		}
+		if (launch->out_fd < 0)
+			launch->out_fd = 1;
+	}
+	launch->status = shell_launch_process(job, proc, launch->in_fd, launch->out_fd, job->mode);
+}
+
+void		launch_pipe_config(t_process *proc, h_launch *launch, t_job *job)
+{
+	if (proc->output_path != NULL)
+	{
+		launch->out_fd = open(proc->output_path, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		if (launch->out_fd < 0)
+			launch->out_fd = 1;
+		launch->status = shell_launch_process(job, proc, launch->in_fd, launch->out_fd, PIPELINE_EXECUTION);
+	}
+	pipe(launch->fd);
+	launch->status = shell_launch_process(job, proc, launch->in_fd, launch->fd[1], PIPELINE_EXECUTION);
+	close(launch->fd[1]);
+	launch->in_fd = launch->fd[0];
+}
 
 static int		launch_proc_cycle(t_process *proc, h_launch *launch, t_job *job)
 {
 	while(proc != NULL)
 	{
 		if (proc == job->root && (proc->input_path != NULL || proc->heredoc !=NULL))
-		{
-			pre_launch_config(proc, launch);
-			if (launch->in_fd < 0)
-			{
-				printf("21sh: no such file or directory: %s\n", proc->input_path);
-				remove_job(launch->job_id);
+			if (!pre_launch_config(proc, launch))
 				return (0);
-			}
-		}
 		if (proc->next != NULL)
-		{
-			if (proc->output_path != NULL)
-			{
-				launch->out_fd = open(proc->output_path, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-				if (launch->out_fd < 0)
-					launch->out_fd = 1;
-				launch->status = shell_launch_process(job, proc, launch->in_fd, launch->out_fd, PIPELINE_EXECUTION);
-			}
-			pipe(launch->fd);
-			launch->status = shell_launch_process(job, proc, launch->in_fd, launch->fd[1], PIPELINE_EXECUTION);
-			close(launch->fd[1]);
-			launch->in_fd = launch->fd[0];
-		}
+			launch_pipe_config(proc, launch, job);
 		else
-		{
-			launch->out_fd = 1;
-			if (proc->output_path != NULL)
-			{
-				if (proc->output_mode == APPEND)
-				{
-					if (access(proc->output_path, F_OK) != -1)
-						launch->out_fd = open(proc->output_path, O_APPEND |O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
-					else
-						launch->out_fd = open(proc->output_path, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
-				}
-				else
-				{
-					launch->out_fd = open(proc->output_path, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
-				}
-				if (launch->out_fd < 0)
-					launch->out_fd = 1;
-			}
-//			if (proc->aggregate->out == -1)
-//			{
-//				printf("aggro: %d\n", proc->aggregate->out);
-//			}
-			launch->status = shell_launch_process(job, proc, launch->in_fd, launch->out_fd, job->mode);
-		}
+			launch_base_config(launch, proc, job);
 		proc = proc->next;
 	}
 	return (launch->status);
-}
-
-static void print2dim(char **argv)
-{
-	while (*argv++)
-		printf("%s\n", *argv);
 }
 
 int				shell_launch_job(t_job *job)

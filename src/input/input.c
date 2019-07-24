@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:52:27 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/24 19:43:42 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/24 20:14:28 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ char	*input(t_history_session **h_session, int lenght_hello, int mode, char **en
 	}
 	if (mode == MODE_HEREDOC)
 	{
-		ft_printf("heredoc ");
+		ft_printf("heredoc> ");
 	}
 	(*h_session)->fl = mode ? 1 : 0;
 
