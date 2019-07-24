@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/24 14:01:17 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/24 16:13:43 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 #define PIPELINE_EXECUTION 2
 #define HEREDOC_EXECUTION 11
 
-#define APPEND 12
+#define APPEND 2
 
 
 
@@ -65,15 +65,14 @@
 
 
 /*
-** 				process and job
+** 				process and t_job
  * 				list structure
 */
 
 typedef struct			s_aggregation
 {
-	int out; // if -1 this is close mode, default: -2
 	int in;
-
+	int out; // if -1 this is close mode
 }						t_aggregation;
 
 typedef struct 			k_process
@@ -88,12 +87,12 @@ typedef struct 			k_process
 	char				*input_path; // я сюда запишу либо имя файла, либо NULL(stdin)
 	char 				**input_file; // файлы нужно првоерить на access
 
-	t_aggregation		*aggregate;
+	t_aggregation		*aggregate; // NULL if default
 
 	pid_t				pid;
 	int					type;
 	int					status;
-	struct s_process	*next;
+	struct k_process	*next;
 }						t_process;
 
 typedef struct			k_job
@@ -120,44 +119,44 @@ typedef struct			k_aggregation
 
 
 
-typedef struct 			s_process
-{
-	char				*command;// --
-	int					argc; //--
-	char				**argv;// --
+//typedef struct 			s_process
+//{
+//	char				*command;// --
+//	int					argc; //--
+//	char				**argv;// --
+//
+//	char 				**query;
+//	char				*input_path;
+//	char				*output_path;
+//	char 				*heredoc;
+//	pid_t				pid;
+//	int					type;
+//	int					status;
+//	aggregation		*aggregate;
+//	struct s_process	*next;
+//}						process;
 
-	char 				**query;
-	char				*input_path;
-	char				*output_path;
-	char 				*heredoc;
-	pid_t				pid;
-	int					type;
-	int					status;
-	aggregation		*aggregate;
-	struct s_process	*next;
-}						process;
-
-typedef struct			s_job
-{
-	int					id; //!
-	process				*root;
-	char				*command; // --
-	pid_t				pgid; //!
-	int					mode; //!
-//	char
-}						job;
+//typedef struct			s_job
+//{
+//	int					id; //!
+//	process				*root;
+//	char				*command; // --
+//	pid_t				pgid; //!
+//	int					mode; //!
+////	char
+//}						t_job;
 
 typedef struct          s_builtins
 {
     char				builtin_str[NR_BUILTINS][20];
-    int					(*builtin_func[NR_BUILTINS]) (process*);
+    int					(*builtin_func[NR_BUILTINS]) (t_process*);
     char                **argv;
     int                 argc;
 }                       g_builtins;
 
 typedef struct 			s_launch
 {
-	process				*proc;
+	t_process			*proc;
 	char				*seg;
 	int 				job_id;
 	int 				status;
@@ -174,7 +173,7 @@ typedef struct 			s_shell_info
 	char				pw_dir[PATH_BUFSIZE];
 	char 				**env;
 	char 				**path;
-	struct s_job		*jobs[NR_JOBS + 1];
+	t_job				*jobs[NR_JOBS + 1];
 	g_builtins          *builtins;
 	int 				signal;
 //	struct h_launch		*launch_h;
@@ -217,20 +216,20 @@ void                sh_update_cwd_info(void);
 */
 
 char				*helper_strtrim(char* line);
-job					*shell_parse_command(char *line);
-process				*shell_parse_command_segment(char *segment);
-void				parse_helper2(process *new_proc, char **tokens, char *segment);
+t_job				*shell_parse_command(char *line);
+t_process			*shell_parse_command_segment(char *segment);
+void				parse_helper2(t_process *new_proc, char **tokens, char *segment);
 int					get_command_type(char *command);
 
 void				carry_init(g_parse *carry, char *line);
 
 
 /*
-** 				job handlers
+** 				t_job handlers
 */
 
 int					get_next_job_id(void);
-int					insert_job(job *job);
+int					insert_job(t_job *job);
 void				check_zombie(void);
 int					remove_job(int id);
 int					release_job(int id);
@@ -245,28 +244,28 @@ int					is_job_completed(int id);
 ** 				launcher funcs
 */
 
-int					shell_launch_job(job *job);
-int					shell_launch_process(job *job, process *proc, int in_fd, int out_fd, int mode);
-int					execute_builtin_command(process *proc);
+int					shell_launch_job(t_job *job);
+int					shell_launch_process(t_job *job, t_process *proc, int in_fd, int out_fd, int mode);
+int					execute_builtin_command(t_process *proc);
 int					set_process_status(int pid, int status);
 int					print_job_status(int id);
 void                built_init(void);
-int					parse_cycle(process *new_proc, char **tokens, int i, int position, int j);
-void 				child_launch_proc(job *job, process *proc, int in_fd, int out_fd);
+int					parse_cycle(t_process *new_proc, char **tokens, int i, int position, int j);
+void 				child_launch_proc(t_job *job, t_process *proc, int in_fd, int out_fd);
 
 
 /*
 ** 				built-ins
 */
 
-int					shell_jobs(process *proc);
+int					shell_jobs(t_process *proc);
 int					get_pgid_by_job_id(int id);
-job					*get_job_by_id(int id);
+t_job					*get_job_by_id(int id);
 int					set_job_status(int id, int status);
 int					wait_for_pid(int pid);
-int					shell_kill(process *proc);
-int					shell_bg(process *proc);
-int					shell_fg(process *proc);
+int					shell_kill(t_process *proc);
+int					shell_bg(t_process *proc);
+int					shell_fg(t_process *proc);
 char				*read_ln_heredoc(char *eof);
 
 #endif

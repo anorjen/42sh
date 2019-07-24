@@ -34,7 +34,6 @@ void    output_path(char **arg, int i, t_process *new_process)
 
     j = 0;
     lenght = lenght_outpth(arg, i);
-    ft_printf("%i\n", lenght);
     if (!lenght)
         return ;
     if ((new_process->output_file = (char**)malloc(sizeof(char*) * (lenght + 1))) == NULL)

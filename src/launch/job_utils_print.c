@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 18:22:56 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/22 18:32:43 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/24 15:14:14 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			is_job_completed(int id)
 {
-	process	*proc;
+	t_process	*proc;
 
 	if (id > NR_JOBS || shell->jobs[id] == NULL)
 		return (0);
@@ -30,7 +30,7 @@ int			is_job_completed(int id)
 
 int			print_processes_of_job(int id)
 {
-	process	*proc;
+	t_process	*proc;
 
 	if (id > NR_JOBS || shell->jobs[id] == NULL)
 		return (-1);
@@ -45,7 +45,7 @@ int			print_processes_of_job(int id)
 	return (0);
 }
 
-static char	*get_state_string(process *proc)
+static char	*get_state_string(t_process *proc)
 {
 	char	*state;
 
@@ -64,7 +64,7 @@ static char	*get_state_string(process *proc)
 
 int			print_job_status(int id)
 {
-	process *proc;
+	t_process *proc;
 	char	*state;
 
 	if (id > NR_JOBS || shell->jobs[id] == NULL)
@@ -74,7 +74,7 @@ int			print_job_status(int id)
 	while (proc != NULL)
 	{
 		state = get_state_string(proc);
-		printf("\t%d\t%s\t%s", proc->pid, state, proc->command);
+		printf("\t%d\t%s\t%s", proc->pid, state, proc->query[0]);
 		if (proc->next != NULL)
 			printf("|\n");
 		else
@@ -85,7 +85,7 @@ int			print_job_status(int id)
 	return (0);
 }
 
-int			insert_job(job *job)
+int			insert_job(t_job *job)
 {
 	int		id;
 

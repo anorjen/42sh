@@ -4,7 +4,7 @@
 
 #include "../../headers/minishell.h"
 
-int			shell_jobs(process *proc)
+int			shell_jobs(t_process *proc)
 {
 	int		i;
 
@@ -40,30 +40,30 @@ static int 	shell_fg_ext(pid_t pid, int job_id)
 	return (0);
 }
 
-int			shell_fg(process *proc)
+int			shell_fg(t_process *proc)
 {
 	int		status;
 	pid_t	pid;
 	int		job_id;
 
 	job_id = -1;
-	if (proc->argc < 2)
+	if (proc->query[2] == NULL)
 	{
 		printf("usage: fg <pid>\n");
 		return (-1);
 	}
-	if (proc->argv[1][0] == '%')
+	if (proc->query[1][0] == '%')
 	{
-		job_id = atoi(proc->argv[1] + 1);
+		job_id = atoi(proc->query[1] + 1);
 		pid = get_pgid_by_job_id(job_id);
 		if (pid < 0)
 		{
-			printf("mysh: fg %s: no such job\n", proc->argv[1]);
+			printf("mysh: fg %s: no such job\n", proc->query[1]);
 			return (-1);
 		}
 	}
 	else
-		pid = atoi(proc->argv[1]);
+		pid = atoi(proc->query[1]);
 	return (shell_fg_ext(pid, job_id));
 }
 
@@ -82,29 +82,29 @@ static int	shell_bg_ext(pid_t pid, int job_id)
 	return (0);
 }
 
-int			shell_bg(process *proc)
+int			shell_bg(t_process *proc)
 {
 	pid_t	pid;
 	int		job_id;
 
 	job_id = -1;
-	if (proc->argc < 2)
+	if (proc->query[2] == NULL)
 	{
 		printf("usage: bg <pid>\n");
 		return (-1);
 	}
-	if (proc->argv[1][0] == '%')
+	if (proc->query[1][0] == '%')
 	{
-		job_id = atoi(proc->argv[1] + 1);
+		job_id = atoi(proc->query[1] + 1);
 		pid = get_pgid_by_job_id(job_id);
 		if (pid < 0)
 		{
-			printf("mysh: bg %s: no such job\n", proc->argv[1]);
+			printf("mysh: bg %s: no such job\n", proc->query[1]);
 			return (-1);
 		}
 	}
 	else
-		pid = atoi(proc->argv[1]);
+		pid = atoi(proc->query[1]);
 	return (shell_bg_ext(pid, job_id));
 }
 
@@ -124,30 +124,30 @@ static int	shell_kill_ext(pid_t pid, int job_id)
 	return (1);
 }
 
-int			shell_kill(process *proc)
+int			shell_kill(t_process *proc)
 {
 	pid_t	pid;
 	int		job_id;
 
-	if (proc->argc < 2)
+	if (proc->query[2] == NULL)
 	{
 		printf("usage: kill <pid>\n");
 		return (-1);
 	}
 	job_id = -1;
-	if (proc->argv[1][0] == '%')
+	if (proc->query[1][0] == '%')
 	{
-		job_id = atoi(proc->argv[1] + 1);
+		job_id = atoi(proc->query[1] + 1);
 		pid = get_pgid_by_job_id(job_id);
 		if (pid < 0)
 		{
-			printf("mysh: kill %s: no such job\n", proc->argv[1]);
+			printf("mysh: kill %s: no such job\n", proc->query[1]);
 			return (-1);
 		}
 		pid = -pid;
 	}
 	else
-		pid = atoi(proc->argv[1]);
+		pid = atoi(proc->query[1]);
 	return(shell_kill_ext(pid, job_id));
 }
 
@@ -156,7 +156,7 @@ int			shell_kill(process *proc)
 int			set_job_status(int id, int status)
 {
 	int		i;
-	process	*proc;
+	t_process	*proc;
 
 	if (id > NR_JOBS || shell->jobs[id] == NULL)
 		return (-1);
@@ -173,7 +173,7 @@ int			set_job_status(int id, int status)
 
 int			get_pgid_by_job_id(int id)
 {
-	job		*job;
+	t_job		*job;
 
 	job = get_job_by_id(id);
 	if (job == NULL)
@@ -181,7 +181,7 @@ int			get_pgid_by_job_id(int id)
 	return (job->pgid);
 }
 
-job			*get_job_by_id(int id)
+t_job			*get_job_by_id(int id)
 {
 	if (id > NR_JOBS)
 		return NULL;

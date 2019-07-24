@@ -63,5 +63,5 @@ t_job	*lexer(char **arg)
 		while (arg[i] && ft_strcmp(arg[i], "|"))
 			++i;
 	}
-	return (NULL);
+	return (new_job);
 }

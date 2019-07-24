@@ -64,7 +64,7 @@ int				wait_for_job(int id)
 int				get_proc_count(int id, int filter)
 {
 	int			count;
-	process		*proc;
+	t_process	*proc;
 
 	if (id > NR_JOBS || shell->jobs[id] == NULL)
 		return (-1);
@@ -85,7 +85,7 @@ int				get_proc_count(int id, int filter)
 int				set_process_status(int pid, int status)
 {
 	int			i;
-	process		*proc;
+	t_process	*proc;
 
 	i = 0;
 	while (++i <= NR_JOBS)

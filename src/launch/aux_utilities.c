@@ -60,7 +60,7 @@ void		check_zombie(void)
 	}
 }
 
-int			execute_builtin_command(process *proc)
+int			execute_builtin_command(t_process *proc)
 {
 	if (proc->type == COMMAND_EXIT)
 		exit_shell(proc);

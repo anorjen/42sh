@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 18:20:49 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/23 19:04:00 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/24 15:33:37 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int			release_job(int id)
 {
-	process	*proc;
-	process	*tmp;
-	job		*job_free;
+	t_process	*proc;
+	t_process	*tmp;
+	t_job		*job_free;
 
 	if (id > NR_JOBS || shell->jobs[id] == NULL)
 		return (-1);
@@ -25,14 +25,14 @@ int			release_job(int id)
 	while (proc != NULL)
 	{
 		tmp = proc->next;
-		free(proc->command);
-		free(proc->argv);
+//		free(proc->command);
+//		free(proc->argv);
 		free(proc->input_path);
 		free(proc->output_path);
 		free(proc);
 		proc = tmp;
 	}
-	free(job_free->command);
+//	free(job_free->command);
 	free(job_free);
 	return (0);
 }
@@ -41,7 +41,8 @@ int			remove_job(int id)
 {
 	if (id > NR_JOBS || shell->jobs[id] == NULL)
 		return (-1);
-	release_job(id);
+//	release_job(id);
+	free(shell->jobs[id]);
 	shell->jobs[id] = NULL;
 	return (0);
 }
@@ -49,7 +50,7 @@ int			remove_job(int id)
 int			get_job_id_by_pid(int pid)
 {
 	int		i;
-	process	*proc;
+	t_process	*proc;
 
 	i = 0;
 	while (++i <= NR_JOBS)

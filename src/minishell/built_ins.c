@@ -12,7 +12,7 @@
 
 #include "../../headers/minishell.h"
 
-int			help_shell(process *proc)
+int			help_shell(t_process *proc)
 {
 	int i;
 
@@ -28,7 +28,7 @@ int			help_shell(process *proc)
 	return (1);
 }
 
-int			exit_shell(process *proc)
+int			exit_shell(t_process *proc)
 {
 	printf(COLOR_MAGENTA "say-o-nara~\n" COLOR_NONE);
     exit(1);
@@ -36,15 +36,15 @@ int			exit_shell(process *proc)
 }
 
 
-int			echo(process *proc)
+int			echo(t_process *proc)
 {
     int i;
 
     i = 1;
-    string_var_parser(proc->argv);
-    while (proc->argv[i] != 0)
+    string_var_parser(proc->query);
+    while (proc->query[i] != 0)
     {
-        ft_printf("%s ", proc->argv[i]);
+        ft_printf("%s ", proc->query[i]);
         i++;
     }
     ft_printf("\n");
@@ -53,21 +53,22 @@ int			echo(process *proc)
 
 
 
-int			cd_shell(process *proc)
+int			cd_shell(t_process *proc)
 {
-    if (proc->argc == 1)
+    if (proc->query[1] == NULL)
     {
         chdir(shell->pw_dir);
         sh_update_cwd_info();
         return (0);
     }
-    if (chdir(proc->argv[1]) == 0)
+    if (chdir(proc->query[1]) == 0)
     {
         sh_update_cwd_info();
         return (0);
-    } else
+    }
+    else
     {
-        printf("21sh: cd %s: No such file or directory\n", proc->argv[1]);
+        printf("21sh: cd %s: No such file or directory\n", proc->query[1]);
         return (0);
     }
 }

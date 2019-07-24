@@ -6,12 +6,12 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/24 14:00:41 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/24 16:41:20 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
-static struct termios	stored_settings;
+
 
 void sigint_handler(int signal)
 {
@@ -80,63 +80,10 @@ void sh_print_promt(void)
 		ft_printf(COLOR_RED "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ", basename(shell->cur_dir));
 }
 
-void	set_keypress(void)
-{
-	struct termios	new_settings;
-
-	tcgetattr(0, &stored_settings);
-	new_settings = stored_settings;
-	new_settings.c_lflag &= (~ICANON & ~ECHO);
-	new_settings.c_cc[VTIME] = 0;
-	new_settings.c_cc[VMIN] = 1;
-	tcsetattr(0, TCSANOW, &new_settings);
-	return ;
-}
-
-void	reset_keypress(void)
-{
-	tcsetattr(0, TCSANOW, &stored_settings);
-	return;
-}
-
-char		*get_termcap(char **environ)
-{
-	char	*term;
-	char	*term_edit;
-	
-	if ((term = ft_strnew(2048)))
-	{
-		if ((term_edit = ft_strdup(getenv("TERM"))))
-		{
-			tgetent(term, term_edit);
-			if (tgetent(term, term_edit) == 1)
-			{
-				free(term_edit);
-				return (term);
-			}
-			free(term_edit);
-		}
-		free(term);
-	}
-	return (NULL);
-}
-
-void	set_termenv(char *termcap)
-{
-	term = (t_term *)malloc(sizeof(t_term));
-	term->le = tgetstr("le", &termcap);
-	term->nd = tgetstr("nd", &termcap);
-	term->cd = tgetstr("cd", &termcap);
-	term->dc = tgetstr("dc", &termcap);
-	term->im = tgetstr("im", &termcap);
-	term->ei = tgetstr("ei", &termcap);
-	term->so = tgetstr("so", &termcap);
-	term->se = tgetstr("se", &termcap);
-	term->up = tgetstr("up", &termcap);
-	term->do_ = tgetstr("do", &termcap);
 
 
-}
+
+
 
 
 void		free_hsess(t_history_session *h_session)
@@ -169,29 +116,26 @@ void		shell_loop(char **env)
 {
 	char		*line;
 	char		**args;
-	job			*job;
+	t_job			*job;
 	int			status;
 	t_history_session *h_session;
-	char	*termcap;
 
 
 //	shell_init();
 	sh_init();
 	status = 1;
 	h_session = NULL;
-	if ((termcap = get_termcap(env)))
-		set_termenv(termcap);
-	set_keypress();
+
 	while (status >= 0)
 	{
 		sh_print_promt();
 		shell->signal = 0;
+
 		args = parser(&h_session, env, ft_strlen(basename(shell->cur_dir)) + ft_strlen("⦿") + 1);
 		if (args && !ft_strcmp(args[0], "end"))
 			break ;
 		if (args == NULL)
 			continue ;
-		lexer(args);
 		// // int i = 0;
 		// // while (args && args[i])
 		// // 	free(args[i++]);
@@ -202,20 +146,27 @@ void		shell_loop(char **env)
 		// 	check_zombie();
 		// 	continue ;
 		// }
-		// job = lexer(args);
-		// job = shell_parse_command(line);
-		// status = shell_launch_job(job);
+		job = lexer(args);
+		int i = 0;
+		while (job->root->query[i])
+			++i;
+		ft_printf("%i\n", i);
+		write(1, "-----\n", strlen("-----\n"));
+		if (job)
+		{
+//		 	 job = shell_parse_command(line);
+			status = shell_launch_job(job);
+		}
+		ft_printf("EX\n");
+
 	}
-	reset_keypress();
 	free_hsess(h_session);
-	free(termcap);
 
 
 	// int i = 0;
 	// while (args && args[i])
 	// 	free(args[i++]);
 	// free(args);
-	free(term);
 }
 
 

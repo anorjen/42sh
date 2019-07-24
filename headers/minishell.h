@@ -94,12 +94,12 @@ char					*strcpy_till_n(char *dst, const char *src, char c);
 ** 		built-ins funcs
 */
 
-int						cd_shell(process *proc);
-int						help_shell(process *proc);
-int						exit_shell(process *proc);
-int						set_env(process *proc);
-int						unset_env(process *proc);
-int						echo(process *proc);
-int						num_shell_functions(process *proc);
+int						cd_shell(t_process *proc);
+int						help_shell(t_process *proc);
+int						exit_shell(t_process *proc);
+int						set_env(t_process *proc);
+int						unset_env(t_process *proc);
+int						echo(t_process *proc);
+int						num_shell_functions(t_process *proc);
 
 #endif

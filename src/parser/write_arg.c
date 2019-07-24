@@ -173,7 +173,6 @@ char	**write_arg(char *line)
 	j = 0;
 	lenght = 0;
 	count_arg = count_argv(line);
-	ft_printf("%i\n", count_arg);
 	if (!count_arg)
 		return (NULL);
 	if ((arg = (char**)malloc(sizeof(char*) * (count_arg + 1))) == NULL)
