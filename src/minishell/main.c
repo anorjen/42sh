@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/24 18:24:56 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:29:22 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,18 +185,11 @@ void		shell_loop(char **env)
 		// 	continue ;
 		// }
 		job = lexer(args);
-		int i = 0;
-		while (job->root->query[i])
-			++i;
-		ft_printf("%i\n", i);
-		write(1, "-----\n", strlen("-----\n"));
 		if (job)
 		{
 //		 	 job = shell_parse_command(line);
 			status = shell_launch_job(job);
 		}
-		ft_printf("EX\n");
-
 	}
 	free_hsess(h_session);
 

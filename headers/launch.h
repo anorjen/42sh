@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/24 18:24:56 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:59:47 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 #define HEREDOC_EXECUTION 11
 
 #define APPEND 2
-
+#define CREATE_ATTR O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 
 
 #define STATUS_RUNNING 0
@@ -119,34 +119,6 @@ typedef struct			k_aggregation
 }						aggregation;
 
 
-
-
-//typedef struct 			s_process
-//{
-//	char				*command;// --
-//	int					argc; //--
-//	char				**argv;// --
-//
-//	char 				**query;
-//	char				*input_path;
-//	char				*output_path;
-//	char 				*heredoc;
-//	pid_t				pid;
-//	int					type;
-//	int					status;
-//	aggregation		*aggregate;
-//	struct s_process	*next;
-//}						process;
-
-//typedef struct			s_job
-//{
-//	int					id; //!
-//	process				*root;
-//	char				*command; // --
-//	pid_t				pgid; //!
-//	int					mode; //!
-////	char
-//}						t_job;
 
 typedef struct          s_builtins
 {

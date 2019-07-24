@@ -19,84 +19,58 @@ static h_launch	*h_launch_init(void)
 }
 
 
-
-//int launch_heredoc(t_job *t_job, t_process *proc,h_launch *launch)
-//{
-//	pid_t	rdr;  /* input reader t_process */
-//	pid_t	cmd;  /* command runner t_process */
-//	pid_t	wres; /* wait() result */
-//
-//	/* pipe for passing input from rdr to cmd */
-//	int pipefd[2] = {0};
-//	/* command and args to pass to execvp() */
-//	char *command = "ls";
-//	char *cmdargs[] = { "ls", "-l", NULL };
-//	/* end of input marker */
-//	char *endinp = "END\n";
-//
-//	/* create a pipe:
-//	   - read end's fd will be pipefd[0],
-//	   - write end's fd will be pipefd[1] */
-//	pipe(pipefd);
-//
-//	cmd = fork();
-//	if (cmd == 0) {  /* COMMAND RUNNER PROCESS */
-//		dup2(pipefd[0],0); /* set stdin to pipe's read end */
-//		close(pipefd[1]);  /* close pipe's write end */
-//		/* exec command (will read from stdin) */
-//		execvp(command, cmdargs);
-//	}
-//
-//	rdr = fork();
-//	if (rdr == 0) {   /* INPUT READER PROCESS */
-//		close(pipefd[0]); /* close pipe's read end */
-//
-//		/* read input from stdin until a line containing only
-//		   the end of input marker is found */
-//		char buf[1024];
-//		while (fgets(buf,sizeof(buf),stdin)) {
-//			/* break when end of input marker is read */
-//			if (!strcmp(buf,endinp)) break;
-//			/* write data to pipe */
-//			write(pipefd[1],buf,strlen(buf));
-//		}
-//		exit(0);
-//	}
-//
-//	/* PARENT PROCESS */
-//
-//	close(pipefd[0]); /* close pipe's read end */
-//	close(pipefd[1]); /* close pipe's write end */
-//
-//	/* wait for both children to exit */
-//	do {
-//		wres = wait(NULL);
-//		if (wres == rdr) rdr = 0;
-//		if (wres == cmd) cmd = 0;
-//	} while (rdr || cmd);
-//
-//	return(0);
-//}
-
-void launch_heredoc(t_job *job, t_process *proc,h_launch *launch)
+void launch_heredoc(t_process *proc,h_launch *launch)
 {
-	char *str;
+	char	*str;
+	FILE	*fp;
 
-	while (ft_strcmp(str = read_ln(), proc->input_path))
+	while (ft_strcmp(str = read_ln(), proc->heredoc[0]))
 		;
-//	printf("%s\n", str);
 	proc->heredoc[0] = str;
-//	launch->out_fd = open("/tmp/stdin", O_CREAT|O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
-	FILE * fp;
 	fp = fopen ("/tmp/stdin","w");
 	fprintf (fp,"%s\n", str);
 	fclose (fp);
 	proc->input_path = "/tmp/stdin";
-//	printf("%s", proc->output_path);
-//	exit(2);
-//	proc->ou
-//	return(0);
+	exit(0);
 }
+
+
+void 		pre_launch_config(t_process *proc, h_launch *launch)
+{
+	if (proc->heredoc == NULL)
+		launch->in_fd = open(proc->input_path, O_RDONLY);
+	else
+	{
+		ft_printf("HELP\n");
+		launch_heredoc(proc, launch);
+//				proc->type = COMMAND_EXTERNAL;
+		launch->in_fd = open(proc->input_path, O_RDONLY);
+//				return (launch->status);
+	}
+}
+
+
+//void		launch_base_config(h_launch *launch, t_process *proc, t_job *job)
+//{
+//	launch->out_fd = 1;
+//	if (proc->output_path != NULL)
+//	{
+//		if (proc->output_mode == APPEND)
+//		{
+//			if (access(proc->output_path, F_OK) != -1)
+//				launch->out_fd = open(proc->output_path, O_APPEND |O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+//			else
+//				launch->out_fd = open(proc->output_path, CREATE_ATTR);
+//		}
+//		else
+//		{
+//			launch->out_fd = open(proc->output_path, CREATE_ATTR);
+//		}
+//		if (launch->out_fd < 0)
+//			launch->out_fd = 1;
+//	}
+//	launch->status = shell_launch_process(job, proc, launch->in_fd, launch->out_fd, job->mode);
+//}
 
 
 static int		launch_proc_cycle(t_process *proc, h_launch *launch, t_job *job)
@@ -105,16 +79,7 @@ static int		launch_proc_cycle(t_process *proc, h_launch *launch, t_job *job)
 	{
 		if (proc == job->root && (proc->input_path != NULL || proc->heredoc !=NULL))
 		{
-			if (proc->heredoc[0] == NULL)
-				launch->in_fd = open(proc->input_path, O_RDONLY);
-			else
-			{
-				ft_printf("HELP\n");
-				launch_heredoc(job, proc, launch);
-//				proc->type = COMMAND_EXTERNAL;
-				launch->in_fd = open(proc->input_path, O_RDONLY);
-//				return (launch->status);
-			}
+			pre_launch_config(proc, launch);
 			if (launch->in_fd < 0)
 			{
 				printf("21sh: no such file or directory: %s\n", proc->input_path);
@@ -179,20 +144,17 @@ int				shell_launch_job(t_job *job)
 
 	launch = h_launch_init();
 	check_zombie();
-	if (job->root->type == COMMAND_EXTERNAL || job->root->type == HEREDOC_EXECUTION || job->root->type == APPEND)
+	if (job->root->type == COMMAND_EXTERNAL)
 		launch->job_id = insert_job(job);
 	proc = job->root;
-//	print2dim(shell->jobs[1]->root->argv); //remove it
-
 	launch->status = launch_proc_cycle(proc, launch, job);
-
-//	if (job->root->type == COMMAND_EXTERNAL  || job->root->type == HEREDOC_EXECUTION || job->root->type == APPEND)
-//	{
-//		if (launch->status >= 0 && job->mode == FOREGROUND_EXECUTION)
-//			remove_job(launch->job_id);
-//		else if (job->mode == BACKGROUND_EXECUTION)
-//			print_processes_of_job(launch->job_id);
-//	}
+	if (job->root->type == COMMAND_EXTERNAL)
+	{
+		if (launch->status >= 0 && job->mode == FOREGROUND_EXECUTION)
+			remove_job(launch->job_id);
+		else if (job->mode == BACKGROUND_EXECUTION)
+			print_processes_of_job(launch->job_id);
+	}
 	return (launch->status);
 }
 
@@ -233,7 +195,6 @@ void 			child_launch_proc(t_job *job, t_process *proc, int in_fd, int out_fd)
 	i = 0;
 	pgid_and_dup_handle(proc, job, in_fd, out_fd);
 	paths = ft_strsplit(getenv("PATH"), ':');
-	ft_printf("2 THIS\n");
 	while (paths[++i] != NULL)
 	{
 //		if (proc->aggregate->out == -1)
@@ -244,7 +205,6 @@ void 			child_launch_proc(t_job *job, t_process *proc, int in_fd, int out_fd)
 		path = ft_strjoiner(paths[i], proc->query[0]);
 		if (execve(path, proc->query, shell->env) != -1)
 		{
-			ft_printf("HELLo Child\n");
 			free(path);
 			free(paths);
 			exit(0);
@@ -261,7 +221,6 @@ int				shell_launch_process(t_job *job, t_process *proc, int in_fd, int out_fd, 
 	int			status;
 
 	proc->status = STATUS_RUNNING;
-	ft_printf("1 THIS\n");
 	if (proc->type != COMMAND_EXTERNAL && execute_builtin_command(proc))
 		return (0);
 	status = 0;
