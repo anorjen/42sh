@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/24 16:13:43 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:24:56 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,30 @@
 typedef struct			s_aggregation
 {
 	int in;
+<<<<<<< HEAD
 	int out; // if -1 this is close mode
+=======
+	int out; // if -1 this is close mode, default: -2
+>>>>>>> origin/merger
 }						t_aggregation;
 
 typedef struct 			k_process
 {
 	char 				**query;
 
-	char				**output_file; // файлы которые нужно создать
-	char				*output_path;
-	int					output_mode; // 0 - stdout, 1 - replace, 2 append
-
 	char 				**heredoc;
 	char				*input_path; // я сюда запишу либо имя файла, либо NULL(stdin)
 	char 				**input_file; // файлы нужно првоерить на access
 
+<<<<<<< HEAD
 	t_aggregation		*aggregate; // NULL if default
+=======
+	char				**output_file; // файлы которые нужно создать
+	char				*output_path;
+	int					output_mode; // 0 - stdout, 1 - replace, 2 append
+
+	t_aggregation		*aggregate;
+>>>>>>> origin/merger
 
 	pid_t				pid;
 	int					type;
@@ -97,7 +105,7 @@ typedef struct 			k_process
 
 typedef struct			k_job
 {
-	int					id; //!
+	int					id; //!     
 	t_process			*root;
 	pid_t				pgid; //!
 	int					mode; //!

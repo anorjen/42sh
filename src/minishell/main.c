@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/24 16:41:20 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:24:56 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,6 @@ void sh_print_promt(void)
 }
 
 
-
-
-
-
-
 void		free_hsess(t_history_session *h_session)
 {
 	t_history_session *temp;
@@ -110,32 +105,75 @@ void		free_hsess(t_history_session *h_session)
 
 
 
+void		inf_process(t_process		*new_process)
+{
+	int j;
+	int	i;
 
+	i = 0;
+	while (new_process)
+	{
+		ft_printf("\n\nprocess - %i\n---------------------\n", i++);
+		j = -1;
+		ft_printf("new_process->query[]: ");
+   		while (new_process->query && new_process->query[++j])
+        	ft_printf("%i) %s, ", j, new_process->query[j]);
+		ft_printf("\n\n");		
+		j = -1;
+		ft_printf("new_process->heredoc[]: ");
+		while (new_process->heredoc && new_process->heredoc[++j])
+		    ft_printf("%i) %s,  ", j, new_process->heredoc[j]);
+		ft_printf("\n");
+		j = -1;
+		ft_printf("new_process->input_file[]: ");
+		while (new_process->input_file && new_process->input_file[++j])
+		    ft_printf("%i) %s, ", j, new_process->input_file[j]);
+		ft_printf("\n");		
+		ft_printf("new_process->input_path: ");
+		ft_printf("%s ", new_process->input_path);
+		ft_printf("\n\n");
+		j = -1;
+		ft_printf("output_file: ");
+		while (new_process->output_file && new_process->output_file[++j])
+		    ft_printf("%i) %s, ", j, new_process->output_file[j]);
+		ft_printf("\n");
+		ft_printf("new_process->output_path: %s\n", new_process->output_path);
+		ft_printf("new_process->output_mode %i\n\n", new_process->output_mode);
+		ft_printf("\n\n");
+		if (new_process->aggregate)
+			ft_printf("new_process->aggregate: in = %i out = %i\n", new_process->aggregate->in, new_process->aggregate->out);
+		new_process = new_process->next;
+	}
+	
+    
+}
 
 void		shell_loop(char **env)
 {
-	char		*line;
 	char		**args;
-	t_job			*job;
+	t_job		*job;
 	int			status;
 	t_history_session *h_session;
 
-
-//	shell_init();
 	sh_init();
 	status = 1;
 	h_session = NULL;
-
 	while (status >= 0)
 	{
 		sh_print_promt();
 		shell->signal = 0;
 
 		args = parser(&h_session, env, ft_strlen(basename(shell->cur_dir)) + ft_strlen("⦿") + 1);
-		if (args && !ft_strcmp(args[0], "end"))
+		if (args && !ft_strcmp(args[0], "exit"))
 			break ;
+		// int i = 0;
+		// while (args && args[i])
+		// 	ft_printf("%s\n", args[i++]);
+		// ft_printf("\n\n");
 		if (args == NULL)
 			continue ;
+		// inf_process(job->root);
+
 		// // int i = 0;
 		// // while (args && args[i])
 		// // 	free(args[i++]);

@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:13:28 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/24 14:37:50 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:25:19 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,12 @@ char    **new_query(char **arg, int i)
     while (j < lenght)
     {
         if (get_mode(arg[i]))
-			i += 2;
-        else if (is_agrarg(arg[i]))
-            ++i;
-        query[j] = ft_strdup(arg[i]);
-        ++j;
+			i += 1;
+        else if (!is_agrarg(arg[i]))
+        {
+            query[j] = ft_strdup(arg[i]);
+            ++j;
+        }
         if (!arg[i++])
             break ;
     }
@@ -162,33 +163,5 @@ t_process	*new_segment(char **arg, int i)
     input_path(arg, i, new_process);
     output_path(arg, i, new_process);
     new_agregation(arg, i, new_process);
-
-
-//    j = 0;
-//    while (new_process->query && new_process->query[j])
-//        ft_printf("query %s\n", new_process->query[j++]);
-//    j = 0;
-//    ft_printf("\n");
-//    while (new_process->heredoc && new_process->heredoc[j])
-//        ft_printf("heredoc %s\n", new_process->heredoc[j++]);
-//       j = 0;
-//    ft_printf("\n");
-//    while (new_process->input_file && new_process->input_file[j])
-//        ft_printf("redir %s\n", new_process->input_file[j++]);
-//    ft_printf("\n");
-//    if (new_process->input_path)
-//        ft_printf("input_path %s\n", new_process->input_path);
-//    ft_printf("---------------------\n");
-//
-//    j = 0;
-//    while (new_process->output_file && new_process->output_file[j])
-//        ft_printf("redir %s\n", new_process->output_file[j++]);
-//    ft_printf("\n");
-//    if (new_process->output_path)
-//        ft_printf("output_path %s\n", new_process->output_path);
-//    ft_printf("%i\n", new_process->output_mode);
-//    ft_printf("\n");
-//    if (new_process->aggregate)
-//        ft_printf("in = %i out = %i\n", new_process->aggregate->in, new_process->aggregate->out);
 	return (new_process);
 }

@@ -6,12 +6,11 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:53:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/24 14:35:44 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:29:22 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
-
 
 static struct termios	stored_settings;
 
@@ -25,7 +24,6 @@ void	set_keypress(void)
 	new_settings.c_cc[VTIME] = 0;
 	new_settings.c_cc[VMIN] = 1;
 	tcsetattr(0, TCSANOW, &new_settings);
-	return ;
 }
 
 void	reset_keypress(void)
@@ -72,6 +70,7 @@ void	set_termenv(char *termcap)
 
 
 }
+
 
 void					replace_str(char **chang_line, int i, int lenght, char *env_verb)
 {
@@ -151,6 +150,7 @@ int						multiply_line(char *line)
 		return (0);
 }
 
+
 char					**parser(t_history_session **h_session, char **env, int lenght_hello)
 {
 	char	**arg;
@@ -158,6 +158,7 @@ char					**parser(t_history_session **h_session, char **env, int lenght_hello)
 	int		mode;
 	int		count_arg;
 	char	*termcap;
+
 
 //--------------------------------
 //	if ((termcap = get_termcap(env)))
@@ -200,6 +201,7 @@ char					**parser(t_history_session **h_session, char **env, int lenght_hello)
 //	free(termcap);
 //	free(term);
 	//-----------
+
 
 	return (arg);
 }
