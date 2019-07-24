@@ -36,7 +36,7 @@
 // # define KEY_CTRL_U 21
 # include "./vector.h"
 # define GRID_LENGHT 3
-
+# define MODE_HEREDOC 100
 typedef struct	s_term
 {
 	char		*le;
@@ -88,7 +88,7 @@ void	key_cut(t_history_session *h_session, int temp);
 
 
 void	cut_str(char **comm, int i, int lenght);
-char	*input(t_history_session **h_session, int lenght_hello, int mode);
+char	*input(t_history_session **h_session, int lenght_hello, int mode, char **env);
 void	write_vector(t_history_session *h_session);
 void		key_cop(t_history_session *h_session, int key);
 

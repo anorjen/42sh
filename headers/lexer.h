@@ -53,6 +53,8 @@ t_process	*new_segment(char **arg, int i);
 
 void    input_path(char **arg, int i, t_process *new_process); 
 void    output_path(char **arg, int i, t_process *new_process);
+void    free_job(t_job *job);
+
 
 
 

@@ -159,7 +159,10 @@ t_process	*new_segment(char **arg, int i)
     new_process = init_process();
     new_process->query = new_query(arg, i);
     if (!new_process->query)
+    {
+        free(new_process);
         return (NULL);
+    }
     input_path(arg, i, new_process);
     output_path(arg, i, new_process);
     new_agregation(arg, i, new_process);
