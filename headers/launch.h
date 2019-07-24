@@ -63,33 +63,33 @@
 
 typedef struct			s_aggregation
 {
-	int out; // if -1 this is close mode, default: -2
 	int in;
+	int out; // if -1 this is close mode, default: -2
 }						t_aggregation;
 
 typedef struct 			k_process
 {
 	char 				**query;
 
-	char				**output_file; // файлы которые нужно создать
-	char				*output_path;
-	int					output_mode; // 0 - stdout, 1 - replace, 2 append
-
 	char 				**heredoc;
 	char				*input_path; // я сюда запишу либо имя файла, либо NULL(stdin)
 	char 				**input_file; // файлы нужно првоерить на access
+
+	char				**output_file; // файлы которые нужно создать
+	char				*output_path;
+	int					output_mode; // 0 - stdout, 1 - replace, 2 append
 
 	t_aggregation		*aggregate;
 
 	pid_t				pid;
 	int					type;
 	int					status;
-	struct s_process	*next;
+	struct k_process	*next;
 }						t_process;
 
 typedef struct			k_job
 {
-	int					id; //!
+	int					id; //!     
 	t_process			*root;
 	pid_t				pgid; //!
 	int					mode; //!
