@@ -72,11 +72,8 @@
 typedef struct			s_aggregation
 {
 	int in;
-<<<<<<< HEAD
 	int out; // if -1 this is close mode
-=======
-	int out; // if -1 this is close mode, default: -2
->>>>>>> origin/merger
+
 }						t_aggregation;
 
 typedef struct 			k_process
@@ -87,15 +84,12 @@ typedef struct 			k_process
 	char				*input_path; // я сюда запишу либо имя файла, либо NULL(stdin)
 	char 				**input_file; // файлы нужно првоерить на access
 
-<<<<<<< HEAD
-	t_aggregation		*aggregate; // NULL if default
-=======
 	char				**output_file; // файлы которые нужно создать
 	char				*output_path;
 	int					output_mode; // 0 - stdout, 1 - replace, 2 append
 
-	t_aggregation		*aggregate;
->>>>>>> origin/merger
+	t_aggregation		*aggregate; // NULL if default
+
 
 	pid_t				pid;
 	int					type;
