@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 17:14:11 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/13 17:14:12 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/07/25 15:24:51 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ void				cut_str(char **comm, int i, int lenght)
 
 	if (!comm || !(*comm))
 		return ;
+	// if ((lenght - i) == 0)
+	// {
+	// 	free(*comm);
+	// 	*comm = NULL;
+	// 	return ;
+	// }
 	temp = ft_strsub(*comm, 0, i);
 	temp2 = ft_strsub(*comm, lenght, ft_strlen(*comm));
 	free(*comm);

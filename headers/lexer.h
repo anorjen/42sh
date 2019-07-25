@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 15:55:22 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/24 19:43:42 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/25 15:39:33 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ t_process	*new_segment(char **arg, int i);
 
 void    input_path(char **arg, int i, t_process *new_process); 
 void    output_path(char **arg, int i, t_process *new_process);
-void    free_job(t_job *job);
-
+void   *free_job(t_job *job);
+void	new_agregation(char **arg, int i, t_process *new_process);
+char	**new_query(char **arg, int i);
+int		is_agrarg(char *line);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:53:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/24 19:43:42 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/25 15:24:51 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,3 +140,4 @@ char					**parser(t_history_session **h_session, char **env, int lenght_hello)
 
 	return (arg);
 }
+

@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:53:47 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/18 16:53:48 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/07/25 15:25:23 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ void	replace_str(char **chang_line, int i, int lenght, char *env_verb);
 int		is_delimetr(char ch);
 char    *replace_dir(char *line, char **env);
 int		spec_token(char *line, int j);
+int		is_agregation(char *line, int j);
+char	*get_token(char *line, int *j);
+
 
 char    **write_arg(char *line);
 
