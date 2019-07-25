@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/24 18:59:47 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/25 13:33:50 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <libgen.h>
+#include <errno.h>
 #include "minishell.h"
 
 #define NR_JOBS 20
@@ -39,9 +40,9 @@
 #define PIPELINE_EXECUTION 2
 #define HEREDOC_EXECUTION 11
 
-#define APPEND 2
+#define APPEND_MODE 2
 #define CREATE_ATTR O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
-
+#define APPEND_ATTR O_APPEND |O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH
 
 #define STATUS_RUNNING 0
 #define STATUS_DONE 1

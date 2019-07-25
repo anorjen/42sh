@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/24 20:52:39 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/25 14:39:24 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,18 @@ void		shell_loop(char **env)
 	sh_init();
 	status = 1;
 	h_session = NULL;
+
+
+//	int i;
+//	i = 0;
+//	i = open("./hhh", CREATE_ATTR);
+//	close(i);
+//	i = open("./hhh", CREATE_ATTR);
+//
+//	printf("%d\n", i);
+
+
+
 	while (status >= 0)
 	{
 		sh_print_promt();
@@ -187,11 +199,12 @@ void		shell_loop(char **env)
 		job = lexer(args);
 //		inf_process(job->root);
 		if (job)
-		{
-//		 	 job = shell_parse_command(line);
 			status = shell_launch_job(job);
-		}
+
+
+
 	}
+
 	free_hsess(h_session);
 
 

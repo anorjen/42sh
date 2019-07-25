@@ -106,7 +106,7 @@ void launch_heredoc(t_process *proc, h_launch *launch)
 }
 
 
-int			check_access(char **files)
+int			check_access(char **files, int id)
 {
 	int i;
 
@@ -116,6 +116,7 @@ int			check_access(char **files)
 		if (access(files[i], F_OK) == -1)
 		{
 			printf("21sh: %s: No such file or directory\n", files[i]);
+			remove_job(id);
 			return (0);
 		}
 		++i;
@@ -127,24 +128,18 @@ int 		pre_launch_config(t_process *proc, h_launch *launch)
 {
 	if (proc->heredoc == NULL)
 	{
-		if (check_access(proc->input_file))
+		if (check_access(proc->input_file, launch->job_id))
 			launch->in_fd = open(proc->input_path, O_RDONLY);
 		else
-		{
-			remove_job(launch->job_id);
 			return (0);
-		}
 	}
 	else
 	{
 		launch_heredoc(proc, launch);
 		launch->in_fd = open(proc->input_path, O_RDONLY);
 		if (proc->input_file)
-			if (!check_access(proc->input_file))
-			{
-				remove_job(launch->job_id);
+			if (!check_access(proc->input_file, launch->job_id))
 				return (0);
-			}
 	}
 	if (launch->in_fd < 0)
 	{
@@ -156,27 +151,64 @@ int 		pre_launch_config(t_process *proc, h_launch *launch)
 		return (1);
 }
 
+int		launch_out_redir(t_process *proc, h_launch *launch)
+{
+	int i;
 
-void		launch_base_config(h_launch *launch, t_process *proc, t_job *job)
+	i = 0;
+	if (proc->output_file)
+	{
+		while (proc->output_file[i])
+		{
+			if (proc->output_mode == 2)
+			{
+				if (access(proc->output_file[i], F_OK) == -1)
+					launch->out_fd = open(proc->output_file[i], CREATE_ATTR);
+				else
+					launch->out_fd = open(proc->output_file[i], APPEND_ATTR);
+			}
+			else
+				launch->out_fd = open(proc->output_file[i], CREATE_ATTR);
+			if (launch->out_fd == -1)
+			{
+				printf("21sh: %s: Permission denied:\n", proc->output_file[i]);
+				remove_job(launch->job_id);
+				return (0);
+			}
+			printf("launch->fd: %d\n", launch->out_fd);
+			++i;
+			if (proc->output_file[i])
+				close(launch->out_fd);
+		}
+	}
+
+//	if (proc->output_mode == APPEND_MODE)
+//	{
+//		if (access(proc->output_path, F_OK) != -1)
+//			launch->out_fd = open(proc->output_path, APPEND_ATTR);
+//		else
+//			launch->out_fd = open(proc->output_path, CREATE_ATTR);
+//	}
+//	else
+//	{
+//		launch->out_fd = open(proc->output_path, CREATE_ATTR);
+//	}
+//	if (launch->out_fd < 0)
+//		launch->out_fd = 1;
+
+	return (1);
+}
+
+int		launch_base_config(h_launch *launch, t_process *proc, t_job *job)
 {
 	launch->out_fd = 1;
 	if (proc->output_path != NULL)
 	{
-		if (proc->output_mode == APPEND)
-		{
-			if (access(proc->output_path, F_OK) != -1)
-				launch->out_fd = open(proc->output_path, O_APPEND |O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
-			else
-				launch->out_fd = open(proc->output_path, CREATE_ATTR);
-		}
-		else
-		{
-			launch->out_fd = open(proc->output_path, CREATE_ATTR);
-		}
-		if (launch->out_fd < 0)
-			launch->out_fd = 1;
+		if (!launch_out_redir(proc, launch))
+			return (0);
 	}
 	launch->status = shell_launch_process(job, proc, launch->in_fd, launch->out_fd, job->mode);
+	return (1);
 }
 
 void		launch_pipe_config(t_process *proc, h_launch *launch, t_job *job)
@@ -204,7 +236,10 @@ static int		launch_proc_cycle(t_process *proc, h_launch *launch, t_job *job)
 		if (proc->next != NULL)
 			launch_pipe_config(proc, launch, job);
 		else
-			launch_base_config(launch, proc, job);
+		{
+			if (!launch_base_config(launch, proc, job))
+				return (0);
+		}
 		proc = proc->next;
 	}
 	return (launch->status);
@@ -228,6 +263,8 @@ int				shell_launch_job(t_job *job)
 		else if (job->mode == BACKGROUND_EXECUTION)
 			print_processes_of_job(launch->job_id);
 	}
+//	close(launch->out_fd);
+//	close(launch->in_fd);
 	return (launch->status);
 }
 
@@ -254,6 +291,7 @@ static void		pgid_and_dup_handle(t_process *proc, t_job *job, int in_fd, int out
 	}
 	if (out_fd != 1)
 	{
+		printf("childe: out_fd: %d\n", out_fd);
 		dup2(out_fd, 1);
 		close(out_fd);
 	}
@@ -319,6 +357,8 @@ int				shell_launch_process(t_job *job, t_process *proc, int in_fd, int out_fd, 
 			signal(SIGTTOU, SIG_IGN);
 			tcsetpgrp(0, getpid());
 			signal(SIGTTOU, SIG_DFL);
+			if (out_fd >= 3)
+				close(out_fd);
 //			check_zombie();
 		}
 	}
