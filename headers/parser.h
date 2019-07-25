@@ -13,14 +13,14 @@
 #ifndef PARSER_H
 # define PARSER_H 
 
-# define COMMANDID_QUOTE 1
+// # define COMMANDID_QUOTE 1
 
 # define COMMAND_QUOTE "dquote> "
 // # define COMMAND_END "cmdand> "
 // # define COMMAND_ELSE "cmdor> "
 // # define COMMAND_PIPE "pipe> "
 // # define COMMAND_NEW_LINE "> "
-# define COMMAND_ERROR "21sh: parse error near "
+// # define COMMAND_ERROR "21sh: parse error near "
 
 # define TOKEN_BACKGRAUND 1
 # define TOKEN_AND 2
@@ -32,23 +32,17 @@
 # define TOKEN_AGRAGATION 2
 # define TOKEN_UPPEND 2
 
-
-
-
-
+# define MODE_HEREDOC 100
+# define MODE_QUOTE 101
+# define MODE_PIPE 102
+# define MODE_OR 103
+# define MODE_BACKGROUND 104
+# define MODE_AND 105
+# define MODE_MULTILINE 106
 
 
 #include "input.h"
 
-typedef struct  s_control_multiply_line
-{
-    int     quote;
-    char    ch_quote;
-    int     pipe;
-    int     and;
-    int     els;
-    int     ch;
-}               t_control_multiply_line;
 
 char    **parser(t_history_session **h_session, char **env, int lenght_hello);
 char    *replace_env(char *line, char **env);
@@ -61,6 +55,10 @@ char	*get_token(char *line, int *j);
 
 
 char    **write_arg(char *line);
+int	parse_error(char *line);
+int						multiply_line(char *line);
+int is_redir(char *line, int i);
+int is_specdel(char *line, int i);
 
 
 

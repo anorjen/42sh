@@ -143,8 +143,6 @@ void		shell_loop(char **env)
 		if (args == NULL)
 			continue ;
 
-		// inf_process(job->root);
-
 		// // int i = 0;
 		// // while (args && args[i])
 		// // 	free(args[i++]);
@@ -153,6 +151,7 @@ void		shell_loop(char **env)
 		// kazekage(args);
 	    job = lexer(args);
 		args = free_arg(args);
+		inf_process(job->root);
 		// inf_process(job->root);
 
 		// // line = read_ln(); ///
@@ -162,8 +161,8 @@ void		shell_loop(char **env)
 		// 	continue ;
 		// }
 //		inf_process(job->root);
-		if (job)
-			status = shell_launch_job(job);
+		// if (job)
+		// 	status = shell_launch_job(job);
 
 
 

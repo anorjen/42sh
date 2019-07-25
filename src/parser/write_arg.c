@@ -25,7 +25,7 @@ int		miss_quote(char *line, int i)
 
 void	assis_coutargv(char *line, int *i, int *count)
 {
-	if (!(is_delimetr(line[*i])))
+	if (!(is_delimetr(line[*i])) && !is_agregation(line, *i))
 	{
 		while (line[*i] && !(is_delimetr(line[*i])) && !spec_token(line, *i))
 		{
@@ -37,7 +37,8 @@ void	assis_coutargv(char *line, int *i, int *count)
 		++(*count);
 		return ;
 	}
-	++(*i);
+	if (is_delim(line[*i]))
+		++(*i);
 	if (is_agregation(line, *i))
 	{
 		(*i) += 4;

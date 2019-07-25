@@ -35,8 +35,9 @@
 // # define KEY_CTRL_R 18
 // # define KEY_CTRL_U 21
 # include "./vector.h"
+# include "term.h"
+
 # define GRID_LENGHT 3
-# define MODE_HEREDOC 100
 typedef struct	s_term
 {
 	char		*le;
@@ -70,6 +71,7 @@ typedef struct			s_history_session
 t_term					*term;
 int						g_dispersion;
 char					*g_buffer;
+static struct termios	stored_settings;
 
 int	putchar_(int c);
 void	backspace_ch(t_history_session *h_session);
@@ -95,6 +97,10 @@ void		key_cop(t_history_session *h_session, int key);
 int			is_delim(char ch);
 void	key_endhome(t_history_session *h_session, int key);
 void		free_hsess(t_history_session *h_session);
+void    set_termcap(char **env);
+void	reset_keypress(void);
+void    multiple_promt(t_history_session *h_session, int mode);
+
 
 
 

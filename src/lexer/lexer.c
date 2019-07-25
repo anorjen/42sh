@@ -37,6 +37,8 @@ t_job	*lexer(char **arg)
 
 	i = 0;
 	new_job->root = new_segment(arg, i);
+	if (!new_job->root)
+		return (NULL);
 	while (arg[i] && ft_strcmp(arg[i], "|"))
 		++i;
 	i += arg[i] ? 1: 0;	
@@ -44,6 +46,8 @@ t_job	*lexer(char **arg)
 	while (arg[i])
 	{
 		temp_process->next = new_segment(arg, i);
+		if (!new_job->root)
+			return (NULL);
 		while (arg[i] && ft_strcmp(arg[i], "|"))
 			++i;
 		i += arg[i] ? 1: 0;

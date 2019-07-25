@@ -25,12 +25,6 @@ void				cut_str(char **comm, int i, int lenght)
 
 	if (!comm || !(*comm))
 		return ;
-	// if ((lenght - i) == 0)
-	// {
-	// 	free(*comm);
-	// 	*comm = NULL;
-	// 	return ;
-	// }
 	temp = ft_strsub(*comm, 0, i);
 	temp2 = ft_strsub(*comm, lenght, ft_strlen(*comm));
 	free(*comm);
