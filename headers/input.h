@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 16:43:12 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/24 19:44:39 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/25 21:59:53 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@
 # include "./vector.h"
 # define GRID_LENGHT 3
 # define MODE_HEREDOC 100
+# define MODE_QUOTE 101
+# define MODE_PIPE 102
+# define MODE_OR 103
+# define MODE_BACKGROUND 104
+# define MODE_AND 105
+//# define MODE_MULTILINE 106
+#include "term.h"
+
 typedef struct	s_term
 {
 	char		*le;
@@ -70,6 +78,7 @@ typedef struct			s_history_session
 t_term					*term;
 int						g_dispersion;
 char					*g_buffer;
+static struct termios	stored_settings;
 
 int	putchar_(int c);
 void	backspace_ch(t_history_session *h_session);
@@ -95,6 +104,9 @@ void		key_cop(t_history_session *h_session, int key);
 int			is_delim(char ch);
 void	key_endhome(t_history_session *h_session, int key);
 void		free_hsess(t_history_session *h_session);
+void    multiple_promt(t_history_session *h_session, int mode);
+void    set_termcap(char **env);
+void	reset_keypress(void);
 
 
 

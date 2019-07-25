@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:53:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/25 15:24:51 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/25 21:52:41 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,40 +55,6 @@ t_control_multiply_line	init_control(void)
 	return (control);
 }
 
-int						multiply_line(char *line)
-{
-	int i;
-	t_control_multiply_line control;
-
-	i = 0;
-	control = init_control();
-	while (line && line[i])
-	{
-		if ((line[i] == '\"' || line[i] == '\'') && !(i > 0 && line[i - 1] == '\\'))
-			check_quote(&control, line[i++]);
-		// else if (!control.quote && spec_token(line, i))
-		// {
-		// 	if (!control.ch && line[i] != '<' && !(line[i] == '&' && line[i + 1] == '>'))
-		// 	{
-		// 		write(2, "21sh: parse error near `", ft_strlen("21sh: parse error near `"));
-		// 		write(2, &line[i], spec_token(line, i));
-		// 		write(2, "\'\n", 2);
-		// 		return (-1);
-		// 	}
-		// 	i += spec_token(line, i);
-		// 	// if ()
-		// }
-		else
-		{
-			++i;
-			control.ch++;
-		}
-	}
-	if (control.quote)
-		return (COMMANDID_QUOTE);
-	else
-		return (0);
-}
 
 
 

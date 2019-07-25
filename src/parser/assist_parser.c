@@ -6,27 +6,26 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 21:41:11 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/24 21:41:12 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/07/25 21:52:41 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-int		is_agregation(char *line, int j)
+int	is_agregation(char *line, int j)
 {
 	if (line[j] && line[j] >= '0' && line[j] <= '2')
 	{
 		if (line[j + 1] == '>' && line[j + 2] == '&')
 		{
-			if ((line[j + 3] >= '0' &&
-				line[j + 3] <= '2') || line[j + 3] == '-')
+			if ((line[j + 3] >= '0' && line[j + 3] <= '2') || line[j + 3] == '-')
 				return (4);
 		}
 	}
 	return (0);
 }
 
-int		spec_token(char *line, int j)
+int	spec_token(char *line, int j)
 {
 	if (!line || !line[j])
 		return (0);
@@ -50,9 +49,39 @@ int		spec_token(char *line, int j)
 		return (0);
 }
 
-int		is_delimetr(char ch)
+int	is_delimetr(char ch)
 {
 	if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r' || ch == '\v')
+		return (1);
+	return (0);
+}
+
+int is_specdel(char *line, int i)
+{
+	if (!line)
+		return (0);
+	if (line[i] == '|' && line[i + 1] == '|')
+		return (2);
+	else if (line[i] == '|')
+		return (1);
+	else if (line[i] == '&' && line[i + 1] == '&')
+		return (2);
+	else if (line[i] == '&')
+		return (1);
+	return (0);
+}
+
+int is_redir(char *line, int i)
+{
+	if (!line)
+		return (0);
+	if (line[i] == '>' && line[i + 1] == '>')
+		return (2);
+	else if (line[i] == '>')
+		return (1);
+	else if (line[i] == '<' && line[i + 1] == '<')
+		return (2);
+	else if (line[i] == '<')
 		return (1);
 	return (0);
 }

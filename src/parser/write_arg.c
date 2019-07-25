@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 18:19:50 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/25 15:24:51 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/25 21:52:41 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		miss_quote(char *line, int i)
 
 void	assis_coutargv(char *line, int *i, int *count)
 {
-	if (!(is_delimetr(line[*i])))
+	if (!(is_delimetr(line[*i])) && !is_agregation(line, *i))
 	{
 		while (line[*i] && !(is_delimetr(line[*i])) && !spec_token(line, *i))
 		{
@@ -37,7 +37,8 @@ void	assis_coutargv(char *line, int *i, int *count)
 		++(*count);
 		return ;
 	}
-	++(*i);
+	if (is_delim(line[*i]))
+		++(*i);
 	if (is_agregation(line, *i))
 	{
 		(*i) += 4;

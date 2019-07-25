@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/25 19:45:27 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/25 23:28:32 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,17 +175,8 @@ typedef struct			s_job_pid
 	int 				exit_status;
 }						g_job_pid;
 
-
 shell_info	*shell;
 
-
-/*
-** 				aux utils
-*/
-
-
-int 				len_two_dim(char **str);
-void                sh_update_cwd_info(void);
 
 /*
 ** 				parsing part
@@ -227,7 +218,43 @@ int					set_process_status(int pid, int status);
 int					print_job_status(int id);
 void                built_init(void);
 int					parse_cycle(t_process *new_proc, char **tokens, int i, int position, int j);
-void 				child_launch_proc(t_job *job, t_process *proc, int in_fd, int out_fd);
+
+void				parent_launch_process(t_process *proc, t_job *job, pid_t childpid);
+
+
+/*
+** 				heredocs
+*/
+
+char				*readline_her(t_process *proc, int i);
+char				*str_join_her(char *s1, char *s2);
+void				stdin_heredoc(t_process *proc,h_launch *launch, char *line);
+void				launch_heredoc(t_process *proc, h_launch *launch);
+h_launch			*h_launch_init(void);
+
+/*
+** 				out redirection launch
+*/
+
+int					launch_out_redir(t_process *proc, h_launch *launch);
+int					launch_base_config(h_launch *launch, t_process *proc, t_job *job);
+
+
+/*
+** 				child launch processes
+*/
+
+void				pgid_and_dup_handle(t_process *proc, t_job *job, int in_fd, int out_fd);
+void				child_launch_proc(t_job *job, t_process *proc, int in_fd, int out_fd);
+void				signal_default_changer(t_process *proc, t_job *job);
+
+
+/*
+** 				PIPES and config
+*/
+
+int 				pre_launch_config(t_process *proc, h_launch *launch);
+void				launch_pipe_config(t_process *proc, h_launch *launch, t_job *job);
 
 
 /*
@@ -236,7 +263,7 @@ void 				child_launch_proc(t_job *job, t_process *proc, int in_fd, int out_fd);
 
 int					shell_jobs(t_process *proc);
 int					get_pgid_by_job_id(int id);
-t_job					*get_job_by_id(int id);
+t_job				*get_job_by_id(int id);
 int					set_job_status(int id, int status);
 int					wait_for_pid(int pid);
 int					shell_kill(t_process *proc);
@@ -246,6 +273,16 @@ char				*read_ln_heredoc(char *eof);
 void				update_holder(h_launch *launch, int fd);
 void				print_holder(h_launch *launch);
 void				clean_holder(h_launch *launch);
+
+/*
+** 				aux utils
+*/
+
+int 				len_two_dim(char **str);
+void                sh_update_cwd_info(void);
+int					check_access(char **files, int id);
+
+
 
 
 #endif

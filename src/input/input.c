@@ -6,13 +6,12 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:52:27 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/25 15:24:51 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/25 21:58:12 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-static struct termios	stored_settings;
 
 
 int		ft_readkey(int fd)
@@ -98,68 +97,6 @@ int		is_delim(char ch)
 	return (0);
 }
 
-void	set_keypress(void)
-{
-	struct termios	new_settings;
-
-	tcgetattr(0, &stored_settings);
-	new_settings = stored_settings;
-	new_settings.c_lflag &= (~ICANON & ~ECHO);
-	new_settings.c_cc[VTIME] = 0;
-	new_settings.c_cc[VMIN] = 1;
-	tcsetattr(0, TCSANOW, &new_settings);
-}
-
-void	reset_keypress(void)
-{
-	tcsetattr(0, TCSANOW, &stored_settings);
-	return;
-}
-
-char		*get_termcap(char **environ)
-{
-	char	*term;
-	char	*term_edit;
-	
-	if ((term = ft_strnew(2048)))
-	{
-		if ((term_edit = ft_strdup(getenv("TERM"))))
-		{
-			tgetent(term, term_edit);
-			if (tgetent(term, term_edit) == 1)
-			{
-				free(term_edit);
-				return (term);
-			}
-			free(term_edit);
-		}
-		free(term);
-	}
-	return (NULL);
-}
-
-void	set_termenv(char *termcap)
-{
-	term = (t_term *)malloc(sizeof(t_term));
-	term->le = tgetstr("le", &termcap);
-	term->nd = tgetstr("nd", &termcap);
-	term->cd = tgetstr("cd", &termcap);
-	term->dc = tgetstr("dc", &termcap);
-	term->im = tgetstr("im", &termcap);
-	term->ei = tgetstr("ei", &termcap);
-	term->so = tgetstr("so", &termcap);
-	term->se = tgetstr("se", &termcap);
-	term->up = tgetstr("up", &termcap);
-	term->do_ = tgetstr("do", &termcap);
-
-
-}
-
-
-
-
-
-
 char	*input(t_history_session **h_session, int lenght_hello, int mode, char **env)
 {
 	int		key;
@@ -167,23 +104,13 @@ char	*input(t_history_session **h_session, int lenght_hello, int mode, char **en
 	char	*termcap;
 
 
-	if ((termcap = get_termcap(env)))
-		set_termenv(termcap);
-	set_keypress();
+
 
 	temp = 1;
 	(*h_session)->lenght_hello = 1 + lenght_hello;
-	if (mode == COMMANDID_QUOTE)
-	{
-		(*h_session)->victor->push_back(&((*h_session)->victor), 0);
-		print_ch(*h_session, '\n', 0);
-		ft_printf("%s", COMMAND_QUOTE);
-	}
-	if (mode == MODE_HEREDOC)
-	{
-		ft_printf("heredoc> ");
-	}
+	multiple_promt(*h_session, mode);
 	(*h_session)->fl = mode ? 1 : 0;
+	set_termcap(env);
 
 	while (21)
 	{
@@ -215,7 +142,6 @@ char	*input(t_history_session **h_session, int lenght_hello, int mode, char **en
 	(*h_session)->left = (*h_session)->lenght;
 	(*h_session)->fl = 0;
 	reset_keypress();
-	free(termcap);
 	free(term);
 	return ((*h_session)->lenght == 0 ? NULL : ft_strdup((*h_session)->line));
 }

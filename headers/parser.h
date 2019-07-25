@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:53:47 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/25 15:25:23 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/25 22:15:28 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
 
 
 
-
 #include "input.h"
 
 typedef struct  s_control_multiply_line
@@ -61,6 +60,9 @@ char	*get_token(char *line, int *j);
 
 
 char    **write_arg(char *line);
+int						multiply_line(char *line);
+int is_specdel(char *line, int i);
+int is_redir(char *line, int i);
 
 
 

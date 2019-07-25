@@ -21,7 +21,7 @@ static int 	shell_fg_ext(pid_t pid, int job_id)
 {
 	if (kill(-pid, SIGCONT) < 0)
 	{
-		printf("mysh: fg %d: job not found\n", pid);
+		printf("21sh: fg %d: job not found\n", pid);
 		return (-1);
 	}
 	tcsetpgrp(0, pid);
@@ -42,7 +42,6 @@ static int 	shell_fg_ext(pid_t pid, int job_id)
 
 int			shell_fg(t_process *proc)
 {
-	int		status;
 	pid_t	pid;
 	int		job_id;
 
@@ -58,7 +57,7 @@ int			shell_fg(t_process *proc)
 		pid = get_pgid_by_job_id(job_id);
 		if (pid < 0)
 		{
-			printf("mysh: fg %s: no such job\n", proc->query[1]);
+			printf("21sh: fg %s: no such job\n", proc->query[1]);
 			return (-1);
 		}
 	}
@@ -71,7 +70,7 @@ static int	shell_bg_ext(pid_t pid, int job_id)
 {
 	if (kill(-pid, SIGCONT) < 0)
 	{
-		printf("mysh: bg %d: job not found\n", pid);
+		printf("21sh: bg %d: job not found\n", pid);
 		return (-1);
 	}
 	if (job_id > 0)
@@ -99,7 +98,7 @@ int			shell_bg(t_process *proc)
 		pid = get_pgid_by_job_id(job_id);
 		if (pid < 0)
 		{
-			printf("mysh: bg %s: no such job\n", proc->query[1]);
+			printf("21sh: bg %s: no such job\n", proc->query[1]);
 			return (-1);
 		}
 	}
@@ -112,7 +111,7 @@ static int	shell_kill_ext(pid_t pid, int job_id)
 {
 	if (kill(pid, SIGKILL) < 0)
 	{
-		printf("mysh: kill %d: job not found\n", pid);
+		printf("21sh: kill %d: job not found\n", pid);
 		return (0);
 	}
 	if (job_id > 0) {
@@ -141,7 +140,7 @@ int			shell_kill(t_process *proc)
 		pid = get_pgid_by_job_id(job_id);
 		if (pid < 0)
 		{
-			printf("mysh: kill %s: no such job\n", proc->query[1]);
+			printf("21sh: kill %s: no such job\n", proc->query[1]);
 			return (-1);
 		}
 		pid = -pid;
