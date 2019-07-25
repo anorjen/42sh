@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/25 15:28:56 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/25 19:07:16 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ void		shell_loop(char **env)
 		// kazekage(args);
 	    job = lexer(args);
 		args = free_arg(args);
-		// inf_process(job->root);
+//		inf_process(job->root);
 
 		// // line = read_ln(); ///
 		// if (ft_strlen(line) == 0)

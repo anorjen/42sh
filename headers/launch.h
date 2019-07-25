@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/25 13:33:50 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/25 19:45:27 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ typedef struct 			s_launch
 	int 				in_fd;
 	int 				out_fd;
 	int 				fd[2];
+	int 				holder[48];
 } 						h_launch;
 
 
@@ -242,5 +243,9 @@ int					shell_kill(t_process *proc);
 int					shell_bg(t_process *proc);
 int					shell_fg(t_process *proc);
 char				*read_ln_heredoc(char *eof);
+void				update_holder(h_launch *launch, int fd);
+void				print_holder(h_launch *launch);
+void				clean_holder(h_launch *launch);
+
 
 #endif
