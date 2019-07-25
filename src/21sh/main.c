@@ -12,6 +12,8 @@
 
 #include "../../headers/minishell.h"
 
+void		inf_process(t_process		*new_process);
+
 void sigint_handler(int signal)
 {
 	printf("\n");
@@ -97,6 +99,92 @@ void		free_hsess(t_history_session *h_session)
 	}
 }
 
+void		*free_arg(char **arg)
+{
+	int i;
+
+	i = 0;
+	if (arg == NULL)
+		return (NULL);
+	while (arg[i])
+		free(arg[i++]);
+	free(arg);
+	return (NULL);
+}
+
+
+
+
+
+void		shell_loop(char **env)
+{
+	char		*line;
+	char		**args;
+	int			status;
+	t_history_session *h_session;
+	t_job	*job;
+
+
+	sh_init();
+	status = 1;
+	h_session = NULL;
+	job = NULL;
+	while (status >= 0)
+	{
+		sh_print_promt();
+		shell->signal = 0;
+		args = parser(&h_session, env, ft_strlen(basename(shell->cur_dir)) + ft_strlen("⦿") + 1);
+		if (args && !ft_strcmp(args[0], "exit"))
+			break ;
+		// int i = 0;
+		// while (args && args[i])
+		// 	ft_printf("%s\n", args[i++]);
+		// ft_printf("\n\n");
+		if (args == NULL)
+			continue ;
+		// kazekage(args);
+	    job = lexer(args);
+		args = free_arg(args);
+		// inf_process(job->root);
+		// // line = read_ln(); ///
+		// if (ft_strlen(line) == 0)
+		// {
+		// 	check_zombie();
+		// 	continue ;
+		// }
+		// job = lexer(args);
+		// job = shell_parse_command(line);
+		// status = shell_launch_job(job);
+	}
+	free_hsess(h_session);
+	args = free_arg(args); 
+	job = free_job(job);
+
+
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int			main(int argc, char **argv, char **env)
+{
+
+	shell_loop(env);
+
+	return (0);
+}
 
 
 
@@ -147,85 +235,4 @@ void		inf_process(t_process		*new_process)
 	}
 	
     
-}
-
-void		*free_arg(char **arg)
-{
-	int i;
-
-	i = 0;
-	if (arg == NULL)
-		return (NULL);
-	while (arg[i])
-		free(arg[i++]);
-	free(arg);
-	return (NULL);
-}
-
-void		shell_loop(char **env)
-{
-	char		*line;
-	char		**args;
-	t_job		*job;
-	int			status;
-	t_history_session *h_session;
-
-
-	sh_init();
-	status = 1;
-	h_session = NULL;
-	while (status >= 0)
-	{
-		sh_print_promt();
-		shell->signal = 0;
-		args = parser(&h_session, env, ft_strlen(basename(shell->cur_dir)) + ft_strlen("⦿") + 1);
-		if (args && !ft_strcmp(args[0], "exit"))
-			break ;
-		// int i = 0;
-		// while (args && args[i])
-		// 	ft_printf("%s\n", args[i++]);
-		// ft_printf("\n\n");
-		if (args == NULL)
-			continue ;
-		job = lexer(args);
-		args = free_arg(args);
-		// inf_process(job->root);
-		// // line = read_ln(); ///
-		// if (ft_strlen(line) == 0)
-		// {
-		// 	check_zombie();
-		// 	continue ;
-		// }
-		// job = lexer(args);
-		// job = shell_parse_command(line);
-		// status = shell_launch_job(job);
-	}
-	free_hsess(h_session);
-	args = free_arg(args); 
-	job = free_job(job);
-
-
-	
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-int			main(int argc, char **argv, char **env)
-{
-
-	shell_loop(env);
-
-	return (0);
 }

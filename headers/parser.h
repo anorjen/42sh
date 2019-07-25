@@ -60,6 +60,7 @@ int		spec_token(char *line, int j);
 char    **write_arg(char *line);
 char	*get_token(char *line, int *j);
 int		is_agregation(char *line, int j);
+int	parse_error(char *line);
 
 
 

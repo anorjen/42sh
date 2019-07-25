@@ -102,4 +102,8 @@ int						unset_env(process *proc);
 int						echo(process *proc);
 int						num_shell_functions(process *proc);
 
+
+void		kazekage(char **arg);
+
+
 #endif

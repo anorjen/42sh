@@ -188,7 +188,7 @@ char	*input(t_history_session **h_session, int lenght_hello, int mode, char **en
 	}
 	if (mode == MODE_HEREDOC)
 	{
-		ft_printf("heredoc ");
+		ft_printf("heredoc> ");
 	}
 	(*h_session)->fl = mode ? 1 : 0;
 
@@ -197,6 +197,13 @@ char	*input(t_history_session **h_session, int lenght_hello, int mode, char **en
 		key = ft_readkey(0);
 		if (key == -1 && key_control_c(*h_session))
 			break ;
+		if (key == 4 && (!((*h_session)->lenght) || mode == MODE_HEREDOC))
+		{
+			// free
+			write(1, "\n", 1);
+			reset_keypress();
+			exit(0);
+		}
 		if (key == KEY_COPY_LEFT || key == KEY_COPY_RIGHT)
 		{
 			temp = 0;
@@ -224,5 +231,10 @@ char	*input(t_history_session **h_session, int lenght_hello, int mode, char **en
 	reset_keypress();
 	free(termcap);
 	free(term);
+	if ((*h_session)->lenght == 0)
+	{
+		free((*h_session)->line);
+		(*h_session)->line = NULL;
+	}
 	return ((*h_session)->lenght == 0 ? NULL : ft_strdup((*h_session)->line));
 }

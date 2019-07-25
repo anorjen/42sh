@@ -66,6 +66,9 @@ int						multiply_line(char *line)
 	{
 		if ((line[i] == '\"' || line[i] == '\'') && !(i > 0 && line[i - 1] == '\\'))
 			check_quote(&control, line[i++]);
+		if (is_delimetr(line[i]))
+			++i;
+		
 		// else if (!control.quote && spec_token(line, i))
 		// {
 		// 	if (!control.ch && line[i] != '<' && !(line[i] == '&' && line[i + 1] == '>'))
@@ -88,9 +91,8 @@ int						multiply_line(char *line)
 		return (COMMANDID_QUOTE);
 	else
 		return (0);
+	return (0);
 }
-
-
 
 char					**parser(t_history_session **h_session, char **env, int lenght_hello)
 {
@@ -105,12 +107,12 @@ char					**parser(t_history_session **h_session, char **env, int lenght_hello)
 	while (1)
 	{
 		line = input(h_session, lenght_hello, mode, env);
-		mode = multiply_line(line);
-		if (mode == -1)
+		if (parse_error(line))
 		{
 			free(line);
 			return (NULL);
 		}
+		mode = multiply_line(line);
 		if (!mode)
 			break ;
 		free(line);
