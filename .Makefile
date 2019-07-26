@@ -33,10 +33,11 @@ SRC_DIR = ./src/
 # SRC_DIR2 = ./src/launch/
 
 SRC_LST = built_ins.c built_ins2.c cpy_func.c launch.c linked_list.c\
-linked_list2.c linked_list3.c sig_handler.c split_line.c utilities.c utilities2.c\
-aux_utilities.c job_process_status.c job_utils.c jobs_builtins.c launch_pro.c parse_helpers.c
+ linked_list2.c linked_list3.c sig_handler.c split_line.c utilities.c utilities2.c\
+ aux_utilities.c job_process_status.c job_utils.c jobs_builtins.c launch_pro.c parse_helpers.c job_utils_print.c
 
-# SRC_LST2 = aux_utilities.c job_process_status.c job_utils.c jobs_builtins.c launch_pro.c parse_helpers.c
+# SRC_LST2 = aux_utilities.c job_process_status.c job_utils.c jobs_builtins.c\
+launch_pro.c parse_helpers.c job_utils_print.c
 
 SRC_FT_MINISHELL = main.c
 

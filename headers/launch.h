@@ -1,6 +1,14 @@
-//
-// Created by Yoshiko Harwyn hoare on 2019-06-19.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   launch.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
+/*   Updated: 2019/07/26 14:10:06 by yharwyn-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef SHELL_21_H
 #define SHELL_21_H
@@ -17,30 +25,21 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <libgen.h>
+#include <errno.h>
 #include "minishell.h"
 
 #define NR_JOBS 20
 #define NR_BUILTINS 8
 #define PATH_BUFSIZE 1024
-#define COMMAND_BUFSIZE 1024
 #define TOKEN_BUFSIZE 64
-#define TOKEN_DELIMITERS " \t\r\n\a"
+#define DEBUG_LOG 0
 
 #define BACKGROUND_EXECUTION 0
 #define FOREGROUND_EXECUTION 1
 #define PIPELINE_EXECUTION 2
-#define HEREDOC_EXECUTION 11
 
-#define COMMAND_EXTERNAL 0
-#define COMMAND_EXIT 1
-#define COMMAND_CD 2
-#define COMMAND_JOBS 3
-#define COMMAND_FG 4
-#define COMMAND_BG 5
-#define COMMAND_KILL 6
-#define COMMAND_EXPORT 7
-#define COMMAND_UNSET 8
-#define COMMAND_HELP 9
+#define CREATE_ATTR O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
+#define APPEND_ATTR O_APPEND |O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH
 
 #define STATUS_RUNNING 0
 #define STATUS_DONE 1
@@ -62,62 +61,68 @@
 
 
 
-//char* STATUS_STRING[] = {
-//		"running",
-//		"done",
-//		"suspended",
-//		"continued",
-//		"terminated"
-//};
-
-
 
 /*
-** 				process and job
+** 				process and t_job
  * 				list structure
 */
 
-typedef struct 			s_process
+typedef struct			s_aggregation
 {
-	char				*command;
-	int					argc;
-	char				**argv;
+	int in;
+	int out;
+
+}						t_aggregation;
+
+typedef struct 			k_process
+{
 	char 				**query;
+	char 				**heredoc;
 	char				*input_path;
+	char 				**input_file;
+	char				**output_file;
 	char				*output_path;
+	int					output_mode;
+	t_aggregation		*aggregate;
 	pid_t				pid;
 	int					type;
 	int					status;
-	struct s_process	*next;
-}						process;
+	struct k_process	*next;
+}						t_process;
 
-typedef struct			s_job
+typedef struct			k_job
 {
 	int					id;
-	process				*root;
-	char				*command;
+	t_process			*root;
 	pid_t				pgid;
 	int					mode;
-//	char
-}						job;
+}						t_job;
+
+
+
+typedef struct			k_aggregation
+{
+	int out; // if -1 this is close mode, default: -2
+	int in;
+
+}						aggregation;
+
 
 typedef struct          s_builtins
 {
-    char				builtin_str[NR_BUILTINS][20];
-    int					(*builtin_func[NR_BUILTINS]) (process*);
-    char                **argv;
-    int                 argc;
+    char				builtin_str[NR_BUILTINS][24];
+    int					(*builtin_func[NR_BUILTINS]) (t_process*);
 }                       g_builtins;
 
 typedef struct 			s_launch
 {
-	process				*proc;
-	char				*seg;
+	t_process			*proc;
 	int 				job_id;
 	int 				status;
 	int 				in_fd;
 	int 				out_fd;
 	int 				fd[2];
+	int 				holder[48];
 } 						h_launch;
 
 
@@ -127,57 +132,32 @@ typedef struct 			s_shell_info
 	char				cur_dir[PATH_BUFSIZE];
 	char				pw_dir[PATH_BUFSIZE];
 	char 				**env;
-	char 				**path;
-	struct s_job		*jobs[NR_JOBS + 1];
+	t_job				*jobs[NR_JOBS + 1];
 	g_builtins          *builtins;
 	int 				signal;
-//	struct h_launch		*launch_h;
 } 						shell_info;
 
-typedef struct 			s_parse
+
+typedef struct			s_job_pid
 {
-	char 				*command;
-	char				*line_cursor;
-	char				*c;
-	char				*seg;
-	int 				seg_len;
-	int 				mode;
-	struct s_process	*new_proc;
-} 						g_parse;
+	int 				proc_count;
+	int 				wait_pid;
+	int 				wait_count;
+	int 				status;
+	int 				exit_status;
+}						g_job_pid;
+
+shell_info				*shell;
 
 
-
-
-shell_info	*shell;
 
 
 /*
-** 				aux utils
-*/
-
-
-int 				len_two_dim(char **str);
-void                sh_update_cwd_info(void);
-
-/*
-** 				parsing part
-*/
-
-char				*helper_strtrim(char* line);
-job					*shell_parse_command(char *line);
-process				*shell_parse_command_segment(char *segment);
-void				parse_helper2(process *new_proc, char **tokens, char *segment);
-int					get_command_type(char *command);
-
-void				carry_init(g_parse *carry, char *line);
-
-
-/*
-** 				job handlers
+** 				t_job handlers
 */
 
 int					get_next_job_id(void);
-int					insert_job(job *job);
+int					insert_job(t_job *job);
 void				check_zombie(void);
 int					remove_job(int id);
 int					release_job(int id);
@@ -192,26 +172,77 @@ int					is_job_completed(int id);
 ** 				launcher funcs
 */
 
-int					shell_launch_job(job *job);
-int					shell_launch_process(job *job, process *proc, int in_fd, int out_fd, int mode);
-int					execute_builtin_command(process *proc);
+int					shell_launch_job(t_job *job);
+int					shell_launch_process(t_job *job, t_process *proc, int in_fd, int out_fd, int mode);
+int					execute_builtin_command(t_process *proc);
 int					set_process_status(int pid, int status);
 int					print_job_status(int id);
 void                built_init(void);
-int					parse_cycle(process *new_proc, char **tokens, int i, int position, int j);
+int					parse_cycle(t_process *new_proc, char **tokens, int i, int position, int j);
+
+void				parent_launch_process(t_process *proc, t_job *job, pid_t childpid);
+
+
+/*
+** 				heredocs
+*/
+
+char				*readline_her(t_process *proc, int i);
+void				stdin_heredoc(t_process *proc,h_launch *launch, char *line);
+void				launch_heredoc(t_process *proc, h_launch *launch);
+h_launch			*h_launch_init(void);
+
+/*
+** 				out redirection launch
+*/
+
+int					launch_out_redir(t_process *proc, h_launch *launch);
+int					launch_base_config(h_launch *launch, t_process *proc, t_job *job);
+
+
+/*
+** 				child launch processes
+*/
+
+void				pgid_and_dup_handle(t_process *proc, t_job *job, int in_fd, int out_fd);
+void				child_launch_proc(t_job *job, t_process *proc, int in_fd, int out_fd);
+void				signal_default_changer(t_process *proc, t_job *job);
+
+
+/*
+** 				PIPES and config
+*/
+
+int 				pre_launch_config(t_process *proc, h_launch *launch);
+void				launch_pipe_config(t_process *proc, h_launch *launch, t_job *job);
+
 
 /*
 ** 				built-ins
 */
 
-int					shell_jobs(process *proc);
+int					shell_jobs(t_process *proc);
 int					get_pgid_by_job_id(int id);
-job					*get_job_by_id(int id);
+t_job				*get_job_by_id(int id);
 int					set_job_status(int id, int status);
 int					wait_for_pid(int pid);
-int					shell_kill(process *proc);
-int					shell_bg(process *proc);
-int					shell_fg(process *proc);
+int					shell_kill(t_process *proc);
+int					shell_bg(t_process *proc);
+int					shell_fg(t_process *proc);
+char				*read_ln_heredoc(char *eof);
+void				update_holder(h_launch *launch, int fd);
+void				print_holder(h_launch *launch);
+void				clean_holder(h_launch *launch);
+
+/*
+** 				aux utils
+*/
+
+void                sh_update_cwd_info(void);
+int					check_access(char **files, int id);
+char				*str_join_her(char *s1, char *s2);
+
+
 
 
 #endif

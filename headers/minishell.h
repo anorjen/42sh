@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/28 15:41:22 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/10 15:49:01 by yharwyn-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -16,8 +5,10 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include "launch.h"
-
-
+// # include "./input.h"
+#include "parser.h"
+# include "term.h"
+# include "lexer.h"
 
 # include "../lib/printf/ft_printf.h"
 # include "../lib/printf/libft/get_next_line.h"
@@ -92,12 +83,12 @@ char					*strcpy_till_n(char *dst, const char *src, char c);
 ** 		built-ins funcs
 */
 
-int						cd_shell(process *proc);
-int						help_shell(process *proc);
-int						exit_shell(process *proc);
-int						set_env(process *proc);
-int						unset_env(process *proc);
-int						echo(process *proc);
-int						num_shell_functions(process *proc);
+int						cd_shell(t_process *proc);
+int						help_shell(t_process *proc);
+int						exit_shell(t_process *proc);
+int						set_env(t_process *proc);
+int						unset_env(t_process *proc);
+int						echo(t_process *proc);
+int						num_shell_functions(t_process *proc);
 
 #endif

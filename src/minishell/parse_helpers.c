@@ -1,5 +1,5 @@
-
 #include "../../headers/minishell.h"
+
 
 
 int			get_command_type(char *command)
@@ -224,6 +224,9 @@ job			*shell_parse_command(char *line)
 	carry_init(carry, line);
 	root_proc = NULL;
 	proc = NULL;
+
+
+	
 	while (1)
 	{
 		if (*(carry->c) == '\0' || *(carry->c) == '|')
