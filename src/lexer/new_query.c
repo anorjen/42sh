@@ -24,6 +24,8 @@ int		get_mode(char *command)
 		return (COMMAND_HEREDOC);
 	else if (strcmp(command, ">>") == 0)
 		return (COMMAND_APPEND);
+	else if (strcmp(command, "&") == 0)
+		return (COMMAND_BACKGR);
 	else
 		return (COMMAND_EXTERNAL);
 }

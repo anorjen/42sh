@@ -18,7 +18,8 @@ int	is_agregation(char *line, int j)
 	{
 		if (line[j + 1] == '>' && line[j + 2] == '&')
 		{
-			if ((line[j + 3] >= '0' && line[j + 3] <= '2') || line[j + 3] == '-')
+			if ((line[j + 3] >= '0' &&
+				line[j + 3] <= '2') || line[j + 3] == '-')
 				return (4);
 		}
 	}
@@ -45,6 +46,8 @@ int	spec_token(char *line, int j)
 		return (TOKEN_UPPEND);
 	else if (line[j] == '>')
 		return (TOKEN_OUTPUTPATH);
+	else if (line[j] == ';')
+		return (1);
 	else
 		return (0);
 }
@@ -56,7 +59,7 @@ int	is_delimetr(char ch)
 	return (0);
 }
 
-int is_specdel(char *line, int i)
+int	is_specdel(char *line, int i)
 {
 	if (!line)
 		return (0);
@@ -71,7 +74,7 @@ int is_specdel(char *line, int i)
 	return (0);
 }
 
-int is_redir(char *line, int i)
+int	is_redir(char *line, int i)
 {
 	if (!line)
 		return (0);

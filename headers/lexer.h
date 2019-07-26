@@ -29,6 +29,8 @@
 # define COMMAND_RREDIR 102
 # define COMMAND_HEREDOC 103
 # define COMMAND_APPEND 104
+# define COMMAND_BACKGR 105
+
 
 
 
@@ -57,6 +59,7 @@ void   *free_job(t_job *job);
 void	new_agregation(char **arg, int i, t_process *new_process);
 char	**new_query(char **arg, int i);
 int		is_agrarg(char *line);
+void	*free_arg(char **arg);
 
 
 

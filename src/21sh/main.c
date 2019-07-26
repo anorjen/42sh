@@ -76,6 +76,7 @@ void sh_init()
 void sh_print_promt(void)
 {
 //	printf(COLOR_CYAN "%s" COLOR_NONE " in " COLOR_YELLOW "%s" COLOR_NONE "\n", shell->cur_user, shell->cur_dir);
+	usleep(400);	
 	if (shell->signal == 0)
 		ft_printf(COLOR_GREEN "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ", basename(shell->cur_dir));
 	else
@@ -97,23 +98,6 @@ void		free_hsess(t_history_session *h_session)
 		free(temp);
 	}
 }
-
-void		*free_arg(char **arg)
-{
-	int i;
-
-	i = 0;
-	if (arg == NULL)
-		return (NULL);
-	while (arg[i])
-		free(arg[i++]);
-	free(arg);
-	return (NULL);
-}
-
-
-
-
 
 void		shell_loop(char **env)
 {
@@ -147,11 +131,12 @@ void		shell_loop(char **env)
 		// // while (args && args[i])
 		// // 	free(args[i++]);
 		// // free(args);
+		kazekage(args);
 
 		// kazekage(args);
-	    job = lexer(args);
-		args = free_arg(args);
-		inf_process(job->root);
+	    // job = lexer(args);
+		// args = free_arg(args);
+		// inf_process(job->root);
 		// inf_process(job->root);
 
 		// // line = read_ln(); ///
@@ -163,7 +148,6 @@ void		shell_loop(char **env)
 //		inf_process(job->root);
 		// if (job)
 		// 	status = shell_launch_job(job);
-
 
 
 	}

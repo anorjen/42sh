@@ -100,6 +100,11 @@ void		free_hsess(t_history_session *h_session);
 void    set_termcap(char **env);
 void	reset_keypress(void);
 void    multiple_promt(t_history_session *h_session, int mode);
+void		kazekage(char **arg);
+int		ft_readkey(int fd);
+void	key_func(t_history_session *h_session, int key);
+int		key_entr(t_history_session *h_session, int key);
+int		key_control_c(t_history_session *h_session);
 
 
 

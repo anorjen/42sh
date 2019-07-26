@@ -12,7 +12,7 @@
 
 #include "../../headers/minishell.h"
 
-void					replace_str(char **chang_line, int i, int lenght, char *env_verb)
+void	replace_str(char **chang_line, int i, int lenght, char *env_verb)
 {
 	char *temp;
 	char *tmp;
@@ -26,18 +26,14 @@ void					replace_str(char **chang_line, int i, int lenght, char *env_verb)
 	*chang_line = ft_strjoin(tmp, &temp[lenght]);
 	free(tmp);
 	free(temp);
-	
 }
 
-char					**parser(t_history_session **h_session, char **env, int lenght_hello)
+char	**parser(t_history_session **h_session, char **env, int lenght_hello)
 {
 	char	**arg;
 	char	*line;
 	int		mode;
 
-
-//--------------------------------
-	
 	*h_session = add_history(*h_session, lenght_hello);
 	mode = 0;
 	while (1)
@@ -53,23 +49,9 @@ char					**parser(t_history_session **h_session, char **env, int lenght_hello)
 			break ;
 		free(line);
 	}
-	//--------------------------------
-
-
-
-	// line = read_ln();
-
 	line = replace_env(line, env);
 	line = replace_dir(line, env);
 	arg = write_arg(line);
-//	int i = 0;
-//	while (arg && arg[i])
-//		ft_printf("%s\n", arg[i++]);
-//	ft_printf("\n\n");
 	free(line);
-
-
-
 	return (arg);
 }
-

@@ -27,14 +27,13 @@ void	set_keypress(void)
 void	reset_keypress(void)
 {
 	tcsetattr(0, TCSANOW, &stored_settings);
-	return;
 }
 
-char		*get_termcap(char **environ)
+char	*get_termcap(char **environ)
 {
 	char	*term;
 	char	*term_edit;
-	
+
 	if ((term = ft_strnew(2048)))
 	{
 		if ((term_edit = ft_strdup(getenv("TERM"))))
@@ -67,12 +66,15 @@ void	set_termenv(char *termcap)
 	term->do_ = tgetstr("do", &termcap);
 }
 
-void    set_termcap(char **env)
+void	set_termcap(char **env)
 {
 	char	*termcap;
 
-    if ((termcap = get_termcap(env)))
+	termcap = get_termcap(env);
+	if (termcap)
+	{
 		set_termenv(termcap);
+		free(termcap);
+	}
 	set_keypress();
-	free(termcap);
 }

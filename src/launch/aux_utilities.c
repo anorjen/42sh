@@ -6,36 +6,11 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:07:58 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/25 12:35:33 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 14:16:06 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
-
-int			len_two_dim(char **str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-char		*helper_strtrim(char *line)
-{
-	char	*head;
-	char	*tail;
-
-	head = line;
-	tail = line + strlen(line) - 1;
-	while (*head == ' ')
-		head++;
-	while (*tail == ' ')
-		tail--;
-	*(tail + 1) = '\0';
-	return (head);
-}
 
 void		check_zombie(void)
 {
@@ -79,4 +54,32 @@ int			execute_builtin_command(t_process *proc)
 	else
 		return (0);
 	return (1);
+}
+
+char		*str_join_her(char *s1, char *s2)
+{
+	char	*temp;
+
+	if (!s1)
+	{
+		if (s2)
+			return (ft_strdup(s2));
+		return (ft_strdup("\n"));
+	}
+	if (s2)
+	{
+		temp = s1;
+		s1 = ft_strjoin(s1, "\n");
+		free(temp);
+		temp = s1;
+		s1 = ft_strjoin(s1, s2);
+		free(temp);
+	}
+	else
+	{
+		temp = s1;
+		s1 = ft_strjoin(s1, "\n");
+		free(temp);
+	}
+	return (s1);
 }

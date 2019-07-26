@@ -12,32 +12,22 @@
 
 #include "../../headers/minishell.h"
 
-void    multiple_promt(t_history_session *h_session, int mode)
+void	multiple_promt(t_history_session *h_session, int mode)
 {
-    if (mode == MODE_QUOTE)
+	if (mode == MODE_QUOTE || mode == MODE_PIPE
+						|| mode == MODE_AND || mode == MODE_OR)
 	{
 		h_session->victor->push_back(&(h_session->victor), 0);
 		print_ch(h_session, '\n', 0);
-		ft_printf("%s", COMMAND_QUOTE);
+		if (mode == MODE_QUOTE)
+			ft_printf("%s", COMMAND_QUOTE);
+		else if (mode == MODE_PIPE)
+			ft_printf("%s", "pipe> ");
+		else if (mode == MODE_AND)
+			ft_printf("%s", "cmdand> ");
+		else if (mode == MODE_OR)
+			ft_printf("%s", "cmdor> ");
 	}
 	if (mode == MODE_HEREDOC)
 		ft_printf("heredoc> ");
-    if (mode == MODE_PIPE)
-    {
-        h_session->victor->push_back(&(h_session->victor), 0);
-		print_ch(h_session, '\n', 0);
-		ft_printf("%s", "pipe> ");
-    }
-    if (mode == MODE_AND)
-    {
-        h_session->victor->push_back(&(h_session->victor), 0);
-		print_ch(h_session, '\n', 0);
-		ft_printf("%s", "cmdand> ");
-    }
-    if (mode == MODE_OR)
-    {
-        h_session->victor->push_back(&(h_session->victor), 0);
-		print_ch(h_session, '\n', 0);
-		ft_printf("%s", "cmdor> ");
-    }
 }

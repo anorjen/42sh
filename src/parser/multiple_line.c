@@ -12,8 +12,7 @@
 
 #include "../../headers/minishell.h"
 
-
-int which_specdel(char *line, int i)
+int	which_specdel(char *line, int i)
 {
 	if (!line)
 		return (0);
@@ -23,43 +22,44 @@ int which_specdel(char *line, int i)
 		return (MODE_PIPE);
 	else if (line[i] == '&' && line[i + 1] == '&')
 		return (MODE_AND);
-	else if (line[i] == '&')
-		return (MODE_BACKGROUND);
 	return (0);
 }
 
-
-int						multiply_line(char *line)
+int	get_md(char *line, int *i)
 {
-	int     i;
 	int		mode;
-	char    quote;
+
+	mode = which_specdel(line, *i);
+	*i += is_specdel(line, *i);
+	while (line[*i] && is_delim(line[*i]))
+		++(*i);
+	if (!line[*i])
+		return (mode);
+	return (0);
+}
+
+int	multiply_line(char *line)
+{
+	int		i;
+	char	quote;
+	int		mode;
 
 	i = 0;
-	mode = 0;
 	while (line && line[i])
 	{
-		if ((line[i] == '\"' || line[i] == '\'') && !(i > 0 && line[i - 1] == '\\'))
+		if ((line[i] == '\"' || line[i] == '\'') &&
+								!(i > 0 && line[i - 1] == '\\'))
 		{
 			quote = line[i++];
 			while (line[i] && line[i] != quote)
 				++i;
-			if  (!line[i++])
+			if (!line[i++])
 				return (MODE_QUOTE);
 		}
-		else if (is_specdel(line, i))
-		{
-			mode = which_specdel(line, i);
-			i += is_specdel(line, i);
-			while (line[i] && is_delim(line[i]))
-				++i;
-			if (!line[i])
-				return (mode);
-		}
+		else if (is_specdel(line, i) && (mode = get_md(line, &i)))
+			return (mode);
 		else
 			++i;
 	}
-	// if (i > 0 && line[i - 1] == '\\')
-	// 	return (MODE_MULTILINE);
 	return (0);
 }

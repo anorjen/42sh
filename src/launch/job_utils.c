@@ -6,13 +6,13 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 18:20:49 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/25 12:35:33 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 13:58:25 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-int			release_job(int id)
+int				release_job(int id)
 {
 	t_process	*proc;
 	t_process	*tmp;
@@ -37,19 +37,19 @@ int			release_job(int id)
 	return (0);
 }
 
-int			remove_job(int id)
+int				remove_job(int id)
 {
 	if (id > NR_JOBS || shell->jobs[id] == NULL)
 		return (-1);
 //	release_job(id);
-	free(shell->jobs[id]);
+	ft_memdel((void **)&shell->jobs[id]);
 	shell->jobs[id] = NULL;
 	return (0);
 }
 
-int			get_job_id_by_pid(int pid)
+int				get_job_id_by_pid(int pid)
 {
-	int		i;
+	int			i;
 	t_process	*proc;
 
 	i = 0;
@@ -69,9 +69,9 @@ int			get_job_id_by_pid(int pid)
 	return (-1);
 }
 
-int			get_next_job_id(void)
+int				get_next_job_id(void)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	while (++i <= NR_JOBS)
