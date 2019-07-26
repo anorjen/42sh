@@ -6,13 +6,13 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 18:22:56 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/25 12:35:33 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 12:28:39 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-int			is_job_completed(int id)
+int				is_job_completed(int id)
 {
 	t_process	*proc;
 
@@ -28,20 +28,20 @@ int			is_job_completed(int id)
 	return (1);
 }
 
-int			print_processes_of_job(int id)
+int				print_processes_of_job(int id)
 {
 	t_process	*proc;
 
 	if (id > NR_JOBS || shell->jobs[id] == NULL)
 		return (-1);
-	printf("[%d]", id);
+	ft_printf("[%d]", id);
 	proc = shell->jobs[id]->root;
 	while (proc != NULL)
 	{
-		printf(" %d", proc->pid);
+		ft_printf(" %d", proc->pid);
 		proc = proc->next;
 	}
-	printf("\n");
+	ft_printf("\n");
 	return (0);
 }
 
@@ -50,15 +50,15 @@ static char	*get_state_string(t_process *proc)
 	char	*state;
 
 	if (proc->status == 0)
-		state = strdup("running");
+		state = ft_strdup("running");
 	else if (proc->status == 1)
-		state = strdup("done");
+		state = ft_strdup("done");
 	else if (proc->status == 2)
-		state = strdup("suspended");
+		state = ft_strdup("suspended");
 	else if (proc->status == 1)
-		state = strdup("continued");
+		state = ft_strdup("continued");
 	else
-		state = strdup("terminated");
+		state = ft_strdup("terminated");
 	return (state);
 }
 
@@ -69,18 +69,18 @@ int			print_job_status(int id)
 
 	if (id > NR_JOBS || shell->jobs[id] == NULL)
 		return (-1);
-	printf("[%d]", id);
+	ft_printf("[%d]", id);
 	proc = shell->jobs[id]->root;
 	while (proc != NULL)
 	{
 		state = get_state_string(proc);
-		printf("\t%d\t%s\t%s", proc->pid, state, proc->query[0]);
+		ft_printf("\t%d\t%s\t%s", proc->pid, state, proc->query[0]);
 		if (proc->next != NULL)
-			printf("|\n");
+			ft_printf("|\n");
 		else
-			printf("\n");
+			ft_printf("\n");
 		proc = proc->next;
-		free(state);
+		ft_memdel((void **)&state);
 	}
 	return (0);
 }

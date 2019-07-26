@@ -33,7 +33,7 @@ int check_symbolb(char *line)
 		{
 			if (!is_delimetr(line[i]))
 				fl = 1;
-			if (!is_agregation(line, i))
+			if (is_agregation(line, i))
 				i +=4;
 			else
 				++i;

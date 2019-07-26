@@ -12,16 +12,16 @@
 
 #include "../../headers/minishell.h"
 
-int			check_access(char **files, int id)
+int				check_access(char **files, int id)
 {
-	int i;
+	int			i;
 
 	i = 0;
 	while (files[i])
 	{
 		if (access(files[i], F_OK) == -1)
 		{
-			printf("21sh: %s: No such file or directory\n", files[i]);
+			ft_printf("21sh: %s: No such file or directory\n", files[i]);
 			remove_job(id);
 			return (0);
 		}
@@ -31,9 +31,9 @@ int			check_access(char **files, int id)
 }
 
 
-void		update_holder(h_launch *launch, int fd)
+void			update_holder(h_launch *launch, int fd)
 {
-	int i;
+	int			i;
 
 	i = 0;
 	if (fd >= 3)
@@ -48,21 +48,21 @@ void		update_holder(h_launch *launch, int fd)
 	}
 }
 
-void		print_holder(h_launch *launch)
+void			print_holder(h_launch *launch)
 {
-	int i;
+	int			i;
 
 	i = 0;
 	while (launch->holder[i] != 0)
 	{
-		printf("%d --- fd in use: %d\n", i, launch->holder[i]);
+		ft_printf("%d --- fd in use: %d\n", i, launch->holder[i]);
 		++i;
 	}
 }
 
-void		clean_holder(h_launch *launch)
+void			clean_holder(h_launch *launch)
 {
-	int i;
+	int			i;
 
 	i = 0;
 	while (launch->holder[i] != 0)
@@ -72,9 +72,9 @@ void		clean_holder(h_launch *launch)
 	}
 }
 
-h_launch	*h_launch_init(void)
+h_launch		*h_launch_init(void)
 {
-	h_launch *launch;
+	h_launch	*launch;
 
 	launch = (h_launch *)malloc(sizeof(h_launch));
 	launch->status = 0;
@@ -83,6 +83,5 @@ h_launch	*h_launch_init(void)
 	launch->job_id = -1;
 	launch->holder[0] = 0;
 	ft_bzero(launch->holder, 48);
-
 	return (launch);
 }

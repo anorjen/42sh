@@ -21,7 +21,7 @@ static int 	shell_fg_ext(pid_t pid, int job_id)
 {
 	if (kill(-pid, SIGCONT) < 0)
 	{
-		printf("21sh: fg %d: job not found\n", pid);
+		ft_printf("21sh: fg %d: job not found\n", pid);
 		return (-1);
 	}
 	tcsetpgrp(0, pid);
@@ -48,21 +48,21 @@ int			shell_fg(t_process *proc)
 	job_id = -1;
 	if (proc->query[2] == NULL)
 	{
-		printf("usage: fg <pid>\n");
+		ft_printf("usage: fg <pid>\n");
 		return (-1);
 	}
 	if (proc->query[1][0] == '%')
 	{
-		job_id = atoi(proc->query[1] + 1);
+		job_id = ft_atoi(proc->query[1] + 1);
 		pid = get_pgid_by_job_id(job_id);
 		if (pid < 0)
 		{
-			printf("21sh: fg %s: no such job\n", proc->query[1]);
+			ft_printf("21sh: fg %s: no such job\n", proc->query[1]);
 			return (-1);
 		}
 	}
 	else
-		pid = atoi(proc->query[1]);
+		pid = ft_atoi(proc->query[1]);
 	return (shell_fg_ext(pid, job_id));
 }
 
@@ -70,7 +70,7 @@ static int	shell_bg_ext(pid_t pid, int job_id)
 {
 	if (kill(-pid, SIGCONT) < 0)
 	{
-		printf("21sh: bg %d: job not found\n", pid);
+		ft_printf("21sh: bg %d: job not found\n", pid);
 		return (-1);
 	}
 	if (job_id > 0)
@@ -89,21 +89,21 @@ int			shell_bg(t_process *proc)
 	job_id = -1;
 	if (proc->query[2] == NULL)
 	{
-		printf("usage: bg <pid>\n");
+		ft_printf("usage: bg <pid>\n");
 		return (-1);
 	}
 	if (proc->query[1][0] == '%')
 	{
-		job_id = atoi(proc->query[1] + 1);
+		job_id = ft_atoi(proc->query[1] + 1);
 		pid = get_pgid_by_job_id(job_id);
 		if (pid < 0)
 		{
-			printf("21sh: bg %s: no such job\n", proc->query[1]);
+			ft_printf("21sh: bg %s: no such job\n", proc->query[1]);
 			return (-1);
 		}
 	}
 	else
-		pid = atoi(proc->query[1]);
+		pid = ft_atoi(proc->query[1]);
 	return (shell_bg_ext(pid, job_id));
 }
 
@@ -111,7 +111,7 @@ static int	shell_kill_ext(pid_t pid, int job_id)
 {
 	if (kill(pid, SIGKILL) < 0)
 	{
-		printf("21sh: kill %d: job not found\n", pid);
+		ft_printf("21sh: kill %d: job not found\n", pid);
 		return (0);
 	}
 	if (job_id > 0) {
@@ -130,23 +130,23 @@ int			shell_kill(t_process *proc)
 
 	if (proc->query[2] == NULL)
 	{
-		printf("usage: kill <pid>\n");
+		ft_printf("usage: kill <pid>\n");
 		return (-1);
 	}
 	job_id = -1;
 	if (proc->query[1][0] == '%')
 	{
-		job_id = atoi(proc->query[1] + 1);
+		job_id = ft_atoi(proc->query[1] + 1);
 		pid = get_pgid_by_job_id(job_id);
 		if (pid < 0)
 		{
-			printf("21sh: kill %s: no such job\n", proc->query[1]);
+			ft_printf("21sh: kill %s: no such job\n", proc->query[1]);
 			return (-1);
 		}
 		pid = -pid;
 	}
 	else
-		pid = atoi(proc->query[1]);
+		pid = ft_atoi(proc->query[1]);
 	return(shell_kill_ext(pid, job_id));
 }
 

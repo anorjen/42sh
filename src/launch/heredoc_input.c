@@ -12,7 +12,7 @@
 
 #include "../../headers/minishell.h"
 
-void					stdin_heredoc(t_process *proc,h_launch *launch, char *line)
+void					stdin_heredoc(t_process *proc, h_launch *launch, char *line)
 {
 	FILE				*fp;
 

@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/25 23:28:32 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 12:39:49 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,19 +152,8 @@ typedef struct 			s_shell_info
 	t_job				*jobs[NR_JOBS + 1];
 	g_builtins          *builtins;
 	int 				signal;
-//	struct h_launch		*launch_h;
 } 						shell_info;
 
-typedef struct 			s_parse
-{
-	char 				*command;
-	char				*line_cursor;
-	char				*c;
-	char				*seg;
-	int 				seg_len;
-	int 				mode;
-	struct s_process	*new_proc;
-} 						g_parse;
 
 typedef struct			s_job_pid
 {
@@ -175,20 +164,9 @@ typedef struct			s_job_pid
 	int 				exit_status;
 }						g_job_pid;
 
-shell_info	*shell;
+shell_info				*shell;
 
 
-/*
-** 				parsing part
-*/
-
-char				*helper_strtrim(char* line);
-t_job				*shell_parse_command(char *line);
-t_process			*shell_parse_command_segment(char *segment);
-void				parse_helper2(t_process *new_proc, char **tokens, char *segment);
-int					get_command_type(char *command);
-
-void				carry_init(g_parse *carry, char *line);
 
 
 /*
