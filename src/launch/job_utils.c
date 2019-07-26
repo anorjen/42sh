@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 18:20:49 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 13:58:25 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 20:19:27 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,11 @@ int				release_job(int id)
 	while (proc != NULL)
 	{
 		tmp = proc->next;
-//		free(proc->command);
-//		free(proc->argv);
 		free(proc->input_path);
 		free(proc->output_path);
 		free(proc);
 		proc = tmp;
 	}
-//	free(job_free->command);
 	free(job_free);
 	return (0);
 }
@@ -41,8 +38,7 @@ int				remove_job(int id)
 {
 	if (id > NR_JOBS || shell->jobs[id] == NULL)
 		return (-1);
-//	release_job(id);
-	ft_memdel((void **)&shell->jobs[id]);
+	free_job(shell->jobs[id]);
 	shell->jobs[id] = NULL;
 	return (0);
 }

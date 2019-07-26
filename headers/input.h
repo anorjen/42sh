@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 16:43:12 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/25 21:59:53 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 15:38:03 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,15 @@ void		free_hsess(t_history_session *h_session);
 void    multiple_promt(t_history_session *h_session, int mode);
 void    set_termcap(char **env);
 void	reset_keypress(void);
+
+void    multiple_promt(t_history_session *h_session, int mode);
+void		kazekage(char **arg);
+int		ft_readkey(int fd);
+void	key_func(t_history_session *h_session, int key);
+int		key_entr(t_history_session *h_session, int key);
+int		key_control_c(t_history_session *h_session);
+
+
 
 
 

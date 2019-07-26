@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 14:07:38 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 14:07:38 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 15:32:45 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				shell_fg(t_process *proc)
 	int			job_id;
 
 	job_id = -1;
-	if (proc->query[2] == NULL)
+	if (proc->query[1] == NULL)
 	{
 		ft_printf("usage: fg <pid>\n");
 		return (-1);
@@ -82,7 +82,7 @@ int				shell_bg(t_process *proc)
 	int			job_id;
 
 	job_id = -1;
-	if (proc->query[2] == NULL)
+	if (proc->query[1] == NULL)
 	{
 		ft_printf("usage: bg <pid>\n");
 		return (-1);

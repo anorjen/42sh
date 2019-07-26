@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:53:07 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/25 21:52:41 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 16:24:39 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int			help_shell(t_process *proc)
 
 int			exit_shell(t_process *proc)
 {
+
+	proc = NULL;
 	printf(COLOR_MAGENTA "say-o-nara~\n" COLOR_NONE);
     exit(1);
 //    return (1);
@@ -52,23 +54,3 @@ int			echo(t_process *proc)
 }
 
 
-
-int			cd_shell(t_process *proc)
-{
-    if (proc->query[1] == NULL)
-    {
-        chdir(shell->pw_dir);
-        sh_update_cwd_info();
-        return (0);
-    }
-    if (chdir(proc->query[1]) == 0)
-    {
-        sh_update_cwd_info();
-        return (0);
-    }
-    else
-    {
-        printf("21sh: cd %s: No such file or directory\n", proc->query[1]);
-        return (0);
-    }
-}

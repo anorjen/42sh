@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 20:49:40 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/24 20:49:40 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/07/26 15:33:14 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int		get_mode(char *command)
 		return (COMMAND_HEREDOC);
 	else if (strcmp(command, ">>") == 0)
 		return (COMMAND_APPEND);
+	else if (strcmp(command, "&") == 0)
+		return (COMMAND_BACKGR);
 	else
 		return (COMMAND_EXTERNAL);
 }

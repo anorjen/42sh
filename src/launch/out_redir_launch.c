@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 22:48:19 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 14:13:11 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 20:03:48 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int			launch_base_config(h_launch *launch, t_process *proc, t_job *job)
 		if (!launch_out_redir(proc, launch))
 			return (0);
 	}
+	proc->exec_mode = job->mode;
 	launch->status = shell_launch_process(job, proc, launch->in_fd,
-			launch->out_fd, job->mode);
+			launch->out_fd);
 	return (1);
 }

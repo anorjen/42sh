@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 22:53:14 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 13:50:39 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 17:05:04 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void		child_launch_proc(t_job *job, t_process *proc,
 	pgid_and_dup_handle(proc, job, in_fd, out_fd);
 	if (execve(proc->query[0], proc->query, shell->env) == -1)
 	{
-		paths = ft_strsplit(getenv("PATH"), ':');
-		while (paths[++i] != NULL)
+		paths = ft_strsplit(get_env("PATH", shell->env), ':');
+		while (paths && paths[++i] != NULL)
 		{
 			path = ft_strjoiner(paths[i], proc->query[0]);
 			if (execve(path, proc->query, shell->env) != -1)

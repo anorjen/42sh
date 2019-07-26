@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:53:47 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/25 22:15:28 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 15:38:03 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,7 @@
 
 #include "input.h"
 
-typedef struct  s_control_multiply_line
-{
-    int     quote;
-    char    ch_quote;
-    int     pipe;
-    int     and;
-    int     els;
-    int     ch;
-}               t_control_multiply_line;
+
 
 char    **parser(t_history_session **h_session, char **env, int lenght_hello);
 char    *replace_env(char *line, char **env);
@@ -59,11 +51,12 @@ int		is_agregation(char *line, int j);
 char	*get_token(char *line, int *j);
 
 
+
 char    **write_arg(char *line);
 int						multiply_line(char *line);
 int is_specdel(char *line, int i);
 int is_redir(char *line, int i);
-
+int	parse_error(char *line);
 
 
 #endif

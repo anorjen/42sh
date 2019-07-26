@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 14:10:06 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 20:00:50 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 #include "minishell.h"
 
 #define NR_JOBS 20
-#define NR_BUILTINS 8
+#define NR_BUILTINS 11
 #define PATH_BUFSIZE 1024
 #define TOKEN_BUFSIZE 64
 #define DEBUG_LOG 0
@@ -62,6 +62,7 @@
 
 
 
+
 /*
 ** 				process and t_job
  * 				list structure
@@ -87,6 +88,7 @@ typedef struct 			k_process
 	pid_t				pid;
 	int					type;
 	int					status;
+	int 				exec_mode;
 	struct k_process	*next;
 }						t_process;
 
@@ -149,9 +151,6 @@ typedef struct			s_job_pid
 
 shell_info				*shell;
 
-
-
-
 /*
 ** 				t_job handlers
 */
@@ -167,21 +166,19 @@ int					get_proc_count(int id, int filter);
 int					get_job_id_by_pid(int pid);
 int					is_job_completed(int id);
 
-
 /*
 ** 				launcher funcs
 */
 
 int					shell_launch_job(t_job *job);
-int					shell_launch_process(t_job *job, t_process *proc, int in_fd, int out_fd, int mode);
+int					shell_launch_process(t_job *job, t_process *proc, int in_fd, int out_fd);
 int					execute_builtin_command(t_process *proc);
 int					set_process_status(int pid, int status);
 int					print_job_status(int id);
 void                built_init(void);
-int					parse_cycle(t_process *new_proc, char **tokens, int i, int position, int j);
-
+int					launch_proc_cycle(t_process *proc, h_launch *launch, t_job *job);
 void				parent_launch_process(t_process *proc, t_job *job, pid_t childpid);
-
+h_launch			*h_launch_init(void);
 
 /*
 ** 				heredocs
@@ -190,7 +187,6 @@ void				parent_launch_process(t_process *proc, t_job *job, pid_t childpid);
 char				*readline_her(t_process *proc, int i);
 void				stdin_heredoc(t_process *proc,h_launch *launch, char *line);
 void				launch_heredoc(t_process *proc, h_launch *launch);
-h_launch			*h_launch_init(void);
 
 /*
 ** 				out redirection launch
@@ -198,7 +194,6 @@ h_launch			*h_launch_init(void);
 
 int					launch_out_redir(t_process *proc, h_launch *launch);
 int					launch_base_config(h_launch *launch, t_process *proc, t_job *job);
-
 
 /*
 ** 				child launch processes
@@ -208,14 +203,12 @@ void				pgid_and_dup_handle(t_process *proc, t_job *job, int in_fd, int out_fd);
 void				child_launch_proc(t_job *job, t_process *proc, int in_fd, int out_fd);
 void				signal_default_changer(t_process *proc, t_job *job);
 
-
 /*
 ** 				PIPES and config
 */
 
 int 				pre_launch_config(t_process *proc, h_launch *launch);
 void				launch_pipe_config(t_process *proc, h_launch *launch, t_job *job);
-
 
 /*
 ** 				built-ins
@@ -242,7 +235,15 @@ void                sh_update_cwd_info(void);
 int					check_access(char **files, int id);
 char				*str_join_her(char *s1, char *s2);
 
+/*
+** 				ENV
+*/
 
-
+int	print_env(t_process *proc);
+int	setenv_(t_process *proc);
+char	*get_env(char *varible, char **environ);
+int		remove_env(t_process *proc);
+int	unset_(t_process *proc);
+int		cd_(t_process *proc);
 
 #endif

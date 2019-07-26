@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:41:22 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/25 21:52:41 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 17:14:39 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define SPLIT_DELIM " \t\r\n\a\""
 # define BUFF_LN 5
 # define IS_QUOTE(x) (x == '"' || x == '\'')
-
+# define CHANGE_ENV { free(shell->env[i]); shell->env[i] = tm;return (1);}
 /*
 ** 		t_env linked list structure
 */
@@ -94,12 +94,12 @@ char					*strcpy_till_n(char *dst, const char *src, char c);
 ** 		built-ins funcs
 */
 
-int						cd_shell(t_process *proc);
 int						help_shell(t_process *proc);
 int						exit_shell(t_process *proc);
 int						set_env(t_process *proc);
 int						unset_env(t_process *proc);
 int						echo(t_process *proc);
 int						num_shell_functions(t_process *proc);
+
 
 #endif

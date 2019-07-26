@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 13:29:56 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 18:51:24 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,13 @@ void sh_update_cwd_info(void)
 void   built_init(void)
 {
     shell->builtins = (g_builtins*)malloc(sizeof(g_builtins));
-    shell->builtins->builtin_func[0] = &cd_shell;
+    shell->builtins->builtin_func[0] = &cd_;
     shell->builtins->builtin_func[1] = &help_shell;
     shell->builtins->builtin_func[2] = &exit_shell;
     shell->builtins->builtin_func[3] = &echo;
+    shell->builtins->builtin_func[4] = &print_env;
+    shell->builtins->builtin_func[5] = &setenv_;
+    shell->builtins->builtin_func[6] = &unset_;
     shell->signal = 0;
     ft_strcpy(shell->builtins->builtin_str[0], "cd");
     ft_strcpy(shell->builtins->builtin_str[1], "help");
@@ -41,6 +44,29 @@ void   built_init(void)
     ft_strcpy(shell->builtins->builtin_str[5], "bg");
     ft_strcpy(shell->builtins->builtin_str[6], "fg");
     ft_strcpy(shell->builtins->builtin_str[7], "kill");
+    ft_strcpy(shell->builtins->builtin_str[8], "env");
+    ft_strcpy(shell->builtins->builtin_str[9], "setenv");
+    ft_strcpy(shell->builtins->builtin_str[10], "unsetenv");
+}
+
+char **init_environ(char **env)
+{
+	int i;
+	char **new_env;
+
+	i = 0;
+	while (env[i])
+		i++;
+	if (!i)
+		return (NULL);
+	new_env = (char**)malloc(sizeof(char*) * (i + 1));
+	if (!new_env)
+		exit(1);
+	i = -1;
+	while (env[++i])
+		new_env[i] = ft_strdup(env[i]);
+	new_env[i] = NULL;
+	return (new_env);
 }
 
 void sh_init()
@@ -63,7 +89,7 @@ void sh_init()
 	setpgid(pid, pid);
 	tcsetpgrp(0, pid);
 	shell = (shell_info*)malloc(sizeof(shell_info));
-	shell->env = environ;
+	shell->env = init_environ(environ);
 	getlogin_r(shell->cur_user, sizeof(shell->cur_user));
 	pw = getpwuid(getuid());
 	ft_strcpy(shell->pw_dir, pw->pw_dir);
@@ -75,6 +101,7 @@ void sh_init()
 
 void sh_print_promt(void)
 {
+	usleep(400);
 	if (shell->signal == 0)
 		ft_printf(COLOR_GREEN "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ", basename(shell->cur_dir));
 	else
@@ -96,23 +123,6 @@ void		free_hsess(t_history_session *h_session)
 		free(temp);
 	}
 }
-
-void		*free_arg(char **arg)
-{
-	int i;
-
-	i = 0;
-	if (arg == NULL)
-		return (NULL);
-	while (arg[i])
-		free(arg[i++]);
-	free(arg);
-	return (NULL);
-}
-
-
-
-
 
 void		shell_loop(char **env)
 {
@@ -139,13 +149,17 @@ void		shell_loop(char **env)
 			continue ;
 		}
 
-		// kazekage(args);
-	    job = lexer(args);
-		args = free_arg(args);
+		kazekage(args);
 
+
+//	    job = lexer(args);
+//		args = free_arg(args);
 //		inf_process(job->root);
-		if (job)
-			status = shell_launch_job(job);
+//		if (job)
+//		{
+//			ft_printf("%i\n", job->mode);
+//			status = shell_launch_job(job);
+//		}
 	}
 }
 

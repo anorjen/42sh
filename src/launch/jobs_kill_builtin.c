@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 14:08:55 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 14:08:55 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 15:32:45 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int				shell_kill(t_process *proc)
 	pid_t		pid;
 	int			job_id;
 
-	if (proc->query[2] == NULL)
+	if (proc->query[1] == NULL)
 	{
 		ft_printf("usage: kill <pid>\n");
 		return (-1);

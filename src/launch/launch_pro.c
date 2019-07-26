@@ -6,13 +6,13 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 14:09:23 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 14:10:52 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 20:17:39 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-static int		launch_proc_cycle(t_process *proc, h_launch *launch, t_job *job)
+int				launch_proc_cycle(t_process *proc, h_launch *launch, t_job *job)
 {
 	while (proc != NULL)
 	{
@@ -70,7 +70,7 @@ void			parent_launch_process(t_process *proc,
 }
 
 int				shell_launch_process(t_job *job, t_process *proc,
-		int in_fd, int out_fd, int mode)
+		int in_fd, int out_fd)
 {
 	pid_t		childpid;
 	int			status;
@@ -87,7 +87,7 @@ int				shell_launch_process(t_job *job, t_process *proc,
 	else
 	{
 		parent_launch_process(proc, job, childpid);
-		if (mode == FOREGROUND_EXECUTION)
+		if (proc->exec_mode == FOREGROUND_EXECUTION)
 		{
 			tcsetpgrp(0, job->pgid);
 			status = wait_for_job(job->id);

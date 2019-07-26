@@ -6,13 +6,13 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 14:39:40 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/25 21:52:41 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 15:38:03 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-int    print_err(char *line, int i, int lenght)
+int	print_err(char *line, int i, int lenght)
 {
 	write(2, "21sh: parse error near `", 24);
 	write(2, &line[i], lenght);
@@ -20,7 +20,7 @@ int    print_err(char *line, int i, int lenght)
 	return (1);
 }
 
-int check_symbolb(char *line)
+int	check_symbolb(char *line)
 {
 	int i;
 	int fl;
@@ -34,24 +34,24 @@ int check_symbolb(char *line)
 			if (!is_delimetr(line[i]))
 				fl = 1;
 			if (is_agregation(line, i))
-				i +=4;
+				i += 4;
 			else
 				++i;
 		}
 		if (line[i] && !fl && is_specdel(line, i))
 			return (print_err(line, i, is_specdel(line, i)));
-		while (line[i] && !is_delimetr(line[i]))
-			++i;
+		else
+			i += is_specdel(line, i);
 	}
 	return (0);
 }
 
-int check_redirarg(char *line)
+int	check_redirarg(char *line)
 {
 	int i;
 
 	i = 0;
-	while(line[i])
+	while (line[i])
 	{
 		while (line[i] && is_delimetr(line[i]))
 			++i;
