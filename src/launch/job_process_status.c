@@ -48,7 +48,6 @@ int				wait_for_job(int id)
 
 	job_pids = ft_memalloc(48);
 	job_pids->status = 0;
-
 	if (id > NR_JOBS || shell->jobs[id] == NULL)
 		return (-1);
 	job_pids->proc_count = get_proc_count(id, PROC_FILTER_REMAINING);

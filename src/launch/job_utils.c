@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 18:20:49 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 12:28:39 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 13:58:25 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int				remove_job(int id)
 		return (-1);
 //	release_job(id);
 	ft_memdel((void **)&shell->jobs[id]);
-
 	shell->jobs[id] = NULL;
 	return (0);
 }
@@ -70,9 +69,9 @@ int				get_job_id_by_pid(int pid)
 	return (-1);
 }
 
-int			get_next_job_id(void)
+int				get_next_job_id(void)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	while (++i <= NR_JOBS)

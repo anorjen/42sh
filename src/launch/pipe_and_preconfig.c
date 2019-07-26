@@ -53,13 +53,15 @@ void		launch_pipe_config(t_process *proc, h_launch *launch, t_job *job)
 {
 	if (proc->output_path != NULL)
 	{
-		launch->out_fd = open(proc->output_path, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		launch->out_fd = open(proc->output_path, CREATE_ATTR);
 		if (launch->out_fd < 0)
 			launch->out_fd = 1;
-		launch->status = shell_launch_process(job, proc, launch->in_fd, launch->out_fd, PIPELINE_EXECUTION);
+		launch->status = shell_launch_process(job, proc, launch->in_fd,
+				launch->out_fd, PIPELINE_EXECUTION);
 	}
 	pipe(launch->fd);
-	launch->status = shell_launch_process(job, proc, launch->in_fd, launch->fd[1], PIPELINE_EXECUTION);
+	launch->status = shell_launch_process(job, proc,
+			launch->in_fd, launch->fd[1], PIPELINE_EXECUTION);
 	close(launch->fd[1]);
 	launch->in_fd = launch->fd[0];
 	update_holder(launch, launch->in_fd);

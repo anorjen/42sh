@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 22:53:14 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/25 23:41:26 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 13:50:39 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void		signal_default_changer(t_process *proc, t_job *job)
 	signal(SIGTTIN, SIG_DFL);
 	signal(SIGTTOU, SIG_DFL);
 	signal(SIGCHLD, SIG_DFL);
-
 	proc->pid = getpid();
 	if (job->pgid > 0)
 		setpgid(0, job->pgid);
@@ -31,7 +30,8 @@ void		signal_default_changer(t_process *proc, t_job *job)
 	}
 }
 
-void		pgid_and_dup_handle(t_process *proc, t_job *job, int in_fd, int out_fd)
+void		pgid_and_dup_handle(t_process *proc, t_job *job,
+		int in_fd, int out_fd)
 {
 	signal_default_changer(proc, job);
 	if (in_fd != 0)
@@ -49,16 +49,19 @@ void		pgid_and_dup_handle(t_process *proc, t_job *job, int in_fd, int out_fd)
 		if (proc->aggregate->out == -1)
 			close(proc->aggregate->in);
 		else
+		{
 			if (proc->next != NULL)
 				dup2(proc->aggregate->out, proc->aggregate->in);
+		}
 	}
 }
 
-void 			child_launch_proc(t_job *job, t_process *proc, int in_fd, int out_fd)
+void		child_launch_proc(t_job *job, t_process *proc,
+		int in_fd, int out_fd)
 {
-	char 		*path;
-	char 		**paths;
-	int			i;
+	char	*path;
+	char	**paths;
+	int		i;
 
 	i = 0;
 	pgid_and_dup_handle(proc, job, in_fd, out_fd);
@@ -77,6 +80,6 @@ void 			child_launch_proc(t_job *job, t_process *proc, int in_fd, int out_fd)
 			free(path);
 		}
 	}
-	printf("21sh: %s: command not found\n", proc->query[0]);
+	ft_printf("21sh: %s: command not found\n", proc->query[0]);
 	exit(1);
 }

@@ -1,15 +1,23 @@
-//
-// Created by Yoshiko Harwyn hoare on 2019-07-02.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   launch_pro.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/26 14:09:23 by yharwyn-          #+#    #+#             */
+/*   Updated: 2019/07/26 14:10:52 by yharwyn-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-
 static int		launch_proc_cycle(t_process *proc, h_launch *launch, t_job *job)
 {
-	while(proc != NULL)
+	while (proc != NULL)
 	{
-		if (proc == job->root && (proc->input_path != NULL || proc->heredoc !=NULL))
+		if (proc == job->root &&
+		(proc->input_path != NULL || proc->heredoc != NULL))
 			if (!pre_launch_config(proc, launch))
 				return (0);
 		if (proc->next != NULL)
@@ -26,7 +34,7 @@ static int		launch_proc_cycle(t_process *proc, h_launch *launch, t_job *job)
 
 int				shell_launch_job(t_job *job)
 {
-	t_process		*proc;
+	t_process	*proc;
 	h_launch	*launch;
 
 	launch = h_launch_init();
@@ -42,12 +50,14 @@ int				shell_launch_job(t_job *job)
 		else if (job->mode == BACKGROUND_EXECUTION)
 			print_processes_of_job(launch->job_id);
 	}
-	print_holder(launch);
+	if (DEBUG_LOG)
+		print_holder(launch);
 	clean_holder(launch);
 	return (launch->status);
 }
 
-void			parent_launch_process(t_process *proc, t_job *job, pid_t childpid)
+void			parent_launch_process(t_process *proc,
+		t_job *job, pid_t childpid)
 {
 	proc->pid = childpid;
 	if (job->pgid > 0)
@@ -59,7 +69,8 @@ void			parent_launch_process(t_process *proc, t_job *job, pid_t childpid)
 	}
 }
 
-int				shell_launch_process(t_job *job, t_process *proc, int in_fd, int out_fd, int mode)
+int				shell_launch_process(t_job *job, t_process *proc,
+		int in_fd, int out_fd, int mode)
 {
 	pid_t		childpid;
 	int			status;

@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 22:44:23 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/25 22:44:23 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 13:55:49 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int				check_access(char **files, int id)
 	return (1);
 }
 
-
 void			update_holder(h_launch *launch, int fd)
 {
 	int			i;
@@ -41,7 +40,7 @@ void			update_holder(h_launch *launch, int fd)
 		while (launch->holder[i] != 0)
 		{
 			if (launch->holder[i] == fd)
-				return;
+				return ;
 			++i;
 		}
 		launch->holder[i] = fd;

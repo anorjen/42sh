@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 18:22:56 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 12:28:39 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 13:59:18 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int				print_processes_of_job(int id)
 	return (0);
 }
 
-static char	*get_state_string(t_process *proc)
+static char		*get_state_string(t_process *proc)
 {
-	char	*state;
+	char		*state;
 
 	if (proc->status == 0)
 		state = ft_strdup("running");
@@ -62,10 +62,10 @@ static char	*get_state_string(t_process *proc)
 	return (state);
 }
 
-int			print_job_status(int id)
+int				print_job_status(int id)
 {
-	t_process *proc;
-	char	*state;
+	t_process	*proc;
+	char		*state;
 
 	if (id > NR_JOBS || shell->jobs[id] == NULL)
 		return (-1);
@@ -85,9 +85,9 @@ int			print_job_status(int id)
 	return (0);
 }
 
-int			insert_job(t_job *job)
+int				insert_job(t_job *job)
 {
-	int		id;
+	int			id;
 
 	id = get_next_job_id();
 	if (id < 0)

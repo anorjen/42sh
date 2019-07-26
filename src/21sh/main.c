@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 12:47:16 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 13:29:56 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void sh_init()
 	sigemptyset(&sigint_action.sa_mask);
 	sigaction(SIGINT, &sigint_action, NULL);
 	signal(SIGQUIT, SIG_IGN);
-	// signal(SIGTSTP, SIG_IGN);
+//	signal(SIGTSTP, SIG_IGN);
 	signal(SIGTTIN, SIG_IGN);
 	pid = getpid();
 	setpgid(pid, pid);
@@ -66,7 +66,7 @@ void sh_init()
 	shell->env = environ;
 	getlogin_r(shell->cur_user, sizeof(shell->cur_user));
 	pw = getpwuid(getuid());
-	strcpy(shell->pw_dir, pw->pw_dir);
+	ft_strcpy(shell->pw_dir, pw->pw_dir);
 	while (++i < NR_JOBS)
 		shell->jobs[i] = NULL;
 	built_init();
@@ -75,7 +75,6 @@ void sh_init()
 
 void sh_print_promt(void)
 {
-//	printf(COLOR_CYAN "%s" COLOR_NONE " in " COLOR_YELLOW "%s" COLOR_NONE "\n", shell->cur_user, shell->cur_dir);
 	if (shell->signal == 0)
 		ft_printf(COLOR_GREEN "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ", basename(shell->cur_dir));
 	else
@@ -127,56 +126,27 @@ void		shell_loop(char **env)
 	h_session = NULL;
 
 	job = NULL;
-
 	while (status >= 0)
 	{
 		sh_print_promt();
 		shell->signal = 0;
-
 		args = parser(&h_session, env, ft_strlen(basename(shell->cur_dir)) + ft_strlen("⦿") + 1);
 		if (args && !ft_strcmp(args[0], "exit"))
 			break ;
-		// int i = 0;
-		// while (args && args[i])
-		// 	ft_printf("%s\n", args[i++]);
-		// ft_printf("\n\n");
 		if (args == NULL)
+		{
+			check_zombie();
 			continue ;
-
-		// inf_process(job->root);
-
-		// // int i = 0;
-		// // while (args && args[i])
-		// // 	free(args[i++]);
-		// // free(args);
+		}
 
 		// kazekage(args);
 	    job = lexer(args);
 		args = free_arg(args);
-//		if (job)
-//			inf_process(job->root);
 
-		// // line = read_ln(); ///
-		// if (ft_strlen(line) == 0)
-		// {
-		// 	check_zombie();
-		// 	continue ;
-
-		// }
 //		inf_process(job->root);
 		if (job)
 			status = shell_launch_job(job);
-
-
-
 	}
-
-//	free_hsess(h_session);
-//	args = free_arg(args);
-//	job = free_job(job);
-
-
-	
 }
 
 

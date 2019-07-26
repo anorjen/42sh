@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 12:39:49 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/26 14:10:06 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,13 @@
 #define NR_JOBS 20
 #define NR_BUILTINS 8
 #define PATH_BUFSIZE 1024
-#define COMMAND_BUFSIZE 1024
 #define TOKEN_BUFSIZE 64
-#define TOKEN_DELIMITERS " \t\r\n\a"
+#define DEBUG_LOG 0
 
 #define BACKGROUND_EXECUTION 0
 #define FOREGROUND_EXECUTION 1
 #define PIPELINE_EXECUTION 2
-#define HEREDOC_EXECUTION 11
 
-#define APPEND_MODE 2
 #define CREATE_ATTR O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 #define APPEND_ATTR O_APPEND |O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH
 
@@ -73,25 +70,20 @@
 typedef struct			s_aggregation
 {
 	int in;
-	int out; // if -1 this is close mode
+	int out;
 
 }						t_aggregation;
 
 typedef struct 			k_process
 {
 	char 				**query;
-
 	char 				**heredoc;
-	char				*input_path; // я сюда запишу либо имя файла, либо NULL(stdin)
-	char 				**input_file; // файлы нужно првоерить на access
-
-	char				**output_file; // файлы которые нужно создать
+	char				*input_path;
+	char 				**input_file;
+	char				**output_file;
 	char				*output_path;
-	int					output_mode; // 0 - stdout, 1 - replace, 2 append
-
-	t_aggregation		*aggregate; // NULL if default
-
-
+	int					output_mode;
+	t_aggregation		*aggregate;
 	pid_t				pid;
 	int					type;
 	int					status;
@@ -100,15 +92,11 @@ typedef struct 			k_process
 
 typedef struct			k_job
 {
-	int					id; //!     
+	int					id;
 	t_process			*root;
-	pid_t				pgid; //!
-	int					mode; //!
+	pid_t				pgid;
+	int					mode;
 }						t_job;
-
-
-
-
 
 
 
@@ -120,19 +108,15 @@ typedef struct			k_aggregation
 }						aggregation;
 
 
-
 typedef struct          s_builtins
 {
-    char				builtin_str[NR_BUILTINS][20];
+    char				builtin_str[NR_BUILTINS][24];
     int					(*builtin_func[NR_BUILTINS]) (t_process*);
-    char                **argv;
-    int                 argc;
 }                       g_builtins;
 
 typedef struct 			s_launch
 {
 	t_process			*proc;
-	char				*seg;
 	int 				job_id;
 	int 				status;
 	int 				in_fd;
@@ -148,7 +132,6 @@ typedef struct 			s_shell_info
 	char				cur_dir[PATH_BUFSIZE];
 	char				pw_dir[PATH_BUFSIZE];
 	char 				**env;
-	char 				**path;
 	t_job				*jobs[NR_JOBS + 1];
 	g_builtins          *builtins;
 	int 				signal;
@@ -205,7 +188,6 @@ void				parent_launch_process(t_process *proc, t_job *job, pid_t childpid);
 */
 
 char				*readline_her(t_process *proc, int i);
-char				*str_join_her(char *s1, char *s2);
 void				stdin_heredoc(t_process *proc,h_launch *launch, char *line);
 void				launch_heredoc(t_process *proc, h_launch *launch);
 h_launch			*h_launch_init(void);
@@ -256,9 +238,9 @@ void				clean_holder(h_launch *launch);
 ** 				aux utils
 */
 
-int 				len_two_dim(char **str);
 void                sh_update_cwd_info(void);
 int					check_access(char **files, int id);
+char				*str_join_her(char *s1, char *s2);
 
 
 
