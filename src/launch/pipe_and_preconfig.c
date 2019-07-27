@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 23:19:30 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 20:16:56 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 14:19:23 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static int	pre_launch_config_case(h_launch *launch, t_process *proc)
 	if (launch->in_fd < 0)
 	{
 		printf("21sh: no such file or directory: %s\n", proc->input_path);
-		remove_job(launch->job_id);
+//		remove_job(launch->job_id);
+		printf("HI\n");
 		return (0);
 	}
 	else

@@ -22,7 +22,7 @@ int				check_access(char **files, int id)
 		if (access(files[i], F_OK) == -1)
 		{
 			ft_printf("21sh: %s: No such file or directory\n", files[i]);
-			remove_job(id);
+//			remove_job(id);
 			return (0);
 		}
 		++i;

@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 20:00:50 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 13:09:23 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@
 
 typedef struct			s_aggregation
 {
-	int in;
-	int out;
+	int					in;
+	int					out;
 
 }						t_aggregation;
 
@@ -99,16 +99,6 @@ typedef struct			k_job
 	pid_t				pgid;
 	int					mode;
 }						t_job;
-
-
-
-typedef struct			k_aggregation
-{
-	int out; // if -1 this is close mode, default: -2
-	int in;
-
-}						aggregation;
-
 
 typedef struct          s_builtins
 {

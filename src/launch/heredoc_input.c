@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 22:40:26 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 15:32:45 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 14:51:57 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void					stdin_heredoc(t_process *proc,
 	fprintf(fp, "%s\n", line);
 	fclose(fp);
 	if (proc->input_path == NULL)
-		proc->input_path = "/tmp/stdin";
+		proc->input_path = ft_strdup("/tmp/stdin");
+	free(line);
 }
 
 char					*readline_her(t_process *proc, int i)

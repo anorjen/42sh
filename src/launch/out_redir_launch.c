@@ -40,7 +40,7 @@ int			launch_out_redir(t_process *proc, h_launch *launch)
 			{
 				ft_printf("21sh: %s: Permission denied:\n",
 						proc->output_file[i]);
-				remove_job(launch->job_id);
+//				remove_job(launch->job_id);
 				return (0);
 			}
 			++i;
