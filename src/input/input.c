@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:52:27 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/26 15:44:01 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 15:12:16 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ char	*input(t_history_session **h_session,
 	multiple_promt(*h_session, mode);
 	(*h_session)->fl = mode ? 1 : 0;
 	set_termcap(env);
-
 	while (21)
 	{
 		key = ft_readkey(0);

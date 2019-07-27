@@ -39,6 +39,15 @@ int		ft_readkey(int fd)
 	return (res);
 }
 
+void	key_tabs(t_history_session *h_session)
+{
+	int i;
+
+	i = 0;
+	while (i++ < 4)
+		print_ch(h_session, ' ', 0);
+}
+
 void	key_func(t_history_session *h_session, int key)
 {
 	if (key == KEY_BS)
@@ -57,6 +66,8 @@ void	key_func(t_history_session *h_session, int key)
 		navigation_words(h_session, key);
 	else if (key == KEY_PASTE && g_buffer)
 		key_paste(h_session);
+	else if (key == KEY_TAB)
+		key_tabs(h_session);
 }
 
 int		key_entr(t_history_session *h_session, int key)

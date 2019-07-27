@@ -12,7 +12,7 @@
 
 # ifndef INPUT_H
 #define INPUT_H 
-// # define KEY_TAB 9
+ # define KEY_TAB 9
 # define KEY_NL 10
 # define KEY_ESC 27
 # define KEY_BS 127
