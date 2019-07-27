@@ -6,25 +6,13 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 16:33:16 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 13:50:49 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 17:57:05 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-int	print_env(t_process *proc)
-{
-	int i;
-
-	i = 0;
-	proc = NULL;
-	while (shell->env && shell->env[i])
-		ft_printf("%s\n", shell->env[i++]);
-	return (1);
-}
-
-
-char	*new_env(t_process *proc)
+char		*new_env(t_process *proc)
 {
 	char	*new_env;
 	char	*temp;
@@ -50,7 +38,7 @@ char	*new_env(t_process *proc)
 	return (new_env);
 }
 
-int	setenv_(t_process *proc)
+int			setenv_(t_process *proc)
 {
 	int		i;
 	int		j;
@@ -69,8 +57,7 @@ int	setenv_(t_process *proc)
 			CHANGE_ENV;
 	}
 	j = -1;
-	if ((temp = (char**)malloc(sizeof(char*) * (i + 2))) == NULL)
-		exit(1);
+	temp = (char**)malloc(sizeof(char*) * (i + 2));
 	temp[i + 1] = NULL;
 	while (++j < i)
 		temp[j] = shell->env[j];
@@ -80,7 +67,7 @@ int	setenv_(t_process *proc)
 	return (1);
 }
 
-int		remove_env(t_process *proc)
+int			remove_env(t_process *proc)
 {
 	int		i;
 	int		j;
@@ -96,7 +83,7 @@ int		remove_env(t_process *proc)
 		{
 			k = 0;
 			while (shell->env[i][k] != '='
-				   && proc->query[j][k] == shell->env[i][k])
+			&& proc->query[j][k] == shell->env[i][k])
 				++k;
 			if (shell->env[i][k] == '=')
 			{
@@ -109,7 +96,7 @@ int		remove_env(t_process *proc)
 	return (i - count);
 }
 
-int	unset_(t_process *proc)
+int			unset_(t_process *proc)
 {
 	int		j;
 	int		k;
@@ -122,8 +109,7 @@ int	unset_(t_process *proc)
 		return (1);
 	}
 	count = remove_env(proc);
-	if ((temp = (char**)malloc(sizeof(char*) * (count + 1))) == NULL)
-		exit(1);
+	temp = (char**)malloc(sizeof(char*) * (count + 1));
 	j = 0;
 	k = -1;
 	while (shell->env[++k])
@@ -139,18 +125,17 @@ int	unset_(t_process *proc)
 	return (1);
 }
 
-
-char	*get_env(char *varible, char **environ)
+char		*get_env(char *varible, char **environ)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	while (environ[i])
 	{
 		j = 0;
 		while (environ[i][j] && environ[i][j] != '='
-			   && varible[j] && environ[i][j] == varible[j])
+			&& varible[j] && environ[i][j] == varible[j])
 			++j;
 		if (environ[i][j] == '=')
 			return (&environ[i][ft_strlen(varible) + 1]);

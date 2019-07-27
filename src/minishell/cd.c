@@ -6,13 +6,13 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 13:39:14 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 13:46:26 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 17:50:06 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-char	*get_home(char **environ)
+char		*get_home(char **environ)
 {
 	char	*path;
 	char	*temp;
@@ -30,13 +30,13 @@ static void	set_pwd(t_process *proc)
 	int		i;
 	int		j;
 
-	i = 0;
+	i = -1;
 	j = 0;
-	while (shell->env[i])
+	while (shell->env[++i])
 	{
-		if (ft_strstr(shell->env[i], "PWD=") && !ft_strstr(shell->env[i], "OLDPWD"))
+		if (ft_strstr(shell->env[i], "PWD=") &&
+		!ft_strstr(shell->env[i], "OLDPWD"))
 			break ;
-		++i;
 	}
 	while (shell->env[j])
 	{
@@ -52,7 +52,6 @@ static void	set_pwd(t_process *proc)
 	free(shell->env[i]);
 	shell->env[i] = ft_strjoin("PWD=", new_dir);
 }
-
 
 static void	back_to_oldpwd(t_process *proc)
 {
@@ -75,15 +74,17 @@ static void	back_to_oldpwd(t_process *proc)
 	set_pwd(proc);
 }
 
-
-void	print_error(char *error, char *name)
+static void	cd_ext(t_process *proc, int i, struct stat buff)
 {
-	write(2, error, ft_strlen(error));
-	write(2, name, ft_strlen(name));
-	write(2, "\n", 1);
+	if (!lstat(proc->query[i], &buff) && access(proc->query[i], 0) != 0)
+		print_error("cd: no such file or directory: ", proc->query[i]);
+	else if ((buff.st_mode & S_IFMT) != S_IFDIR)
+		print_error("cd: not a directory: ", proc->query[i]);
+	else
+		print_error("cd: permission denied: ", proc->query[i]);
 }
 
-int		cd_(t_process *proc)
+int			cd_(t_process *proc)
 {
 	int			i;
 	struct stat	buff;
@@ -99,14 +100,7 @@ int		cd_(t_process *proc)
 	else
 	{
 		if (chdir(proc->query[i]) == -1)
-		{
-			if (!lstat(proc->query[i], &buff) && access(proc->query[i], 0) != 0)
-				print_error("cd: no such file or directory: ", proc->query[i]);
-			else if ((buff.st_mode & S_IFMT) != S_IFDIR)
-				print_error("cd: not a directory: ", proc->query[i]);
-			else
-				print_error("cd: permission denied: ", proc->query[i]);
-		}
+			cd_ext(proc, i, buff);
 		else
 			set_pwd(proc);
 	}

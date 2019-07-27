@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 14:09:23 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 14:23:51 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 17:40:13 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,26 @@ int				launch_proc_cycle(t_process *proc, h_launch *launch, t_job *job)
 int				shell_launch_job(t_job *job)
 {
 	t_process	*proc;
-	h_launch	*launch;
 
-	launch = h_launch_init();
+	if (shell->launch)
+		free(shell->launch);
+	shell->launch = h_launch_init();
 	check_zombie();
 	if (job->root->type == COMMAND_EXTERNAL)
-		launch->job_id = insert_job(job);
+		shell->launch->job_id = insert_job(job);
 	proc = job->root;
-	launch->status = launch_proc_cycle(proc, launch, job);
+	shell->launch->status = launch_proc_cycle(proc, shell->launch, job);
 	if (job->root->type == COMMAND_EXTERNAL)
 	{
-		if (launch->status >= 0 && job->mode == FOREGROUND_EXECUTION)
-			remove_job(launch->job_id);
+		if (shell->launch->status >= 0 && job->mode == FOREGROUND_EXECUTION)
+			remove_job(shell->launch->job_id);
 		else if (job->mode == BACKGROUND_EXECUTION)
-			print_processes_of_job(launch->job_id);
+			print_processes_of_job(shell->launch->job_id);
 	}
 	if (DEBUG_LOG)
-		print_holder(launch);
-	clean_holder(launch);
-	return (launch->status);
+		print_holder(shell->launch);
+	clean_holder(shell->launch);
+	return (shell->launch->status);
 }
 
 void			parent_launch_process(t_process *proc,

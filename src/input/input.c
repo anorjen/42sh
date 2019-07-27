@@ -6,12 +6,11 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:52:27 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 15:12:16 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 17:24:50 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
-
 
 int		is_delim(char ch)
 {
@@ -58,14 +57,15 @@ char	*input(t_history_session **h_session,
 	(*h_session)->lenght_hello = 1 + lenght_hello;
 	multiple_promt(*h_session, mode);
 	(*h_session)->fl = mode ? 1 : 0;
-	set_termcap(env);
+	set_keypress();
 	while (21)
 	{
 		key = ft_readkey(0);
 		if (key == 4 && !(*h_session)->lenght)
 		{
+			shell_cleaner();
 			write(1, "\n", 1);
-			return (NULL);
+			exit(0);
 		}
 		if (!input_disp((*h_session), key, mode, &temp))
 			break ;
@@ -74,6 +74,5 @@ char	*input(t_history_session **h_session,
 	(*h_session)->left = (*h_session)->lenght;
 	(*h_session)->fl = 0;
 	reset_keypress();
-	free(term);
 	return ((*h_session)->lenght == 0 ? NULL : ft_strdup((*h_session)->line));
 }

@@ -38,7 +38,6 @@ int			get_command_type_(char *command)
 		return (COMMAND_EXTERNAL);
 }
 
-
 t_process	*init_process(void)
 {
 	t_process	*new_process;
@@ -59,10 +58,6 @@ t_process	*init_process(void)
 	new_process->next = NULL;
 	return (new_process);
 }
-
-
-
-
 
 t_process	*new_segment(char **arg, int i)
 {

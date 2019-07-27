@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:07:58 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 17:15:08 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 18:06:41 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,22 @@ char		*str_join_her(char *s1, char *s2)
 		free(temp);
 	}
 	return (s1);
+}
+
+void		print_error(char *error, char *name)
+{
+	write(2, error, ft_strlen(error));
+	write(2, name, ft_strlen(name));
+	write(2, "\n", 1);
+}
+
+int			print_env(t_process *proc)
+{
+	int		i;
+
+	i = 0;
+	proc = NULL;
+	while (shell->env && shell->env[i])
+		ft_printf("%s\n", shell->env[i++]);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 14:11:36 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/26 19:09:23 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 17:03:07 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,13 @@ char	**segment_off(char **arg, int *mode)
 	char	**new_arg;
 
 	i = 0;
-	lenght = 0;
 	while (arg[i] && !is_glodel(arg[i]))
 		++i;
 	if (!arg[i])
+	{
+		free_arg(arg);
 		return (NULL);
+	}
 	!ft_strcmp(arg[i], ";") ? *mode = 1 : 0;
 	!ft_strcmp(arg[i], "&") ? *mode = 2 : 0;
 	!ft_strcmp(arg[i], "&&") ? *mode = 3 : 0;
@@ -102,6 +104,7 @@ void	kazekage(char **arg)
 		segment_arg = split_segment(arg);
 		arg = segment_off(arg, &mode);
 		job = lexer(segment_arg);
+		free_arg(segment_arg);
 		if (DEBUG_LOG)
 			inf_process(job->root);
 		if (job && job->root)

@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 22:44:23 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 15:32:45 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 14:29:05 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int				check_access(char **files, int id)
 		if (access(files[i], F_OK) == -1)
 		{
 			ft_printf("21sh: %s: No such file or directory\n", files[i]);
-//			remove_job(id);
 			return (0);
 		}
 		++i;

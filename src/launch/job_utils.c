@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 18:20:49 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 15:10:13 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 15:10:50 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int				remove_job(int id)
 		return (-1);
 	if (shell->jobs[id] && shell->jobs[id]->root)
 		shell->jobs[id] = free_job(shell->jobs[id]);
-//	shell->jobs[id] = NULL;
 	return (0);
 }
 

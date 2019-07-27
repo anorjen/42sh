@@ -114,6 +114,7 @@ int		ft_readkey(int fd);
 void	key_func(t_history_session *h_session, int key);
 int		key_entr(t_history_session *h_session, int key);
 int		key_control_c(t_history_session *h_session);
+void	set_keypress(void);
 
 
 

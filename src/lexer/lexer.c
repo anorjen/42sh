@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 15:54:35 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 15:09:35 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 17:23:06 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ t_job	*lexer(char **arg)
 	i = 0;
 	new_job->root = new_segment(arg, i);
 	if (!new_job->root)
-	{
-		free_job(new_job);
-		return (NULL);
-	}
+		return (free_job(new_job));
 	while (arg[i] && ft_strcmp(arg[i], "|"))
 		++i;
 	i += arg[i] ? 1 : 0;
@@ -62,10 +59,7 @@ t_job	*lexer(char **arg)
 	{
 		temp_process->next = new_segment(arg, i);
 		if (!temp_process->next)
-		{
-			free_job(new_job);
-			return (NULL);
-		}
+			return (free_job(new_job));
 		while (arg[i] && ft_strcmp(arg[i], "|"))
 			++i;
 		i += arg[i] ? 1 : 0;

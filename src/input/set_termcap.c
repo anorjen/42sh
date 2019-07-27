@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 18:51:43 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 15:12:15 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 16:23:14 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,5 @@ void	set_termcap(char **env)
 	if (termcap)
 	{
 		set_termenv(termcap);
-		free(termcap);
 	}
-	set_keypress();
 }
