@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 13:39:14 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 17:50:06 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 19:16:32 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char		*get_home(char **environ)
 	return (path);
 }
 
-static void	set_pwd(t_process *proc)
+static void	set_pwd(void)
 {
 	char	new_dir[100];
 	int		i;
@@ -32,50 +32,52 @@ static void	set_pwd(t_process *proc)
 
 	i = -1;
 	j = 0;
-	while (shell->env[++i])
+	while (g_sh->env[++i])
 	{
-		if (ft_strstr(shell->env[i], "PWD=") &&
-		!ft_strstr(shell->env[i], "OLDPWD"))
+		if (ft_strstr(g_sh->env[i], "PWD=") &&
+			!ft_strstr(g_sh->env[i], "OLDPWD"))
 			break ;
 	}
-	while (shell->env[j])
+	while (g_sh->env[j])
 	{
-		if (ft_strstr(shell->env[j], "OLDPWD"))
+		if (ft_strstr(g_sh->env[j], "OLDPWD"))
 			break ;
 		++j;
 	}
-	if (!shell->env[i] || !shell->env[j])
+	if (!g_sh->env[i] || !g_sh->env[j])
 		return ;
-	free(shell->env[j]);
-	shell->env[j] = ft_strjoin("OLDPWD=", &shell->env[i][4]);
+	free(g_sh->env[j]);
+	g_sh->env[j] = ft_strjoin("OLDPWD=", &g_sh->env[i][4]);
 	getcwd(new_dir, 100);
-	free(shell->env[i]);
-	shell->env[i] = ft_strjoin("PWD=", new_dir);
+	free(g_sh->env[i]);
+	g_sh->env[i] = ft_strjoin("PWD=", new_dir);
 }
 
-static void	back_to_oldpwd(t_process *proc)
+static void	back_to_oldpwd(void)
 {
 	int	j;
 
 	j = 0;
-	while (shell->env[j])
+	while (g_sh->env[j])
 	{
-		if (ft_strstr(shell->env[j], "OLDPWD="))
+		if (ft_strstr(g_sh->env[j], "OLDPWD="))
 			break ;
 		++j;
 	}
-	if (!shell->env[j])
+	if (!g_sh->env[j])
 		return ;
-	chdir(&shell->env[j][7]);
-	if (ft_strstr(&shell->env[j][7], getenv("HOME")))
-		ft_printf("~%s\n", &shell->env[j][7 + 15]);
+	chdir(&g_sh->env[j][7]);
+	if (ft_strstr(&g_sh->env[j][7], getenv("HOME")))
+		ft_printf("~%s\n", &g_sh->env[j][7 + 15]);
 	else
-		ft_printf("%s\n", &shell->env[j][7]);
-	set_pwd(proc);
+		ft_printf("%s\n", &g_sh->env[j][7]);
+	set_pwd();
 }
 
-static void	cd_ext(t_process *proc, int i, struct stat buff)
+static void	cd_ext(t_process *proc, int i)
 {
+	struct stat buff;
+
 	if (!lstat(proc->query[i], &buff) && access(proc->query[i], 0) != 0)
 		print_error("cd: no such file or directory: ", proc->query[i]);
 	else if ((buff.st_mode & S_IFMT) != S_IFDIR)
@@ -87,22 +89,21 @@ static void	cd_ext(t_process *proc, int i, struct stat buff)
 int			cd_(t_process *proc)
 {
 	int			i;
-	struct stat	buff;
 
 	i = 1;
 	proc->query[i] && !ft_strcmp(proc->query[i], "--") ? ++i : 0;
 	if (proc->query[i] == NULL)
-		chdir(get_home(shell->env)) != -1 ? set_pwd(proc) : 0;
+		chdir(get_home(g_sh->env)) != -1 ? set_pwd() : 0;
 	else if (!ft_strcmp(proc->query[i], "-") && proc->query[i + 1] == NULL)
-		back_to_oldpwd(proc);
+		back_to_oldpwd();
 	else if (proc->query[i + 1] != NULL)
 		print_error("cd: string not in pwd: ", proc->query[i]);
 	else
 	{
 		if (chdir(proc->query[i]) == -1)
-			cd_ext(proc, i, buff);
+			cd_ext(proc, i);
 		else
-			set_pwd(proc);
+			set_pwd();
 	}
 	sh_update_cwd_info();
 	return (1);

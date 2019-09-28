@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:13:28 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 15:09:36 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 19:31:39 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ t_process	*init_process(void)
 t_process	*new_segment(char **arg, int i)
 {
 	t_process	*new_process;
-	int			j;
 
 	new_process = init_process();
 	new_process->query = new_query(arg, i);

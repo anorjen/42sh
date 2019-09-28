@@ -6,13 +6,13 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 23:19:30 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 16:15:58 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 17:40:45 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-static int	pre_launch_config_case(h_launch *launch, t_process *proc)
+static int	pre_launch_config_case(t_launch *launch, t_process *proc)
 {
 	if (launch->in_fd < 0)
 	{
@@ -23,7 +23,7 @@ static int	pre_launch_config_case(h_launch *launch, t_process *proc)
 		return (1);
 }
 
-int			pre_launch_config(t_process *proc, h_launch *launch)
+int			pre_launch_config(t_process *proc, t_launch *launch)
 {
 	if (proc->heredoc == NULL)
 	{
@@ -47,7 +47,7 @@ int			pre_launch_config(t_process *proc, h_launch *launch)
 	return (pre_launch_config_case(launch, proc));
 }
 
-void		launch_pipe_config(t_process *proc, h_launch *launch, t_job *job)
+void		launch_pipe_config(t_process *proc, t_launch *launch, t_job *job)
 {
 	if (proc->output_path != NULL)
 	{

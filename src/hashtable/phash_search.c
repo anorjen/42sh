@@ -6,11 +6,11 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:13:16 by sbearded          #+#    #+#             */
-/*   Updated: 2019/06/27 13:17:36 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/09/28 16:58:13 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hashtable.h"
+#include "../../headers/hashtable.h"
 
 extern t_hashtable	*g_hash_files;
 extern t_hashtable	*g_hash_dirs;

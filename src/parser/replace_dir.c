@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:14:24 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 15:09:36 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 19:31:20 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ static char	*tilde(char *line, int *i, char **env)
 {
 	char	*chang_line;
 	int		j;
-	int		lenght;
 
 	j = *i;
+	env = NULL;
 	chang_line = line;
 	if (!chang_line[j + 1] ||
 	is_delimetr(chang_line[j + 1]) || chang_line[j + 1] == '/')

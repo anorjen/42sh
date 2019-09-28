@@ -20,17 +20,17 @@ void	key_hom(t_history_session *h_session)
 	while (h_session->left > 0 && h_session->line[h_session->left - 1] != '\n')
 	{
 		h_session->left--;
-		tputs(term->le, 1, putchar_);
+		tputs(g_term->le, 1, putchar_);
 	}
 	if (h_session->fl || h_session->left == 0)
 		return ;
 	while (h_session->victor->curr_arr > 0)
 	{
 		h_session->victor->curr_arr--;
-		tputs(term->up, 1, putchar_);
+		tputs(g_term->up, 1, putchar_);
 	}
 	while (++i < h_session->lenght_hello)
-		tputs(term->nd, 1, putchar_);
+		tputs(g_term->nd, 1, putchar_);
 	h_session->left = 0;
 }
 
@@ -41,17 +41,17 @@ void	assist_en(t_history_session *h_session)
 	i = 0;
 	if (h_session->left == 0 && h_session->victor->lenght > 1)
 		while (++i < h_session->lenght_hello)
-			tputs(term->le, 1, putchar_);
+			tputs(g_term->le, 1, putchar_);
 	else if (h_session->victor->lenght == 1)
-		tputs(term->nd, 1, putchar_);
+		tputs(g_term->nd, 1, putchar_);
 	while (h_session->victor->curr_arr < (h_session->victor->lenght - 1))
 	{
 		h_session->victor->curr_arr++;
-		tputs(term->do_, 1, putchar_);
+		tputs(g_term->do_, 1, putchar_);
 	}
 	i = 0;
 	while (++i < h_session->victor->array[h_session->victor->curr_arr])
-		tputs(term->nd, 1, putchar_);
+		tputs(g_term->nd, 1, putchar_);
 	h_session->left = h_session->lenght;
 }
 
@@ -60,14 +60,14 @@ void	key_en(t_history_session *h_session)
 	while (h_session->left > 0 && h_session->line[h_session->left - 1] != '\n')
 	{
 		h_session->left--;
-		tputs(term->le, 1, putchar_);
+		tputs(g_term->le, 1, putchar_);
 	}
 	if (h_session->fl)
 	{
 		while (h_session->left < h_session->lenght)
 		{
 			h_session->left++;
-			tputs(term->nd, 1, putchar_);
+			tputs(g_term->nd, 1, putchar_);
 		}
 	}
 	else

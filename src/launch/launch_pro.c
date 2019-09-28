@@ -6,13 +6,13 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 14:09:23 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 17:40:13 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 18:36:31 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-int				launch_proc_cycle(t_process *proc, h_launch *launch, t_job *job)
+int				launch_proc_cycle(t_process *proc, t_launch *launch, t_job *job)
 {
 	while (proc != NULL)
 	{
@@ -36,25 +36,25 @@ int				shell_launch_job(t_job *job)
 {
 	t_process	*proc;
 
-	if (shell->launch)
-		free(shell->launch);
-	shell->launch = h_launch_init();
+	if (g_sh->launch)
+		free(g_sh->launch);
+	g_sh->launch = h_launch_init();
 	check_zombie();
 	if (job->root->type == COMMAND_EXTERNAL)
-		shell->launch->job_id = insert_job(job);
+		g_sh->launch->job_id = insert_job(job);
 	proc = job->root;
-	shell->launch->status = launch_proc_cycle(proc, shell->launch, job);
+	g_sh->launch->status = launch_proc_cycle(proc, g_sh->launch, job);
 	if (job->root->type == COMMAND_EXTERNAL)
 	{
-		if (shell->launch->status >= 0 && job->mode == FOREGROUND_EXECUTION)
-			remove_job(shell->launch->job_id);
+		if (g_sh->launch->status >= 0 && job->mode == FOREGROUND_EXECUTION)
+			remove_job(g_sh->launch->job_id);
 		else if (job->mode == BACKGROUND_EXECUTION)
-			print_processes_of_job(shell->launch->job_id);
+			print_processes_of_job(g_sh->launch->job_id);
 	}
 	if (DEBUG_LOG)
-		print_holder(shell->launch);
-	clean_holder(shell->launch);
-	return (shell->launch->status);
+		print_holder(g_sh->launch);
+	clean_holder(g_sh->launch);
+	return (g_sh->launch->status);
 }
 
 void			parent_launch_process(t_process *proc,

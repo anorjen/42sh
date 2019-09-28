@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 14:00:09 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 15:32:43 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 19:17:59 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ int				shell_jobs(t_process *proc)
 	int		i;
 
 	i = -1;
+	proc = NULL;
 	while (++i <= NR_JOBS)
 	{
-		if (shell->jobs[i] != NULL)
+		if (g_sh->jobs[i] != NULL)
 			print_job_status(i);
 	}
 	return (0);
@@ -29,9 +30,9 @@ int				set_job_status(int id, int status)
 {
 	t_process	*proc;
 
-	if (id > NR_JOBS || shell->jobs[id] == NULL)
+	if (id > NR_JOBS || g_sh->jobs[id] == NULL)
 		return (-1);
-	proc = shell->jobs[id]->root;
+	proc = g_sh->jobs[id]->root;
 	while (proc != NULL)
 	{
 		if (proc->status != STATUS_DONE)
@@ -55,7 +56,7 @@ t_job			*get_job_by_id(int id)
 {
 	if (id > NR_JOBS)
 		return (NULL);
-	return (shell->jobs[id]);
+	return (g_sh->jobs[id]);
 }
 
 int				wait_for_pid(int pid)

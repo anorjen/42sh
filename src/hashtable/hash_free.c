@@ -6,11 +6,11 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 14:22:42 by sbearded          #+#    #+#             */
-/*   Updated: 2019/06/20 18:31:54 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/09/28 17:28:53 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hashtable.h"
+#include "../../headers/hashtable.h"
 
 void			hash_free_item(t_buck_cont *item, const char *str,
 						t_hashtable *table, void (*free_f)(void *))
@@ -51,8 +51,9 @@ void			hash_clean_table(t_hashtable *table, void (*free_f)(void *))
 
 void			hash_free_table(t_hashtable *table)
 {
-	gc_free((void**)&(table->bucket_array));
-	gc_free((void**)&(table));
+	ft_printf("CLEAN TABLE");
+	free((void**)&(table->bucket_array));
+	free((void**)&(table));
 }
 
 void			hash_delete_table(t_hashtable *table, void (*free_f)(void *))

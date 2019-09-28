@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 12:24:58 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/26 12:24:59 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/07/27 19:27:41 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	key_tabs(t_history_session *h_session)
 
 	i = 0;
 	while (i++ < 4)
-		print_ch(h_session, ' ', 0);
+		print_ch(h_session, ' ');
 }
 
 void	key_func(t_history_session *h_session, int key)
@@ -57,7 +57,7 @@ void	key_func(t_history_session *h_session, int key)
 	else if (key == KEY_RIGHT)
 		right_ch(h_session);
 	else if (key < 255 && key >= 32)
-		print_ch(h_session, key, 1);
+		print_ch(h_session, key);
 	else if (key == KEY_SHIFT_UP || key == KEY_SHIFT_DOWN)
 		navigation_line(h_session, key);
 	else if (key == KEY_HOME || key == KEY_END)
@@ -70,7 +70,7 @@ void	key_func(t_history_session *h_session, int key)
 		key_tabs(h_session);
 }
 
-int		key_entr(t_history_session *h_session, int key)
+int		key_entr(t_history_session *h_session)
 {
 	if (h_session->line && h_session->line[0] == '\0')
 	{
@@ -80,7 +80,7 @@ int		key_entr(t_history_session *h_session, int key)
 	while (h_session->victor->curr_arr < (h_session->victor->lenght - 1))
 	{
 		h_session->victor->curr_arr++;
-		tputs(term->do_, 1, putchar_);
+		tputs(g_term->do_, 1, putchar_);
 	}
 	write(1, "\n", 1);
 	return (1);
@@ -91,7 +91,7 @@ int		key_control_c(t_history_session *h_session)
 	while (h_session->victor->curr_arr < (h_session->victor->lenght - 1))
 	{
 		h_session->victor->curr_arr++;
-		tputs(term->do_, 1, putchar_);
+		tputs(g_term->do_, 1, putchar_);
 	}
 	if (h_session->line)
 		free(h_session->line);

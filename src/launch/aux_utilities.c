@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:07:58 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 18:06:41 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 18:36:31 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int			print_env(t_process *proc)
 
 	i = 0;
 	proc = NULL;
-	while (shell->env && shell->env[i])
-		ft_printf("%s\n", shell->env[i++]);
+	while (g_sh->env && g_sh->env[i])
+		ft_printf("%s\n", g_sh->env[i++]);
 	return (1);
 }

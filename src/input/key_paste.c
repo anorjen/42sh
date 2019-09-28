@@ -41,8 +41,8 @@ void		key_paste(t_history_session *h_session)
 	int		i;
 
 	ins_line(h_session);
-	tputs(term->im, 1, putchar_);
-	tputs(term->cd, 1, putchar_);
+	tputs(g_term->im, 1, putchar_);
+	tputs(g_term->cd, 1, putchar_);
 	ft_printf("%s", &(h_session->line[h_session->left]));
 	h_session->left += ft_strlen(g_buffer);
 	temp = h_session->lenght;
@@ -51,14 +51,14 @@ void		key_paste(t_history_session *h_session)
 		if (h_session->line[temp - 1] == '\n')
 		{
 			h_session->victor->curr_arr--;
-			tputs(term->up, 1, putchar_);
+			tputs(g_term->up, 1, putchar_);
 			i = !h_session->victor->curr_arr ? -(h_session->lenght_hello) : 0;
 			while (++i < h_session->victor->array[h_session->victor->curr_arr])
-				tputs(term->nd, 1, putchar_);
+				tputs(g_term->nd, 1, putchar_);
 		}
 		else
-			tputs(term->le, 1, putchar_);
+			tputs(g_term->le, 1, putchar_);
 		temp--;
 	}
-	tputs(term->ei, 1, putchar_);
+	tputs(g_term->ei, 1, putchar_);
 }

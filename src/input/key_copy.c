@@ -17,19 +17,19 @@ static void	jump_up(t_history_session *h_session)
 	int i;
 
 	i = 0;
-	tputs(term->up, 1, putchar_);
+	tputs(g_term->up, 1, putchar_);
 	if (!(h_session->victor->curr_arr - 1))
 	{
 		i += h_session->victor->array[h_session->victor->curr_arr - 1] ? 0 : 1;
 		while (i++ < h_session->lenght_hello)
-			tputs(term->nd, 1, putchar_);
+			tputs(g_term->nd, 1, putchar_);
 	}
 	h_session->victor->curr_arr--;
 	h_session->left--;
 	g_dispersion--;
 	i = 0;
 	while (++i < h_session->victor->array[h_session->victor->curr_arr])
-		tputs(term->nd, 1, putchar_);
+		tputs(g_term->nd, 1, putchar_);
 }
 
 static void	key_copy_left(t_history_session *h_session)
@@ -38,18 +38,18 @@ static void	key_copy_left(t_history_session *h_session)
 		jump_up(h_session);
 	if (!(h_session->left) || h_session->line[h_session->left - 1] == '\n')
 		return ;
-	tputs(term->im, 1, putchar_);
-	tputs(term->le, 1, putchar_);
-	tputs(term->dc, 1, putchar_);
+	tputs(g_term->im, 1, putchar_);
+	tputs(g_term->le, 1, putchar_);
+	tputs(g_term->dc, 1, putchar_);
 	if (g_dispersion <= 0)
 		write(1, "\e[45m", ft_strlen("\e[45m"));
 	write(1, &(h_session->line[h_session->left - 1]), 1);
 	if (g_dispersion <= 0)
 		write(1, "\e[0m", ft_strlen("\e[0m"));
-	tputs(term->le, 1, putchar_);
+	tputs(g_term->le, 1, putchar_);
 	h_session->left--;
 	g_dispersion--;
-	tputs(term->ei, 1, putchar_);
+	tputs(g_term->ei, 1, putchar_);
 }
 
 static void	key_copy_right(t_history_session *h_session)
@@ -59,7 +59,7 @@ static void	key_copy_right(t_history_session *h_session)
 	i = 0;
 	if (h_session->line[h_session->left] == '\n' && !h_session->fl)
 	{
-		tputs(term->do_, 1, putchar_);
+		tputs(g_term->do_, 1, putchar_);
 		h_session->victor->curr_arr++;
 		h_session->left++;
 		g_dispersion++;
@@ -67,8 +67,8 @@ static void	key_copy_right(t_history_session *h_session)
 	if (h_session->left == h_session->lenght ||
 					h_session->line[h_session->left] == '\n')
 		return ;
-	tputs(term->dc, 1, putchar_);
-	tputs(term->im, 1, putchar_);
+	tputs(g_term->dc, 1, putchar_);
+	tputs(g_term->im, 1, putchar_);
 	if (g_dispersion >= 0)
 		write(1, "\e[45m", ft_strlen("\e[45m"));
 	write(1, &(h_session->line[h_session->left]), 1);
@@ -76,7 +76,7 @@ static void	key_copy_right(t_history_session *h_session)
 		write(1, "\e[0m", ft_strlen("\e[0m"));
 	h_session->left++;
 	g_dispersion++;
-	tputs(term->ei, 1, putchar_);
+	tputs(g_term->ei, 1, putchar_);
 }
 
 void		key_cop(t_history_session *h_session, int key)

@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:41:22 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/09/28 16:10:44 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/09/28 16:50:31 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,17 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include "launch.h"
-// # include "./input.h"
-#include "parser.h"
+# include "./input.h"
+# include "parser.h"
 # include "term.h"
 # include "lexer.h"
 # include "hashtable.h"
 
 # include "../lib/printf/ft_printf.h"
 # include "../lib/printf/libft/get_next_line.h"
-# define ISSPACE(x) (x == ' ' || x == '\n')
-# define CLEAR() ft_printf("\033[H\033[J")
-# define SPLIT_DELIM " \t\r\n\a\""
 # define BUFF_LN 5
-# define IS_QUOTE(x) (x == '"' || x == '\'')
-# define CHANGE_ENV { free(shell->env[i]); shell->env[i] = tm;return (1);}
+# define CHANGE_ENV { free(g_sh->env[i]); g_sh->env[i] = tm;return (1);}
+
 /*
 ** 		t_env linked list structure
 */
@@ -101,6 +98,5 @@ int						set_env(t_process *proc);
 int						unset_env(t_process *proc);
 int						echo(t_process *proc);
 int						num_shell_functions(t_process *proc);
-
 
 #endif

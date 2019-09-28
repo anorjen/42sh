@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 18:20:49 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 15:10:50 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 18:36:31 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int				release_job(int id)
 	t_process	*tmp;
 	t_job		*job_free;
 
-	if (id > NR_JOBS || shell->jobs[id] == NULL)
+	if (id > NR_JOBS || g_sh->jobs[id] == NULL)
 		return (-1);
-	job_free = shell->jobs[id];
+	job_free = g_sh->jobs[id];
 	proc = job_free->root;
 	while (proc != NULL)
 	{
@@ -36,10 +36,10 @@ int				release_job(int id)
 
 int				remove_job(int id)
 {
-	if (id > NR_JOBS || shell->jobs[id] == NULL)
+	if (id > NR_JOBS || g_sh->jobs[id] == NULL)
 		return (-1);
-	if (shell->jobs[id] && shell->jobs[id]->root)
-		shell->jobs[id] = free_job(shell->jobs[id]);
+	if (g_sh->jobs[id] && g_sh->jobs[id]->root)
+		g_sh->jobs[id] = free_job(g_sh->jobs[id]);
 	return (0);
 }
 
@@ -51,9 +51,9 @@ int				get_job_id_by_pid(int pid)
 	i = 0;
 	while (++i <= NR_JOBS)
 	{
-		if (shell->jobs[i] != NULL)
+		if (g_sh->jobs[i] != NULL)
 		{
-			proc = shell->jobs[i]->root;
+			proc = g_sh->jobs[i]->root;
 			while (proc != NULL)
 			{
 				if (proc->pid == pid)
@@ -71,7 +71,7 @@ int				get_next_job_id(void)
 
 	i = 0;
 	while (++i <= NR_JOBS)
-		if (shell->jobs[i] == NULL)
+		if (g_sh->jobs[i] == NULL)
 			return (i);
 	return (-1);
 }

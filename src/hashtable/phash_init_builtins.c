@@ -6,11 +6,11 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:21:17 by sbearded          #+#    #+#             */
-/*   Updated: 2019/06/27 14:03:56 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/09/28 17:02:11 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hashtable.h"
+#include "../../headers/hashtable.h"
 
 extern t_hashtable	*g_hash_built;
 
@@ -26,14 +26,14 @@ static const char	*g_builtin_str[] = {
 };
 
 int					(*g_builtin_func[]) (char **) = {
-	&ms_echo,
+	/*&ms_echo,
 	&ms_cd,
 	&ms_setenv,
 	&ms_unsetenv,
 	&ms_env,
 	&ms_exit,
 	&ms_alias,
-	&ms_unalias
+	&ms_unalias*/
 };
 
 void		phash_init_builtins(void)

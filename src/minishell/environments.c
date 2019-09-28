@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 16:33:16 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 17:57:05 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 18:36:41 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,22 @@ int			setenv_(t_process *proc)
 	i = -1;
 	if ((tm = new_env(proc)) == NULL)
 		return (1);
-	while (shell->env[++i])
+	while (g_sh->env[++i])
 	{
 		j = 0;
-		while (shell->env[i][j] == tm[j] && tm[j] != '=')
+		while (g_sh->env[i][j] == tm[j] && tm[j] != '=')
 			++j;
-		if (shell->env[i][j] == tm[j])
+		if (g_sh->env[i][j] == tm[j])
 			CHANGE_ENV;
 	}
 	j = -1;
 	temp = (char**)malloc(sizeof(char*) * (i + 2));
 	temp[i + 1] = NULL;
 	while (++j < i)
-		temp[j] = shell->env[j];
+		temp[j] = g_sh->env[j];
 	temp[j] = tm;
-	free(shell->env);
-	shell->env = temp;
+	free(g_sh->env);
+	g_sh->env = temp;
 	return (1);
 }
 
@@ -76,19 +76,19 @@ int			remove_env(t_process *proc)
 
 	i = -1;
 	count = 0;
-	while (shell->env[++i])
+	while (g_sh->env[++i])
 	{
 		j = 0;
 		while (proc->query[++j])
 		{
 			k = 0;
-			while (shell->env[i][k] != '='
-			&& proc->query[j][k] == shell->env[i][k])
+			while (g_sh->env[i][k] != '='
+			&& proc->query[j][k] == g_sh->env[i][k])
 				++k;
-			if (shell->env[i][k] == '=')
+			if (g_sh->env[i][k] == '=')
 			{
-				free(shell->env[i]);
-				shell->env[i] = ft_strdup("\0");
+				free(g_sh->env[i]);
+				g_sh->env[i] = ft_strdup("\0");
 				++count;
 			}
 		}
@@ -112,16 +112,16 @@ int			unset_(t_process *proc)
 	temp = (char**)malloc(sizeof(char*) * (count + 1));
 	j = 0;
 	k = -1;
-	while (shell->env[++k])
+	while (g_sh->env[++k])
 	{
-		if (shell->env[k][0] != '\0')
-			temp[j++] = shell->env[k];
+		if (g_sh->env[k][0] != '\0')
+			temp[j++] = g_sh->env[k];
 		else
-			free(shell->env[k]);
+			free(g_sh->env[k]);
 	}
 	temp[j] = NULL;
-	free(shell->env);
-	shell->env = temp;
+	free(g_sh->env);
+	g_sh->env = temp;
 	return (1);
 }
 

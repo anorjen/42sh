@@ -17,16 +17,16 @@ void	line_up(t_history_session *h_session)
 	int i;
 
 	i = 0;
-	tputs(term->up, 1, putchar_);
+	tputs(g_term->up, 1, putchar_);
 	h_session->victor->curr_arr--;
 	if (!h_session->victor->curr_arr)
 	{
 		while (i++ < h_session->lenght_hello)
-			tputs(term->nd, 1, putchar_);
+			tputs(g_term->nd, 1, putchar_);
 		i = 0;
 	}
 	while (i++ < h_session->victor->array[h_session->victor->curr_arr])
-		tputs(term->nd, 1, putchar_);
+		tputs(g_term->nd, 1, putchar_);
 }
 
 void	key_shift_left(t_history_session *h_session)
@@ -43,7 +43,7 @@ void	key_shift_left(t_history_session *h_session)
 				break ;
 			else if (h_session->line[i] == '\n')
 				line_up(h_session);
-			tputs(term->le, 1, putchar_);
+			tputs(g_term->le, 1, putchar_);
 			h_session->left--;
 			i--;
 		}
@@ -51,7 +51,7 @@ void	key_shift_left(t_history_session *h_session)
 	}
 	while (i >= 0 && h_session->line[i] && !is_delim(h_session->line[i]))
 	{
-		tputs(term->le, 1, putchar_);
+		tputs(g_term->le, 1, putchar_);
 		h_session->left--;
 		i--;
 	}
@@ -65,15 +65,15 @@ void	line_down(t_history_session *h_session)
 	while (i >= 0 && h_session->line[i] != '\n')
 	{
 		--i;
-		tputs(term->le, 1, putchar_);
+		tputs(g_term->le, 1, putchar_);
 	}
 	if (!h_session->victor->curr_arr)
 	{
 		i = 0;
 		while (++i < h_session->lenght_hello)
-			tputs(term->le, 1, putchar_);
+			tputs(g_term->le, 1, putchar_);
 	}
-	tputs(term->do_, 1, putchar_);
+	tputs(g_term->do_, 1, putchar_);
 	h_session->victor->curr_arr++;
 }
 
@@ -92,7 +92,7 @@ void	key_shift_right(t_history_session *h_session)
 			else if (h_session->line[i] == '\n')
 				line_down(h_session);
 			else
-				tputs(term->nd, 1, putchar_);
+				tputs(g_term->nd, 1, putchar_);
 			h_session->left++;
 			i++;
 		}
@@ -100,7 +100,7 @@ void	key_shift_right(t_history_session *h_session)
 	}
 	while (h_session->line[i] && !is_delim(h_session->line[i]))
 	{
-		tputs(term->nd, 1, putchar_);
+		tputs(g_term->nd, 1, putchar_);
 		h_session->left++;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 17:15:21 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/04 17:15:23 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/07/27 19:28:58 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ static void	pop(t_vector **victor, int number_del)
 
 static void	del(t_vector **victor)
 {
-	int i;
-
 	if (!(*victor))
 		return ;
 	if ((*victor)->array)

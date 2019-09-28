@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/09/28 16:44:06 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/09/28 16:48:19 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void		sh_init(char **environ)
 	pid = getpid();
 	setpgid(pid, pid);
 	tcsetpgrp(0, pid);
-	shell = ft_memalloc(sizeof(shell_info));
-	shell->env = init_environ(environ);
-	getlogin_r(shell->cur_user, sizeof(shell->cur_user));
+	g_sh = ft_memalloc(sizeof(t_shell_info));
+	g_sh->env = init_environ(environ);
+	getlogin_r(g_sh->cur_user, sizeof(g_sh->cur_user));
 	pw = getpwuid(getuid());
-	ft_strcpy(shell->pw_dir, pw->pw_dir);
+	ft_strcpy(g_sh->pw_dir, pw->pw_dir);
 	while (++i < NR_JOBS)
-		shell->jobs[i] = NULL;
+		g_sh->jobs[i] = NULL;
 	built_init();
 	phash_init();
 	sh_update_cwd_info();
@@ -44,12 +44,12 @@ void		sh_init(char **environ)
 void		sh_print_promt(void)
 {
 	usleep(400);
-	if (shell->signal == 0)
+	if (g_sh->signal == 0)
 		ft_printf(COLOR_GREEN "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ",
-				basename(shell->cur_dir));
+				basename(g_sh->cur_dir));
 	else
 		ft_printf(COLOR_RED "⦿" COLOR_MAGENTA "  %s" COLOR_NONE " ",
-				basename(shell->cur_dir));
+				basename(g_sh->cur_dir));
 }
 
 void		free_hsess(t_history_session *h_session)
@@ -82,9 +82,9 @@ void		shell_loop(char **env)
 	while (status >= 0)
 	{
 		sh_print_promt();
-		shell->signal = 0;
+		g_sh->signal = 0;
 		args = parser(&h_session, env,
-				ft_strlen(basename(shell->cur_dir)) + ft_strlen("⦿") + 1);
+				ft_strlen(basename(g_sh->cur_dir)) + ft_strlen("⦿") + 1);
 		if (args == NULL)
 		{
 			check_zombie();
@@ -96,6 +96,8 @@ void		shell_loop(char **env)
 
 int			main(int argc, char **argv, char **env)
 {
+	argc = 0;
+	argv = NULL;
 	shell_loop(env);
 	return (0);
 }

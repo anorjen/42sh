@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/09/28 13:22:14 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/09/28 16:50:45 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ typedef struct			s_builtins
 {
 	char				builtin_str[NR_BUILTINS][24];
 	int					(*builtin_func[NR_BUILTINS]) (t_process*);
-}						g_builtins;
+}						t_builtins;
 
 typedef struct			s_launch
 {
@@ -111,7 +111,7 @@ typedef struct			s_launch
 	int					out_fd;
 	int					fd[2];
 	int					holder[48];
-}						h_launch;
+}						t_launch;
 
 typedef struct			s_shell_info
 {
@@ -120,10 +120,10 @@ typedef struct			s_shell_info
 	char				pw_dir[PATH_BUFSIZE];
 	char				**env;
 	t_job				*jobs[NR_JOBS + 1];
-	g_builtins			*builtins;
+	t_builtins			*builtins;
 	int					signal;
-	h_launch			*launch;
-}						shell_info;
+	t_launch			*launch;
+}						t_shell_info;
 
 typedef struct			s_job_pid
 {
@@ -132,9 +132,9 @@ typedef struct			s_job_pid
 	int					wait_count;
 	int					status;
 	int					exit_status;
-}						g_job_pid;
+}						t_job_pid;
 
-shell_info				*shell;
+t_shell_info				*g_sh;
 
 /*
 ** 				t_job handlers
@@ -163,10 +163,10 @@ int						set_process_status(int pid, int status);
 int						print_job_status(int id);
 void					built_init(void);
 int						launch_proc_cycle(t_process *proc,
-		h_launch *launch, t_job *job);
+		t_launch *launch, t_job *job);
 void					parent_launch_process(t_process *proc,
 		t_job *job, pid_t childpid);
-h_launch				*h_launch_init(void);
+t_launch				*h_launch_init(void);
 
 /*
 ** 				heredocs
@@ -174,16 +174,16 @@ h_launch				*h_launch_init(void);
 
 char					*readline_her(t_process *proc, int i);
 void					stdin_heredoc(t_process *proc,
-		h_launch *launch, char *line);
-void					launch_heredoc(t_process *proc, h_launch *launch);
+		t_launch *launch, char *line);
+void					launch_heredoc(t_process *proc, t_launch *launch);
 
 /*
 ** 				out redirection launch
 */
 
 int						launch_out_redir(t_process *proc,
-		h_launch *launch);
-int						launch_base_config(h_launch *launch,
+											t_launch *launch);
+int						launch_base_config(t_launch *launch,
 		t_process *proc, t_job *job);
 
 /*
@@ -200,9 +200,9 @@ void					signal_default_changer(t_process *proc, t_job *job);
 ** 				PIPES and config
 */
 
-int						pre_launch_config(t_process *proc, h_launch *launch);
+int						pre_launch_config(t_process *proc, t_launch *launch);
 void					launch_pipe_config(t_process *proc,
-		h_launch *launch, t_job *job);
+		t_launch *launch, t_job *job);
 
 /*
 ** 				built-ins
@@ -217,9 +217,9 @@ int						shell_kill(t_process *proc);
 int						shell_bg(t_process *proc);
 int						shell_fg(t_process *proc);
 char					*read_ln_heredoc(char *eof);
-void					update_holder(h_launch *launch, int fd);
-void					print_holder(h_launch *launch);
-void					clean_holder(h_launch *launch);
+void					update_holder(t_launch *launch, int fd);
+void					print_holder(t_launch *launch);
+void					clean_holder(t_launch *launch);
 
 /*
 ** 				aux utils

@@ -6,11 +6,11 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 14:21:05 by sbearded          #+#    #+#             */
-/*   Updated: 2019/06/20 18:54:56 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/09/28 16:57:53 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hashtable.h"
+#include "../../headers/hashtable.h"
 
 t_buck_cont		*hash_search(const char *str, t_hashtable *table)
 {

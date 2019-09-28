@@ -6,21 +6,21 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 14:14:51 by sbearded          #+#    #+#             */
-/*   Updated: 2019/06/20 14:38:01 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/09/28 17:00:10 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hashtable.h"
+#include "../../headers/hashtable.h"
 
 t_hashtable		*hash_create(int buckets)
 {
 	t_hashtable	*new_table;
 	int			i;
 
-	new_table = (t_hashtable *)gc_malloc(sizeof(t_hashtable));
+	new_table = (t_hashtable *)malloc(sizeof(t_hashtable));
 	if (buckets == 0)
 		buckets = DEFAULT_HASH_BUCKETS;
-	new_table->bucket_array = (t_buck_cont **)gc_malloc(
+	new_table->bucket_array = (t_buck_cont **)malloc(
 									buckets * sizeof(t_buck_cont*));
 	new_table->nbuckets = buckets;
 	new_table->nentries = 0;

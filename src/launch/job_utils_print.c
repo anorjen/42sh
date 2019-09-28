@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 18:22:56 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 15:32:45 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 18:36:31 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int				is_job_completed(int id)
 {
 	t_process	*proc;
 
-	if (id > NR_JOBS || shell->jobs[id] == NULL)
+	if (id > NR_JOBS || g_sh->jobs[id] == NULL)
 		return (0);
-	proc = shell->jobs[id]->root;
+	proc = g_sh->jobs[id]->root;
 	while (proc != NULL)
 	{
 		if (proc->status != STATUS_DONE)
@@ -32,10 +32,10 @@ int				print_processes_of_job(int id)
 {
 	t_process	*proc;
 
-	if (id > NR_JOBS || shell->jobs[id] == NULL)
+	if (id > NR_JOBS || g_sh->jobs[id] == NULL)
 		return (-1);
 	ft_printf("[%d]", id);
-	proc = shell->jobs[id]->root;
+	proc = g_sh->jobs[id]->root;
 	while (proc != NULL)
 	{
 		ft_printf(" %d", proc->pid);
@@ -67,10 +67,10 @@ int				print_job_status(int id)
 	t_process	*proc;
 	char		*state;
 
-	if (id > NR_JOBS || shell->jobs[id] == NULL)
+	if (id > NR_JOBS || g_sh->jobs[id] == NULL)
 		return (-1);
 	ft_printf("[%d]", id);
-	proc = shell->jobs[id]->root;
+	proc = g_sh->jobs[id]->root;
 	while (proc != NULL)
 	{
 		state = get_state_string(proc);
@@ -93,6 +93,6 @@ int				insert_job(t_job *job)
 	if (id < 0)
 		return (-1);
 	job->id = id;
-	shell->jobs[id] = job;
+	g_sh->jobs[id] = job;
 	return (id);
 }

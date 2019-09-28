@@ -6,13 +6,13 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:55:23 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 15:09:36 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 19:30:52 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-static char	*check_env_verb(char *line, int i, int *lenght, char **environ)
+static char	*check_env_verb(char *line, int i, int *lenght)
 {
 	char	*temp;
 	char	*temp2;
@@ -42,7 +42,8 @@ static int	envin_quote(char **chang_line, int i, char **env)
 	char	*env_verb;
 
 	lenght = i;
-	env_verb = check_env_verb(*chang_line, i, &lenght, env);
+	env = NULL;
+	env_verb = check_env_verb(*chang_line, i, &lenght);
 	if (!ft_strcmp(env_verb, " "))
 		cut_str(chang_line, i, lenght);
 	else if (ft_strcmp(env_verb, "$"))
@@ -92,7 +93,7 @@ char		*replace_env(char *chang_line, char **env)
 			i = miss_quote(&chang_line, i, env);
 		else if (chang_line[i] == '$')
 		{
-			env_verb = check_env_verb(chang_line, i, &lenght, env);
+			env_verb = check_env_verb(chang_line, i, &lenght);
 			if (!ft_strcmp(env_verb, " "))
 				cut_str(&chang_line, i, lenght);
 			else

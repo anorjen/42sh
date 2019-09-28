@@ -6,11 +6,11 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:35:35 by sbearded          #+#    #+#             */
-/*   Updated: 2019/09/28 16:31:18 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/09/28 18:24:55 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hashtable.h"
+#include "../../headers/hashtable.h"
 
 extern t_hashtable	*g_hash_files;
 extern t_hashtable	*g_hash_dirs;
@@ -86,13 +86,12 @@ void		phash_update(void)
 {
 	static char	*st_path_str = NULL;
 	char		*env_path;
-	char		*path;
 	char		**paths;
 
-	env_path = get_env("PATH", shell->env);
+	env_path = ft_strdup(get_env("PATH", g_sh->env));
+	if (env_path == NULL)
+		env_path = ft_strdup("");
 	paths = ft_strsplit(env_path, ':');
-	if (paths == NULL)
-		return ;
 	if (st_path_str == NULL || ft_strcmp(st_path_str, env_path)
 							|| check_time_mod(paths))
 	{
@@ -103,6 +102,5 @@ void		phash_update(void)
 		hash_clean_table(g_hash_dirs, NULL);
 		phash_fill_tables(paths);
 	}
-	free(env_path);
 	free_arg(paths);
 }

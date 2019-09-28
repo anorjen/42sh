@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 18:56:34 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 15:12:15 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 19:26:46 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	multiple_promt(t_history_session *h_session, int mode)
 						|| mode == MODE_AND || mode == MODE_OR)
 	{
 		h_session->victor->push_back(&(h_session->victor), 0);
-		print_ch(h_session, '\n', 0);
+		print_ch(h_session, '\n');
 		if (mode == MODE_QUOTE)
 			ft_printf("%s", COMMAND_QUOTE);
 		else if (mode == MODE_PIPE)

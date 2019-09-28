@@ -6,11 +6,11 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 11:09:28 by sbearded          #+#    #+#             */
-/*   Updated: 2019/09/28 15:21:40 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/09/28 16:56:54 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hashtable.h"
+#include "../../headers/hashtable.h"
 
 char	*ft_get_path(char *path, char *name)
 {

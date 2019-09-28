@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 22:44:23 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 14:29:05 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 19:19:18 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int				check_access(char **files, int id)
 {
 	int			i;
 
+	id = 0;
 	i = 0;
 	while (files[i])
 	{
@@ -29,7 +30,7 @@ int				check_access(char **files, int id)
 	return (1);
 }
 
-void			update_holder(h_launch *launch, int fd)
+void			update_holder(t_launch *launch, int fd)
 {
 	int			i;
 
@@ -46,7 +47,7 @@ void			update_holder(h_launch *launch, int fd)
 	}
 }
 
-void			print_holder(h_launch *launch)
+void			print_holder(t_launch *launch)
 {
 	int			i;
 
@@ -58,7 +59,7 @@ void			print_holder(h_launch *launch)
 	}
 }
 
-void			clean_holder(h_launch *launch)
+void			clean_holder(t_launch *launch)
 {
 	int			i;
 
@@ -70,11 +71,11 @@ void			clean_holder(h_launch *launch)
 	}
 }
 
-h_launch		*h_launch_init(void)
+t_launch		*h_launch_init(void)
 {
-	h_launch	*launch;
+	t_launch	*launch;
 
-	launch = (h_launch *)malloc(sizeof(h_launch));
+	launch = (t_launch *)malloc(sizeof(t_launch));
 	launch->status = 0;
 	launch->in_fd = 0;
 	launch->out_fd = 1;

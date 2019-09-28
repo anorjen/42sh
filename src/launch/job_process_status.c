@@ -6,24 +6,24 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 18:16:52 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/26 15:32:45 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 18:36:31 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-static int		wait_for_job_ext(g_job_pid *job_pids, int id)
+static int		wait_for_job_ext(t_job_pid *job_pids, int id)
 {
 	while (job_pids->wait_count < job_pids->proc_count)
 	{
-		job_pids->wait_pid = waitpid(-shell->jobs[id]->pgid,
+		job_pids->wait_pid = waitpid(-g_sh->jobs[id]->pgid,
 				&job_pids->status, WUNTRACED);
-		kill(shell->jobs[id]->root->pid, SIGQUIT);
+		kill(g_sh->jobs[id]->root->pid, SIGQUIT);
 		job_pids->wait_count++;
 		if (WIFEXITED(job_pids->status))
 		{
 			if ((job_pids->exit_status = WEXITSTATUS(job_pids->status)))
-				shell->signal = job_pids->exit_status;
+				g_sh->signal = job_pids->exit_status;
 			set_process_status(job_pids->wait_pid, STATUS_DONE);
 		}
 		else if (WIFSIGNALED(job_pids->status))
@@ -44,11 +44,11 @@ static int		wait_for_job_ext(g_job_pid *job_pids, int id)
 int				wait_for_job(int id)
 {
 	int			status;
-	g_job_pid	*job_pids;
+	t_job_pid	*job_pids;
 
 	job_pids = ft_memalloc(48);
 	job_pids->status = 0;
-	if (id > NR_JOBS || shell->jobs[id] == NULL)
+	if (id > NR_JOBS || g_sh->jobs[id] == NULL)
 		return (-1);
 	job_pids->proc_count = get_proc_count(id, PROC_FILTER_REMAINING);
 	job_pids->wait_pid = -1;
@@ -63,10 +63,10 @@ int				get_proc_count(int id, int filter)
 	int			count;
 	t_process	*proc;
 
-	if (id > NR_JOBS || shell->jobs[id] == NULL)
+	if (id > NR_JOBS || g_sh->jobs[id] == NULL)
 		return (-1);
 	count = 0;
-	proc = shell->jobs[id]->root;
+	proc = g_sh->jobs[id]->root;
 	while (proc != NULL)
 	{
 		if (filter == PROC_FILTER_ALL ||
@@ -86,9 +86,9 @@ int				set_process_status(int pid, int status)
 	i = 0;
 	while (++i <= NR_JOBS)
 	{
-		if (shell->jobs[i] == NULL)
+		if (g_sh->jobs[i] == NULL)
 			continue;
-		proc = shell->jobs[i]->root;
+		proc = g_sh->jobs[i]->root;
 		while (proc != NULL)
 		{
 			if (proc->pid == pid)

@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 14:11:36 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 17:03:07 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 17:25:52 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,6 @@ void	kazekage(char **arg)
 		arg = segment_off(arg, &mode);
 		job = lexer(segment_arg);
 		free_arg(segment_arg);
-		if (DEBUG_LOG)
-			inf_process(job->root);
 		if (job && job->root)
 			status = shell_launch_job(job);
 		if (mode == 2 && !status)

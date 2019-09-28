@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:52:27 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 17:24:50 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 19:27:58 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		input_disp(t_history_session *h_session, int key, int mode, int *temp)
 		else if (g_dispersion)
 			save_buff(h_session);
 	}
-	if (key == KEY_NL && key_entr(h_session, key))
+	if (key == KEY_NL && key_entr(h_session))
 		return (0);
 	if (mode != MODE_HEREDOC &&
 		(key == KEY_UP || key == KEY_DOWN) && !(h_session)->fl)
@@ -48,7 +48,7 @@ int		input_disp(t_history_session *h_session, int key, int mode, int *temp)
 }
 
 char	*input(t_history_session **h_session,
-									int lenght_hello, int mode, char **env)
+									int lenght_hello, int mode)
 {
 	int		key;
 	int		temp;

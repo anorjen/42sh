@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:53:07 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 17:43:09 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 19:12:28 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ int			help_shell(t_process *proc)
 {
 	int		i;
 
+	proc = NULL;
 	ft_printf("21shell of 21's school project\n");
 	ft_printf("Built-in commands (input argument if needed):\n");
 	i = 0;
 	while (i < NR_BUILTINS)
 	{
-		ft_printf("\t -> %s\n", shell->builtins->builtin_str[i]);
+		ft_printf("\t -> %s\n", g_sh->builtins->builtin_str[i]);
 		i++;
 	}
 	ft_printf("For additional info -> use \"man\".\n");
@@ -59,10 +60,10 @@ void		shell_cleaner(void)
 	int		i;
 
 	i = 0;
-	if (shell->jobs[i])
+	if (g_sh->jobs[i])
 	{
-		while (shell->jobs[i])
-			free_job(shell->jobs[i++]);
+		while (g_sh->jobs[i])
+			free_job(g_sh->jobs[i++]);
 	}
-	free_arg(shell->env);
+	free_arg(g_sh->env);
 }

@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 18:17:28 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 15:12:15 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/07/27 19:20:19 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,23 @@ static void			clear_line(t_history_session *h_session)
 	{
 		j = h_session->victor->lenght;
 		while (++h_session->victor->curr_arr < h_session->victor->lenght)
-			tputs(term->do_, 1, putchar_);
+			tputs(g_term->do_, 1, putchar_);
 		h_session->victor->curr_arr--;
 		while (--j > 0 && !(i = 0))
 		{
 			while (i++ < h_session->victor->array[j])
-				tputs(term->le, 1, putchar_);
-			tputs(term->cd, 1, putchar_);
-			tputs(term->up, 1, putchar_);
+				tputs(g_term->le, 1, putchar_);
+			tputs(g_term->cd, 1, putchar_);
+			tputs(g_term->up, 1, putchar_);
 		}
 		while (++j < h_session->lenght_hello)
-			tputs(term->nd, 1, putchar_);
-		tputs(term->cd, 1, putchar_);
+			tputs(g_term->nd, 1, putchar_);
+		tputs(g_term->cd, 1, putchar_);
 		return ;
 	}
 	while (i++ < h_session->left)
-		tputs(term->le, 1, putchar_);
-	tputs(term->cd, 1, putchar_);
+		tputs(g_term->le, 1, putchar_);
+	tputs(g_term->cd, 1, putchar_);
 }
 
 static void			key_upp(t_history_session *h_session)
@@ -67,7 +67,6 @@ static void			key_dow(t_history_session *h_session)
 {
 	int					i;
 	t_history_session	*temp;
-	char				tmp;
 
 	i = 0;
 	temp = h_session;
