@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:53:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 19:29:19 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/09/28 17:09:20 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ char	**parser(t_history_session **h_session, char **env, int lenght_hello)
 	mode = 0;
 	while (1)
 	{
-		line = input(h_session, lenght_hello, mode);
+		if (FU_TERMCAPS)
+			line = read_ln();
+		else
+			line = input(h_session, lenght_hello, mode);
 		if (parse_error(line))
 		{
 			free(line);
