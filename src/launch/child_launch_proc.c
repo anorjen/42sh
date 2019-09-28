@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 22:53:14 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/09/28 16:30:39 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/09/28 16:34:13 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,8 @@ void		child_launch_cycle(t_process *proc)
 	if (execve(proc->query[0], proc->query, shell->env) == -1)
 	{
 		phash_update();
-		if (execve(phash_search(proc->query[0], HASH_FILES),
-			proc->query, shell->env) != -1)
-			exit(0);
+		execve(	phash_search(proc->query[0], HASH_FILES),
+				proc->query, shell->env);
 		/*paths = ft_strsplit(get_env("PATH", shell->env), ':');
 		while (paths && paths[i] != NULL)
 		{
