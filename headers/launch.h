@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 18:31:25 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/09/28 13:22:14 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define NR_BUILTINS 11
 # define PATH_BUFSIZE 1024
 # define TOKEN_BUFSIZE 64
-# define DEBUG_LOG 0
+# define DEBUG_LOG 1
 
 # define BACKGROUND_EXECUTION 0
 # define FOREGROUND_EXECUTION 1
