@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:52:27 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 19:27:58 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/09/28 18:34:10 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 int		is_delim(char ch)
 {

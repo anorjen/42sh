@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:41:22 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 18:42:23 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/09/28 18:37:53 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include "launch.h"
-# include "./input.h"
+# include "input.h"
 # include "parser.h"
 # include "term.h"
 # include "lexer.h"
+# include "vi_input.h"
 
 # include "../lib/printf/ft_printf.h"
 # include "../lib/printf/libft/get_next_line.h"
@@ -86,6 +87,7 @@ void					signal_handler(int signo);
 void					get_cwd(char *str);
 void					string_var_parser(char **line);
 char					*strcpy_till_n(char *dst, const char *src, char c);
+void					sh_print_promt(void);
 
 /*
 ** 		built-ins funcs
