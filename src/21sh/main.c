@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/09/28 16:48:19 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/05 15:56:11 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void		sh_init(char **environ)
 	ft_strcpy(g_sh->pw_dir, pw->pw_dir);
 	while (++i < NR_JOBS)
 		g_sh->jobs[i] = NULL;
-	built_init();
 	phash_init();
 	sh_update_cwd_info();
 }

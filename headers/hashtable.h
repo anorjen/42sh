@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 14:14:55 by sbearded          #+#    #+#             */
-/*   Updated: 2019/09/28 15:22:49 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/05 15:46:06 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ typedef struct					s_hashtable
 	int							nbuckets;
 	int							nentries;
 }								t_hashtable;
+
+t_hashtable						*g_hash_built;
+t_hashtable						*g_hash_dirs;
+t_hashtable						*g_hash_files;
 
 t_hashtable						*hash_create(	int buckets);
 unsigned int					hash_string(	const char *s);

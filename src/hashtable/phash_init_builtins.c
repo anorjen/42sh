@@ -6,34 +6,40 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:21:17 by sbearded          #+#    #+#             */
-/*   Updated: 2019/09/28 17:02:11 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/05 16:01:37 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/hashtable.h"
 
-extern t_hashtable	*g_hash_built;
-
-static const char	*g_builtin_str[] = {
-	"echo",
+const char	*g_builtin_str[] = {
 	"cd",
+	"help",
+	"exit",
+	"echo",
+	"jobs",
+	"bg",
+	"fg",
+	"kill",
+	"env",
 	"setenv",
 	"unsetenv",
-	"env",
-	"exit",
-	"alias",
-	"unalias"
+	"type"
 };
 
-int					(*g_builtin_func[]) (char **) = {
-	/*&ms_echo,
-	&ms_cd,
-	&ms_setenv,
-	&ms_unsetenv,
-	&ms_env,
-	&ms_exit,
-	&ms_alias,
-	&ms_unalias*/
+int			(*g_builtin_func[]) (t_process *) = {
+	&cd_,
+	&help_shell,
+	&exit_shell,
+	&echo,
+	&shell_jobs,
+	&shell_bg,
+	&shell_fg,
+	&shell_kill,
+	&print_env,
+	&setenv_,
+	&unset_,
+	NULL
 };
 
 void		phash_init_builtins(void)

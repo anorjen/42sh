@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/09/28 16:50:45 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/05 16:00:04 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,6 @@ typedef struct			s_job
 	int					mode;
 }						t_job;
 
-typedef struct			s_builtins
-{
-	char				builtin_str[NR_BUILTINS][24];
-	int					(*builtin_func[NR_BUILTINS]) (t_process*);
-}						t_builtins;
-
 typedef struct			s_launch
 {
 	t_process			*proc;
@@ -120,7 +114,6 @@ typedef struct			s_shell_info
 	char				pw_dir[PATH_BUFSIZE];
 	char				**env;
 	t_job				*jobs[NR_JOBS + 1];
-	t_builtins			*builtins;
 	int					signal;
 	t_launch			*launch;
 }						t_shell_info;

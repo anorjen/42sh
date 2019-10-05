@@ -6,14 +6,11 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:35:35 by sbearded          #+#    #+#             */
-/*   Updated: 2019/09/28 18:24:55 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/05 15:46:58 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/hashtable.h"
-
-extern t_hashtable	*g_hash_files;
-extern t_hashtable	*g_hash_dirs;
 
 static long	*get_time_last_mod(char *path)
 {
