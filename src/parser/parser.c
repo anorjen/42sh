@@ -6,11 +6,11 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:53:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/09/28 18:17:48 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/07 19:24:48 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 void	replace_str(char **chang_line, int i, int lenght, char *env_verb)
 {
