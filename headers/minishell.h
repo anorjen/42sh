@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:41:22 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/09/28 16:50:31 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/07 18:42:24 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,6 @@ int						set_env(t_process *proc);
 int						unset_env(t_process *proc);
 int						echo(t_process *proc);
 int						num_shell_functions(t_process *proc);
+int						type_shell(t_process *proc);
 
 #endif

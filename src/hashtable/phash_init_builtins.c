@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:21:17 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/05 16:01:37 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/07 18:40:48 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			(*g_builtin_func[]) (t_process *) = {
 	&print_env,
 	&setenv_,
 	&unset_,
-	NULL
+	&type_shell
 };
 
 void		phash_init_builtins(void)

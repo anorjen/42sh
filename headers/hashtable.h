@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 14:14:55 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/05 15:46:06 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/12 13:59:18 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@
 # define FNV_OFFSET 2166136261
 # define FNV_PRIME 16777619
 
+# define HASH_NUM 3
+
 # define HASH_DIRS 0
-# define HASH_FILES 1
-# define HASH_BUILT 2
+# define HASH_BUILT 1
+# define HASH_FILES 2
 
 # define NUM_BUILTINS ((int)(sizeof(g_builtin_str) / sizeof(char *)))
 

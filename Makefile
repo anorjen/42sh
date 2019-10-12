@@ -9,7 +9,7 @@ SRC_HASH = ./src/hashtable/
 
 NAME = 21sh
 PRINT = lib/printf/libftprintf.a
-NAME_21SH = main.c kazekage.c assist_21sh.c
+NAME_21SH = main.c kazekage.c assist_21sh.c built_in_type.c
 NAME_MINISHELL = built_ins.c cpy_func.c launch.c linked_list.c\
 				linked_list2.c linked_list3.c sig_handler.c utilities.c utilities2.c environments.c cd.c
 NAME_LAUNCH = aux_utilities.c job_process_status.c job_utils.c jobs_builtins.c launch_pro.c job_utils_print.c\
