@@ -38,6 +38,7 @@ void		sh_init(char **environ)
 		g_sh->jobs[i] = NULL;
 	built_init();
 	sh_update_cwd_info();
+	alias_init();
 }
 
 void		sh_print_promt(void)

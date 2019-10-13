@@ -66,4 +66,5 @@ void		shell_cleaner(void)
 			free_job(g_sh->jobs[i++]);
 	}
 	free_arg(g_sh->env);
+	alias_deinit();
 }

@@ -57,7 +57,8 @@ int				shell_launch_job(t_job *job)
 	return (g_sh->launch->status);
 }
 
-void			parent_launch_process(t_process *proc,
+void
+parent_launch_process(t_process *proc,
 		t_job *job, pid_t childpid)
 {
 	proc->pid = childpid;

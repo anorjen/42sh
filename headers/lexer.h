@@ -31,6 +31,8 @@
 # define COMMAND_ENV 10
 # define COMMAND_SETENV 11
 # define COMMAND_UNSETENV 12
+# define COMMAND_ALIAS 13
+# define COMMAND_UNALIAS 14
 
 # include "stdlib.h"
 

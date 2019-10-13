@@ -29,10 +29,11 @@
 # include "minishell.h"
 
 # define NR_JOBS 20
-# define NR_BUILTINS 11
+# define NR_BUILTINS 13
 # define PATH_BUFSIZE 1024
 # define TOKEN_BUFSIZE 64
 # define DEBUG_LOG 0
+# define FU_TERMCAPS 1
 
 # define BACKGROUND_EXECUTION 0
 # define FOREGROUND_EXECUTION 1

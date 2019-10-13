@@ -57,6 +57,10 @@ int			execute_builtin_command(t_process *proc)
 		setenv_(proc);
 	else if (proc->type == COMMAND_UNSETENV)
 		unset_(proc);
+    else if (proc->type == COMMAND_ALIAS)
+        ms_alias(proc);
+    else if (proc->type == COMMAND_UNALIAS)
+        ms_unalias(proc);
 	else
 		return (0);
 	return (1);

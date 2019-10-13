@@ -34,6 +34,10 @@ int			get_command_type_(char *command)
 		return (COMMAND_SETENV);
 	else if (strcmp(command, "unsetenv") == 0)
 		return (COMMAND_UNSETENV);
+    else if (strcmp(command, "alias") == 0)
+        return (COMMAND_ALIAS);
+    else if (strcmp(command, "unalias") == 0)
+        return (COMMAND_UNALIAS);
 	else
 		return (COMMAND_EXTERNAL);
 }
