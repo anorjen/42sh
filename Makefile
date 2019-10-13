@@ -7,6 +7,7 @@ SRC_PARSER = ./src/parser/
 SRC_LEXER = ./src/lexer/
 SRC_VECTOR_LIB = ./lib/vector/
 SRC_ALIAS = ./src/alias/
+SRC_HASH = ./src/hashtable/
 
 NAME = 21sh
 PRINT = lib/printf/libftprintf.a
@@ -27,6 +28,8 @@ NAME_VECTOR_LIB = vector_add.c vector_deinit.c vector_del_value.c vector_del.c v
 				vector_search.c vector_set.c
 NAME_ALIAS = alias_deinit.c alias_get.c alias_init.c alias_print.c alias_set.c alias_unset.c alias_update.c ms_alias.c \
 				ms_unalias.c
+NAME_HASH = ft_path.c hash_free.c hash_functions.c hash_main.c phash_init_builtins.c phash_init.c phash_search.c \
+			phash_update.c
 
 SRC = 	$(addprefix $(SRC_21SH), $(NAME_21SH))\
 		$(addprefix $(SRC_MINISHELL), $(NAME_MINISHELL))\
@@ -37,9 +40,10 @@ SRC = 	$(addprefix $(SRC_21SH), $(NAME_21SH))\
 		$(addprefix $(SRC_LEXER), $(NAME_LEXER))\
 		$(addprefix $(SRC_VECTOR_LIB), $(NAME_VECTOR_LIB))\
 		$(addprefix $(SRC_ALIAS), $(NAME_ALIAS))\
+		$(addprefix $(SRC_HASH), $(NAME_HASH))\
 
 
-FLAG = -Wall -Werror -Wextra -g
+FLAG = -Wall -Werror -Wextra
 OBJ = $(SRC:.c=.o)
 OBJ = *.o
 
@@ -47,8 +51,8 @@ CG = \033[92m
 all: start $(NAME)
 $(NAME):
 	@make -sC ./lib/printf/
-	@gcc  -Iheaders -c $(FLAG) $(SRC) 
-	@gcc  -Iheaders -ltermcap -o $(NAME) $(OBJ) -L. $(PRINT) 
+	@gcc  -c $(FLAG) $(SRC)
+	@gcc  -ltermcap -o $(NAME) $(OBJ) -L. $(PRINT) 
 
 	@echo "\r$(CY)--------------------------------------------------- GO --------------------------------------------------------"
 start:

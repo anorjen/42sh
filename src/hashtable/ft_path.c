@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/24 18:14:25 by agottlie          #+#    #+#             */
-/*   Updated: 2019/09/28 17:43:39 by sbearded         ###   ########.fr       */
+/*   Created: 2019/04/01 11:09:28 by sbearded          #+#    #+#             */
+/*   Updated: 2019/09/28 16:56:54 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../headers/hashtable.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+char	*ft_get_path(char *path, char *name)
 {
-	unsigned char	*str1;
-	unsigned char	*str2;
-	size_t			i;
+	char	*new_path;
+	char	*tmp;
 
-	str1 = (unsigned char*)s1;
-	str2 = (unsigned char*)s2;
-	i = 0;
-	while (str1[i] || str2[i])
-	{
-		if (str1[i] != str2[i])
-			return (str1[i] - str2[i]);
-		i++;
-	}
-	return (0);
+	new_path = ft_strnew(ft_strlen(path) + ft_strlen(name) + 1);
+	tmp = new_path;
+	while (path && *path)
+		*(tmp++) = *(path++);
+	if (!*path || *(path - 1) != '/')
+		*(tmp++) = '/';
+	while (name && *name)
+		*(tmp++) = *(name++);
+	*tmp = '\0';
+	return (new_path);
 }

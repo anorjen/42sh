@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 18:37:24 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/10/05 16:00:04 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@
 # include "minishell.h"
 
 # define NR_JOBS 20
-# define NR_BUILTINS 13
+# define NR_BUILTINS 11
 # define PATH_BUFSIZE 1024
 # define TOKEN_BUFSIZE 64
-# define DEBUG_LOG 0
-# define FU_TERMCAPS 1
+# define DEBUG_LOG 1
 
 # define BACKGROUND_EXECUTION 0
 # define FOREGROUND_EXECUTION 1
@@ -97,12 +96,6 @@ typedef struct			s_job
 	int					mode;
 }						t_job;
 
-typedef struct			s_builtins
-{
-	char				builtin_str[NR_BUILTINS][24];
-	int					(*builtin_func[NR_BUILTINS]) (t_process*);
-}						t_builtins;
-
 typedef struct			s_launch
 {
 	t_process			*proc;
@@ -121,7 +114,6 @@ typedef struct			s_shell_info
 	char				pw_dir[PATH_BUFSIZE];
 	char				**env;
 	t_job				*jobs[NR_JOBS + 1];
-	t_builtins			*builtins;
 	int					signal;
 	t_launch			*launch;
 }						t_shell_info;
