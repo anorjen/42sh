@@ -24,7 +24,10 @@ const char	*g_builtin_str[] = {
 	"env",
 	"setenv",
 	"unsetenv",
-	"type"
+	"type",
+	"alias",
+	"unalias",
+	NULL
 };
 
 int			(*g_builtin_func[]) (t_process *) = {
@@ -37,8 +40,11 @@ int			(*g_builtin_func[]) (t_process *) = {
 	&shell_fg,
 	&shell_kill,
 	&print_env,
-	&setenv_,
-	&unset_,
+	NULL,
+	NULL,
+	NULL,
+	&ms_alias,
+	&ms_unalias,
 	NULL
 };
 

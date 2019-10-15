@@ -78,8 +78,9 @@ void alias_init(void)
 	i = 0;
 	g_alias_value = vector_init();
 	g_alias_key = vector_init();
-	if (access("~/.zshrc", 0) == -1)
-		return ;
+	if (access("~/.zshrc", 0) == -1) {
+        return;
+    }
 	len = file_len();
 	g_alias = (char **)malloc(sizeof(char *) * (len + 1));
 	g_alias[len] = NULL;

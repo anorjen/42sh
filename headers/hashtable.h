@@ -26,7 +26,7 @@
 # define HASH_FILES 1
 # define HASH_BUILT 2
 
-# define NUM_BUILTINS ((int)(sizeof(g_builtin_str) / sizeof(char *)))
+# define NUM_BUILTINS ((int)(sizeof(g_builtin_str) / sizeof(char *))) + 2
 
 # define ISTYPE(mode, mask)	(((mode) & S_IFMT) == (mask))
 # define ISREG(mode)		ISTYPE((mode), S_IFREG)
