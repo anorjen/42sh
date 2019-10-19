@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:53:07 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/19 15:39:50 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/19 15:49:26 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,4 @@ void				shell_cleaner(void)
 	free_arg(g_sh->env);
 	alias_deinit();
 	phash_deinit();
-	set_deinit();
 }
