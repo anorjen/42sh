@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:21:17 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/07 18:40:48 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/19 13:50:58 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ const char	*g_builtin_str[] = {
 	"bg",
 	"fg",
 	"kill",
+	"type",
+	"alias",
+	"unalias",
 	"env",
 	"setenv",
 	"unsetenv",
-	"type"
+	NULL
 };
 
 int			(*g_builtin_func[]) (t_process *) = {
@@ -36,10 +39,13 @@ int			(*g_builtin_func[]) (t_process *) = {
 	&shell_bg,
 	&shell_fg,
 	&shell_kill,
+	&type_shell,
+	&ms_alias,
+	&ms_unalias,
 	&print_env,
 	&setenv_,
 	&unset_,
-	&type_shell
+	NULL
 };
 
 void		phash_init_builtins(void)
