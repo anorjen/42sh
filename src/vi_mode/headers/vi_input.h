@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 14:01:48 by anorjen           #+#    #+#             */
-/*   Updated: 2019/09/28 18:39:47 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/19 14:05:25 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "minishell.h"
 # include "ft_dlist.h"
 # include "ft_string.h"
-# include "history_search.h"
+# include "hi_search_history.h"
 # include <fcntl.h>
 # include <term.h>
 

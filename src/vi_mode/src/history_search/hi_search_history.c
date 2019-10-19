@@ -6,11 +6,11 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 15:58:08 by anorjen           #+#    #+#             */
-/*   Updated: 2019/06/26 15:36:51 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/19 15:00:20 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "history_search.h"
+#include "hi_search_history.h"
 
 void	ft_history_search(char *line)
 {

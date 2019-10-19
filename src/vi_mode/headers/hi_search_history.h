@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   history_search.h                                   :+:      :+:    :+:   */
+/*   hi_search_history.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/07 14:00:12 by anorjen           #+#    #+#             */
-/*   Updated: 2019/09/28 15:32:17 by anorjen          ###   ########.fr       */
+/*   Created: 2019/10/19 14:04:25 by anorjen           #+#    #+#             */
+/*   Updated: 2019/10/19 14:05:33 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HISTORY_SEARCH_H
-# define HISTORY_SEARCH_H
+#ifndef HI_SEARCH_HISTORY_H
+# define HI_SEARCH_HISTORY_H
 
 # include "libft.h"
 # include "vi_input.h"

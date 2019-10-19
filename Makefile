@@ -14,9 +14,10 @@ SRC_FT_STRING = ./src/vi_mode/ft_string/
 SRC_VI_INPUT = ./src/vi_mode/src/input/
 SRC_COPY_MODE = ./src/vi_mode/src/copy_mode/
 SRC_EDIT_STRING_HISTORY = ./src/vi_mode/src/edit_string_history/
-SRC_HISTORY_SEARCH = ./src/vi_mode/src/history_search/
+SRC_VI_HS = ./src/vi_mode/src/history_search/
 SRC_RL = ./src/vi_mode/src/input/rl_mode/
 SRC_VI = ./src/vi_mode/src/input/vi_mode/
+SRC_HS = ./src/history_search/src/
 
 INCLUDES  = -I./headers/ 
 INCLUDES += -I./lib/printf/
@@ -24,6 +25,7 @@ INCLUDES += -I./lib/printf/libft/
 INCLUDES += -I./src/vi_mode/dlist/
 INCLUDES += -I./src/vi_mode/ft_string/
 INCLUDES += -I./src/vi_mode/headers/
+INCLUDES += -I./src/history_search/headers/
 
 
 NAME = 21sh
@@ -64,7 +66,7 @@ NAME_COPY_MODE = cm_copy_mode.c cm_func.c
 
 NAME_EDIT_STRING_HISTORY = eh_ft_undo.c eh_ft_list_del.c
 
-NAME_HISTORY_SEARCH = hi_search_history.c
+NAME_VI_HS = hi_search_history.c
 
 NAME_RL = ft_swap_chars.c ft_swap_words.c
 
@@ -74,6 +76,10 @@ NAME_VI = vi_a.c vi_ab.c vi_arr_up.c vi_b.c vi_c.c \
 		vi_j.c vi_k.c vi_l.c vi_p.c vi_pipe.c vi_r.c \
 		vi_rb.c vi_sb.c vi_semicolon.c vi_u.c vi_v.c \
 		vi_w.c vi_x.c vi_xb.c vi_y.c vi_zero.c
+
+NAME_HS = history_search.c search_utils.c shell_fc.c \
+		  print_history.c key_search.c save_history.c
+
 ###
 
 SRC = 	$(addprefix $(SRC_21SH), $(NAME_21SH))\
@@ -89,12 +95,13 @@ SRC = 	$(addprefix $(SRC_21SH), $(NAME_21SH))\
 		$(addprefix $(SRC_VI_INPUT), $(NAME_VI_INPUT))\
 		$(addprefix $(SRC_COPY_MODE), $(NAME_COPY_MODE))\
 		$(addprefix $(SRC_EDIT_STRING_HISTORY), $(NAME_EDIT_STRING_HISTORY))\
-		$(addprefix $(SRC_HISTORY_SEARCH), $(NAME_HISTORY_SEARCH))\
+		$(addprefix $(SRC_VI_HS), $(NAME_VI_HS))\
 		$(addprefix $(SRC_RL), $(NAME_RL))\
-		$(addprefix $(SRC_VI), $(NAME_VI))
+		$(addprefix $(SRC_VI), $(NAME_VI))\
 		$(addprefix $(SRC_VECTOR_LIB), $(NAME_VECTOR_LIB))\
 		$(addprefix $(SRC_ALIAS), $(NAME_ALIAS))\
 		$(addprefix $(SRC_HASH), $(NAME_HASH))\
+		$(addprefix $(SRC_HS), $(NAME_HS))
 
 
 FLAG = -Wall -Werror -Wextra -g

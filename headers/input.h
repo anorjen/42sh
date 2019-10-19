@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 16:43:12 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/09/28 19:05:44 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/19 16:41:10 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define MODE_OR 103
 # define MODE_BACKGROUND 104
 # define MODE_AND 105
+# define KEY_SEARCH 18
 # include <termios.h>
 # include <term.h>
 # include <limits.h>
@@ -74,6 +75,7 @@ typedef struct					s_history_session
 
 }								t_history_session;
 
+t_history_session				*g_h_session;
 t_term							*g_term;
 int								g_dispersion;
 char							*g_buffer;
