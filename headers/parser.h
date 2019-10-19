@@ -25,6 +25,7 @@
 # define TOKEN_AGRAGATION 2
 # define TOKEN_UPPEND 2
 # include "input.h"
+# include "alias.h"
 
 char	**parser(t_history_session **h_session, char **env, int lenght_hello);
 char	*replace_env(char *line, char **env);
@@ -39,5 +40,6 @@ int		multiply_line(char *line);
 int		is_specdel(char *line, int i);
 int		is_redir(char *line, int i);
 int		parse_error(char *line);
+char	**replace_alias(char **argv);
 
 #endif

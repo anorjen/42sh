@@ -5,6 +5,9 @@ SRC_INPUT = ./src/input/
 SRC_VECTOR = ./src/vector/
 SRC_PARSER = ./src/parser/
 SRC_LEXER = ./src/lexer/
+SRC_VECTOR_LIB = ./lib/vector/
+SRC_ALIAS = ./src/alias/
+SRC_HASH = ./src/hashtable/
 
 SRC_DLIST = ./src/vi_mode/dlist/
 SRC_FT_STRING = ./src/vi_mode/ft_string/
@@ -25,9 +28,7 @@ INCLUDES += -I./src/vi_mode/headers/
 
 NAME = 21sh
 PRINT = lib/printf/libftprintf.a
-
-NAME_21SH = main.c kazekage.c assist_21sh.c
-
+NAME_21SH = main.c kazekage.c assist_21sh.c built_in_type.c
 NAME_MINISHELL = built_ins.c cpy_func.c launch.c linked_list.c\
 				linked_list2.c linked_list3.c sig_handler.c utilities.c utilities2.c environments.c cd.c
 
@@ -39,10 +40,15 @@ NAME_INPUT = assist_func.c key_backspace.c key_copy.c key_cut.c key_paste.c key_
 			navigation_words.c navigation_line.c save_buff.c spec_key.c set_termcap.c multiple_promt.c key_control.c\
 			
 NAME_VECTOR = vector.c
-
-NAME_PARSER = parser.c replace_env.c write_arg.c replace_dir.c get_token.c assist_parser.c parse_error.c multiple_line.c
-
+NAME_PARSER = parser.c replace_env.c write_arg.c replace_dir.c get_token.c assist_parser.c parse_error.c multiple_line.c \
+                replace_alias.c
 NAME_LEXER = lexer.c new_segment.c input_path.c output_path.c  free_job.c new_query.c new_agregation.c
+NAME_VECTOR_LIB = vector_add.c vector_deinit.c vector_del_value.c vector_del.c vector_get.c vector_init.c vector_resize.c \
+				vector_search.c vector_set.c
+NAME_ALIAS = alias_deinit.c alias_get.c alias_init.c alias_print.c alias_set.c alias_unset.c alias_update.c ms_alias.c \
+				ms_unalias.c
+NAME_HASH = ft_path.c hash_free.c hash_functions.c hash_main.c phash_init_builtins.c phash_init.c phash_search.c \
+			phash_update.c
 
 ## vi_mode
 NAME_DLIST = ft_dlist_new.c ft_dlist_add.c ft_dlist_delone.c ft_dlist_rewind.c ft_dlist_del.c ft_dlist_addbegin.c \
@@ -86,6 +92,9 @@ SRC = 	$(addprefix $(SRC_21SH), $(NAME_21SH))\
 		$(addprefix $(SRC_HISTORY_SEARCH), $(NAME_HISTORY_SEARCH))\
 		$(addprefix $(SRC_RL), $(NAME_RL))\
 		$(addprefix $(SRC_VI), $(NAME_VI))
+		$(addprefix $(SRC_VECTOR_LIB), $(NAME_VECTOR_LIB))\
+		$(addprefix $(SRC_ALIAS), $(NAME_ALIAS))\
+		$(addprefix $(SRC_HASH), $(NAME_HASH))\
 
 
 FLAG = -Wall -Werror -Wextra -g

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 15:55:22 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 18:38:37 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/10/05 16:04:41 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,6 @@
 # define COMMAND_APPEND 104
 # define COMMAND_BACKGR 105
 # define COMMAND_EXTERNAL 0
-# define COMMAND_EXIT 1
-# define COMMAND_CD 2
-# define COMMAND_JOBS 3
-# define COMMAND_FG 4
-# define COMMAND_BG 5
-# define COMMAND_KILL 6
-# define COMMAND_EXPORT 7
-# define COMMAND_UNSET 8
-# define COMMAND_HELP 9
-# define COMMAND_ENV 10
-# define COMMAND_SETENV 11
-# define COMMAND_UNSETENV 12
 
 # include "stdlib.h"
 

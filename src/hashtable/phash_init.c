@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   phash_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/24 18:14:25 by agottlie          #+#    #+#             */
-/*   Updated: 2019/09/28 17:43:39 by sbearded         ###   ########.fr       */
+/*   Created: 2019/06/08 17:28:38 by sbearded          #+#    #+#             */
+/*   Updated: 2019/10/05 15:45:48 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../headers/hashtable.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+void		phash_init(void)
 {
-	unsigned char	*str1;
-	unsigned char	*str2;
-	size_t			i;
+	g_hash_files = hash_create(0);
+	g_hash_dirs = hash_create(0);
+	g_hash_built = hash_create(20);
+	phash_init_builtins();
+	phash_update();
+}
 
-	str1 = (unsigned char*)s1;
-	str2 = (unsigned char*)s2;
-	i = 0;
-	while (str1[i] || str2[i])
-	{
-		if (str1[i] != str2[i])
-			return (str1[i] - str2[i]);
-		i++;
-	}
-	return (0);
+void		non_free_data(void *data)
+{
+	data = NULL;
+}
+
+void		phash_deinit(void)
+{
+	hash_delete_table(g_hash_files, NULL);
+	hash_delete_table(g_hash_dirs, NULL);
+	hash_delete_table(g_hash_built, non_free_data);
 }
