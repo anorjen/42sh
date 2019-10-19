@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 18:37:51 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/12 15:33:26 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/19 14:42:44 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,31 @@ void	print_type(char *arg, char *path, int type)
 	ft_printf("%s is ", arg);
 	if (type == HASH_BUILT)
 		ft_printf("a 42sh builtin\n");
+	else if (type == 50)
+		ft_printf("an alias for %s\n", path);
 	else
 		ft_printf("%s\n", path);
 }
 
-char	*search_type(char *str)
+void	search_type(char *str)
 {
 	char	*res;
 	int		i;
 
 	i = 1;
+	if (ft_strcmp( (res = alias_get(str)), ""))
+		return (print_type(str, res, 50));
 	while (i < HASH_NUM)
 	{
+		phash_update();
 		res = phash_search(str, i);
 		if (res)
-			print_type(str, res, i);
+			return (print_type(str, res, i));
 		i++;
 	}
-	return (res);
+	if (access(str, F_OK) == 0)
+		return (print_type(str, str, 100));
+	ft_printf("%s not found\n", str);
 }
 
 int	type_shell(t_process *proc)
