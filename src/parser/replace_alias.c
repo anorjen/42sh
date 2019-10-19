@@ -44,11 +44,8 @@ static char **replace_on_alias(char **args, int i)
 
 char	**replace_alias(char **argv)
 {
-    size_t	j;
-
-    j = -1;
-    while (argv && argv[++j])
-        argv = replace_on_alias(argv, j);
+    if (argv && argv[0])
+        argv = replace_on_alias(argv, 0);
     return (argv);
 }
 

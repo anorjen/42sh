@@ -22,6 +22,7 @@
 # include "lexer.h"
 # include "hashtable.h"
 # include "alias.h"
+# include "set.h"
 # include "../lib/printf/ft_printf.h"
 # include "../lib/printf/libft/get_next_line.h"
 # define BUFF_LN 5
