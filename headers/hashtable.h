@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 14:14:55 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/19 13:16:53 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/19 15:34:02 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define HASH_BUILT 1
 # define HASH_FILES 2
 
-# define NUM_BUILTINS ((int)(sizeof(g_builtin_str) / sizeof(char *)))
+# define NUM_BUILTINS ((int)(sizeof(g_builtin_str) / sizeof(char *))) - 1
 
 # define ISTYPE(mode, mask)	(((mode) & S_IFMT) == (mask))
 # define ISREG(mode)		ISTYPE((mode), S_IFREG)

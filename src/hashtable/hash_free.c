@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 14:22:42 by sbearded          #+#    #+#             */
-/*   Updated: 2019/09/28 17:28:53 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/19 15:28:21 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,8 @@ void			hash_clean_table(t_hashtable *table, void (*free_f)(void *))
 
 void			hash_free_table(t_hashtable *table)
 {
-	ft_printf("CLEAN TABLE");
-	free((void**)&(table->bucket_array));
-	free((void**)&(table));
+	free(table->bucket_array);
+	free(table);
 }
 
 void			hash_delete_table(t_hashtable *table, void (*free_f)(void *))
