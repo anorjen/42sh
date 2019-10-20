@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 14:09:23 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/12 15:34:21 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/20 14:48:46 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,8 @@ int				shell_launch_job(t_job *job)
 	return (g_sh->launch->status);
 }
 
-void
-parent_launch_process(t_process *proc,
-		t_job *job, pid_t childpid)
+void			parent_launch_process(t_process *proc,
+										t_job *job, pid_t childpid)
 {
 	proc->pid = childpid;
 	if (job->pgid > 0)
@@ -71,6 +70,17 @@ parent_launch_process(t_process *proc,
 	}
 }
 
+int				check_built_in(t_process *proc)
+{
+	if (ft_strequ(proc->query[0], "exit")
+		|| ft_strequ(proc->query[0], "cd")
+		|| ft_strequ(proc->query[0], "setenv")
+		|| ft_strequ(proc->query[0], "unsetenv"))
+		return (1);
+	else
+		return (0);
+}
+
 int				shell_launch_process(t_job *job, t_process *proc,
 		int in_fd, int out_fd)
 {
@@ -78,8 +88,8 @@ int				shell_launch_process(t_job *job, t_process *proc,
 	int			status;
 
 	proc->status = STATUS_RUNNING;
-	if (proc->type != COMMAND_EXTERNAL && execute_builtin_command(proc))
-		return (0);
+	if (check_built_in(proc))
+		return (!execute_builtin_command(proc));
 	status = 0;
 	childpid = fork();
 	if (childpid < 0)
