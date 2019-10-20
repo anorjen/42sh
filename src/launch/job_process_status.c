@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   job_process_status.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 18:16:52 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 18:36:31 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/10/19 16:43:20 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int				wait_for_job(int id)
 	int			status;
 	t_job_pid	*job_pids;
 
-	job_pids = ft_memalloc(48);
-	job_pids->status = 0;
 	if (id > NR_JOBS || g_sh->jobs[id] == NULL)
 		return (-1);
+	job_pids = ft_memalloc(48);
+	job_pids->status = 0;
 	job_pids->proc_count = get_proc_count(id, PROC_FILTER_REMAINING);
 	job_pids->wait_pid = -1;
 	job_pids->wait_count = 0;
