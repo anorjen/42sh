@@ -12,13 +12,13 @@
 
 #include "../../headers/minishell.h"
 
-char		*get_home(char **environ)
+char		*get_home(void)
 {
 	char	*path;
 	char	*temp;
 
 	path = NULL;
-	temp = get_env("HOME", environ);
+	temp = get_env("HOME");
 	if (temp)
 		path = ft_strjoin("/", temp);
 	return (path);
@@ -28,7 +28,7 @@ static void	set_pwd(void)
 {
 	char	new_dir[100];
 
-	set_env("OLDPWD", get_env("PWD", g_sh->env));
+	set_env("OLDPWD", get_env("PWD"));
 	getcwd(new_dir, 100);
 	set_env("PWD", new_dir);
 }
@@ -47,7 +47,8 @@ static void	back_to_oldpwd(void)
 	if (!g_sh->env[j])
 		return ;
 	chdir(&g_sh->env[j][7]);
-	if (ft_strstr(&g_sh->env[j][7], get_env("HOME", g_sh->env)))
+	if (get_env("HOME")
+		&& ft_strstr(&g_sh->env[j][7], get_env("HOME")))
 		ft_printf("~%s\n", &g_sh->env[j][7 + 15]);
 	else
 		ft_printf("%s\n", &g_sh->env[j][7]);
@@ -73,7 +74,7 @@ int			cd_(t_process *proc)
 	i = 1;
 	proc->query[i] && !ft_strcmp(proc->query[i], "--") ? ++i : 0;
 	if (proc->query[i] == NULL)
-		chdir(get_home(g_sh->env)) != -1 ? set_pwd() : 0;
+		chdir(get_home()) != -1 ? set_pwd() : 0;
 	else if (!ft_strcmp(proc->query[i], "-") && proc->query[i + 1] == NULL)
 		back_to_oldpwd();
 	else if (proc->query[i + 1] != NULL)

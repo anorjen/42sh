@@ -85,7 +85,7 @@ void		phash_update(void)
 	char		*env_path;
 	char		**paths;
 
-	env_path = ft_strdup(get_env("PATH", g_sh->env));
+	env_path = ft_strdup(get_env("PATH"));
 	if (env_path == NULL)
 		env_path = ft_strdup("");
 	paths = ft_strsplit(env_path, ':');

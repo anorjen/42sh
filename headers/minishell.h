@@ -96,7 +96,7 @@ char					*strcpy_till_n(char *dst, const char *src, char c);
 char					**init_environ(char **env);
 int						print_env(t_process *proc);
 int						setenv_(t_process *proc);
-char					*get_env(char *varible, char **environ);
+char					*get_env(char *varible);
 int						remove_env(t_process *proc);
 int						unset_(t_process *proc);
 

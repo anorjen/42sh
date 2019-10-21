@@ -68,9 +68,9 @@ static char	*tilde(char *line, int *i, char **env)
 	if (!chang_line[j + 1] ||
 	is_delimetr(chang_line[j + 1]) || chang_line[j + 1] == '/')
 	{
-		if (getenv("HOME"))
-			replace_str(&chang_line, j, j + 1, getenv("HOME"));
-		j += getenv("HOME") ? ft_strlen(getenv("HOME")) : 1;
+		if (get_env("HOME"))
+			replace_str(&chang_line, j, j + 1, get_env("HOME"));
+		j += get_env("HOME") ? ft_strlen(get_env("HOME")) : 1;
 		while (chang_line[j] && !is_delimetr(chang_line[j]))
 			++j;
 	}

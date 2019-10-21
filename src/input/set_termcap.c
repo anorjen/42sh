@@ -36,7 +36,7 @@ char	*get_termcap(void)
 
 	if ((term = ft_strnew(2048)))
 	{
-		if ((term_edit = ft_strdup(getenv("TERM"))))
+		if ((term_edit = ft_strdup(get_env("TERM"))))
 		{
 			tgetent(term, term_edit);
 			if (tgetent(term, term_edit) == 1)

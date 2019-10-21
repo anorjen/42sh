@@ -125,12 +125,14 @@ int			unset_(t_process *proc)
 	return (1);
 }
 
-char		*get_env(char *varible, char **environ)
+char		*get_env(char *varible)
 {
 	int		i;
 	int		j;
+	char	**environ;
 
 	i = 0;
+	environ = g_sh->env;
 	while (environ[i])
 	{
 		j = 0;

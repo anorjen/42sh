@@ -26,9 +26,9 @@ static char	*check_env_verb(char *line, int i, int *lenght)
 		++(*lenght);
 	temp = ft_strsub(line, i, (*lenght) - i);
 	i = (*lenght);
-	if (get_env(temp, g_sh->env))
+	if (get_env(temp))
 	{
-		temp2 = get_env(temp, g_sh->env);
+		temp2 = get_env(temp);
 		free(temp);
 		return (temp2);
 	}
