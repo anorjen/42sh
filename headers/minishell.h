@@ -90,15 +90,34 @@ void					string_var_parser(char **line);
 char					*strcpy_till_n(char *dst, const char *src, char c);
 
 /*
+** 				ENV
+*/
+
+char					**init_environ(char **env);
+int						print_env(t_process *proc);
+int						setenv_(t_process *proc);
+char					*get_env(char *varible, char **environ);
+int						remove_env(t_process *proc);
+int						unset_(t_process *proc);
+
+char					*new_env_join(char *name, char *value);
+int						set_env(char *name, char *value);
+
+
+/*
 ** 		built-ins funcs
 */
 
+int						cd_(t_process *proc);
 int						help_shell(t_process *proc);
 int						exit_shell(t_process *proc);
-int						set_env(t_process *proc);
-int						unset_env(t_process *proc);
 int						echo(t_process *proc);
 int						num_shell_functions(t_process *proc);
 int						type_shell(t_process *proc);
+
+/*
+** 		assist_21sh
+*/
+void					sigint_handler(int signal);
 
 #endif

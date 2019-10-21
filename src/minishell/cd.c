@@ -27,30 +27,10 @@ char		*get_home(char **environ)
 static void	set_pwd(void)
 {
 	char	new_dir[100];
-	int		i;
-	int		j;
 
-	i = -1;
-	j = 0;
-	while (g_sh->env[++i])
-	{
-		if (ft_strstr(g_sh->env[i], "PWD=") &&
-			!ft_strstr(g_sh->env[i], "OLDPWD"))
-			break ;
-	}
-	while (g_sh->env[j])
-	{
-		if (ft_strstr(g_sh->env[j], "OLDPWD"))
-			break ;
-		++j;
-	}
-	if (!g_sh->env[i] || !g_sh->env[j])
-		return ;
-	free(g_sh->env[j]);
-	g_sh->env[j] = ft_strjoin("OLDPWD=", &g_sh->env[i][4]);
+	set_env("OLDPWD", get_env("PWD", g_sh->env));
 	getcwd(new_dir, 100);
-	free(g_sh->env[i]);
-	g_sh->env[i] = ft_strjoin("PWD=", new_dir);
+	set_env("PWD", new_dir);
 }
 
 static void	back_to_oldpwd(void)
@@ -67,7 +47,7 @@ static void	back_to_oldpwd(void)
 	if (!g_sh->env[j])
 		return ;
 	chdir(&g_sh->env[j][7]);
-	if (ft_strstr(&g_sh->env[j][7], getenv("HOME")))
+	if (ft_strstr(&g_sh->env[j][7], get_env("HOME", g_sh->env)))
 		ft_printf("~%s\n", &g_sh->env[j][7 + 15]);
 	else
 		ft_printf("%s\n", &g_sh->env[j][7]);
