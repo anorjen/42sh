@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:41:22 by yharwyn-          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/10/19 15:48:27 by sbearded         ###   ########.fr       */
+=======
+/*   Updated: 2019/10/19 19:26:29 by anorjen          ###   ########.fr       */
+>>>>>>> anorjen
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +20,20 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include "launch.h"
-# include "./input.h"
+# include "input.h"
 # include "parser.h"
 # include "term.h"
 # include "lexer.h"
+# include "vi_input.h"
+# include "history_search.h"
+
 # include "hashtable.h"
 # include "alias.h"
 # include "../lib/printf/ft_printf.h"
 # include "../lib/printf/libft/get_next_line.h"
 # define BUFF_LN 5
 # define CHANGE_ENV { free(g_sh->env[i]); g_sh->env[i] = tm;return (1);}
-# define FU_TERMCAPS 1
+# define FU_TERMCAPS 0
 
 /*
 ** 		t_env linked list structure
@@ -88,6 +95,8 @@ void					signal_handler(int signo);
 void					get_cwd(char *str);
 void					string_var_parser(char **line);
 char					*strcpy_till_n(char *dst, const char *src, char c);
+void					sh_print_promt(void);
+void					key_search(t_history_session *h_session);
 
 /*
 ** 				ENV
@@ -114,6 +123,7 @@ int						exit_shell(t_process *proc);
 int						echo(t_process *proc);
 int						num_shell_functions(t_process *proc);
 int						type_shell(t_process *proc);
+int     				shell_fc(t_process *proc);
 
 /*
 ** 		assist_21sh

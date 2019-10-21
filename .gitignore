@@ -2,5 +2,3 @@
 cmake*
 .DS_*
 .vscode
-21sh.dSYM
-*.o

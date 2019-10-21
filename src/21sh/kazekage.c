@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   kazekage.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 14:11:36 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 17:25:52 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/09/28 18:52:49 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 int		is_glodel(char *line)
 {

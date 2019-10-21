@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_control.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 12:24:58 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 19:27:41 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/10/19 16:43:14 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	key_func(t_history_session *h_session, int key)
 		key_paste(h_session);
 	else if (key == KEY_TAB)
 		key_tabs(h_session);
+	else if (key == KEY_SEARCH)
+		key_search(h_session);
 }
 
 int		key_entr(t_history_session *h_session)

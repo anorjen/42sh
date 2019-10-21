@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phash_init_builtins.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:21:17 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/20 14:01:32 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/19 14:32:46 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ const char	*g_builtin_str[] = {
 	"env",
 	"setenv",
 	"unsetenv",
+	"fc",
 	NULL
 };
 
@@ -45,6 +46,7 @@ int			(*g_builtin_func[]) (t_process *) = {
 	&print_env,
 	&setenv_,
 	&unset_,
+	&shell_fc,
 	NULL
 };
 
