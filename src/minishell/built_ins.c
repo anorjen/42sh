@@ -37,7 +37,7 @@ int					exit_shell(t_process *proc)
 
 	i = 0;
 	proc = NULL;
-	printf(COLOR_MAGENTA "say-o-nara~\n" COLOR_NONE);
+	ft_printf(COLOR_MAGENTA "say-o-nara~\n" COLOR_NONE);
 	shell_cleaner();
 	save_history();
 	exit(1);
@@ -48,14 +48,13 @@ int					echo(t_process *proc)
 	int		i;
 
 	i = 1;
-	string_var_parser(proc->query);
 	while (proc->query[i] != 0)
 	{
 		ft_printf("%s ", proc->query[i]);
 		i++;
 	}
 	ft_printf("\n");
-	return (1);
+	return (0);
 }
 
 void				shell_cleaner(void)

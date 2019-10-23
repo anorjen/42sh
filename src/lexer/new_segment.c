@@ -14,7 +14,10 @@
 
 int			get_command_type_(char *command)
 {
-	if (phash_search(command, HASH_BUILT))
+	if (ft_strequ(command, "exit")
+		|| ft_strequ(command, "cd")
+		|| ft_strequ(command, "setenv")
+		|| ft_strequ(command, "unsetenv"))
 		return (1);
 	else
 		return (COMMAND_EXTERNAL);
