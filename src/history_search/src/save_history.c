@@ -13,7 +13,7 @@
 #include "minishell.h"
 #include "history_search.h"
 
-#define TMP_FILE "~/.42sh_history"
+#define HISTORY_FILE "~/.42sh_history"
 
 int    save_history()
 {
@@ -21,7 +21,7 @@ int    save_history()
     int	        fd;
     char        *file;
 
-    file = replace_dir(ft_strdup(TMP_FILE), environ);
+    file = replace_dir(ft_strdup(HISTORY_FILE), environ);
 	if ((fd = open(file, O_WRONLY | O_CREAT | O_TRUNC,
 			S_IRUSR | S_IRGRP | S_IROTH | S_IWUSR | S_IWGRP | S_IWOTH)) != -1)
 	{
