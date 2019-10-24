@@ -38,8 +38,8 @@ int					exit_shell(t_process *proc)
 	i = 0;
 	proc = NULL;
 	printf(COLOR_MAGENTA "say-o-nara~\n" COLOR_NONE);
-	shell_cleaner();
 	save_history();
+	shell_cleaner();
 	exit(1);
 }
 
