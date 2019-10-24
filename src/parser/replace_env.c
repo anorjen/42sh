@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:55:23 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 19:30:52 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/10/24 14:06:28 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-static char	*check_env_verb(char *line, int i, int *lenght)
+char		*check_env_verb(char *line, int i, int *lenght)
 {
 	char	*temp;
 	char	*temp2;
 
 	*lenght = ++i;
-	if (!ft_isalpha(line[i]) && !ft_isdigit(line[i]))
-	{
+	if (line[i] == '{')
+		return (replace_param(line, i, lenght));
+	else if (!ft_isalpha(line[i]) && !ft_isdigit(line[i]))
 		return ("$");
-	}
 	while (ft_isalpha(line[(*lenght)]) || ft_isdigit(line[(*lenght)]))
 		++(*lenght);
 	temp = ft_strsub(line, i, (*lenght) - i);

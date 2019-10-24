@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:35:35 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/20 13:48:33 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/24 15:00:33 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ void		phash_update(void)
 	char		*env_path;
 	char		**paths;
 
-	env_path = ft_strdup(get_env("PATH"));
+	env_path = get_env("PATH");
 	if (env_path == NULL)
-		env_path = ft_strdup("");
+		env_path = "";
 	paths = ft_strsplit(env_path, ':');
 	if (st_path_str == NULL || ft_strcmp(st_path_str, env_path)
 							|| check_time_mod(paths))

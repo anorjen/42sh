@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:41:22 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/19 19:26:29 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/24 14:44:00 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ void					string_var_parser(char **line);
 char					*strcpy_till_n(char *dst, const char *src, char c);
 void					sh_print_promt(void);
 void					key_search(t_history_session *h_session);
+
+void					parser_error_set(char *msg);
+int						parser_error_print(char **arg);
 
 /*
 ** 				ENV

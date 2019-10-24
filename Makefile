@@ -29,7 +29,7 @@ INCLUDES += -I./src/vi_mode/headers/
 INCLUDES += -I./src/history_search/headers/
 
 
-NAME = 21sh
+NAME = 42sh
 PRINT = lib/printf/libftprintf.a
 NAME_21SH = main.c kazekage.c assist_21sh.c built_in_type.c
 NAME_MINISHELL = built_ins.c cpy_func.c launch.c linked_list.c\
@@ -44,7 +44,7 @@ NAME_INPUT = assist_func.c key_backspace.c key_copy.c key_cut.c key_paste.c key_
 			
 NAME_VECTOR = vector.c
 NAME_PARSER = parser.c replace_env.c write_arg.c replace_dir.c get_token.c assist_parser.c parse_error.c multiple_line.c \
-                replace_alias.c
+                replace_alias.c replace_param.c parser_error.c
 NAME_LEXER = lexer.c new_segment.c input_path.c output_path.c  free_job.c new_query.c new_agregation.c
 NAME_VECTOR_LIB = vector_add.c vector_deinit.c vector_del_value.c vector_del.c vector_get.c vector_init.c vector_resize.c \
 				vector_search.c vector_set.c
@@ -118,17 +118,17 @@ $(NAME):
 	@gcc  -g -c $(FLAG) $(SRC) $(INCLUDES)
 	@gcc  -ltermcap -o $(NAME) $(OBJ) -L. $(PRINT) $(INCLUDES)
 
-	@echo "\r$(CY)--------------------------------------------------- GO --------------------------------------------------------"
+	@echo "\r$(CY)------------ GO -----------------"
 start:
-	@echo "\r$(CG)compile...																			  "
-	@echo "	-------------------------------------------------------------------------------------------------------"
-	@echo "	|	                000|             000|               00|       	         	              |	"
-	@echo "	|	000000000000|          000000|           000000|    00|  	00000|   00|	    00|       | "
-	@echo "	|	000  00  000|	000|   00  00|   000|    000|       000000|	00|      00|	    00|       |	"
-	@echo "	|	000  00  000|	000|   00  00|   000|      0000|    00  00|	00000|   00|        00|       |	"
-	@echo "	|	000  00  000|	000|   00  00|   000|        000|   00  00|	00|  	 00|	    00|       |	"
-	@echo "	|	000  00  000|	000|   00  00|   000|    000000|    00  00|	00000|   0000000|   0000000|  |	"
-	@echo "	-------------------------------------------------------------------------------------------------------"
+	@echo "\r$(CG)compile..."
+	@echo "	--------------------------------------"
+	@echo "	|	000   000|     0000|   |"
+	@echo "	|	000   000|   0000000|  |"
+	@echo "	|	000   000|       000   |"
+	@echo "	|	000000000|     000     |"
+	@echo "	|	      000|   000       |"
+	@echo "	|	      000|  00000000|  |"
+	@echo "	--------------------------------------"
 clean:
 	@make clean -sC lib/printf/
 	@rm -rf $(OBJ)

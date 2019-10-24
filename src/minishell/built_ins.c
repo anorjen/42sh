@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_ins.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:53:07 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/19 19:33:03 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/24 11:14:19 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int					exit_shell(t_process *proc)
 	i = 0;
 	proc = NULL;
 	ft_printf(COLOR_MAGENTA "say-o-nara~\n" COLOR_NONE);
-	shell_cleaner();
 	save_history();
+	shell_cleaner();
 	exit(1);
 }
 

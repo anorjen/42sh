@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_history.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 19:12:52 by anorjen           #+#    #+#             */
-/*   Updated: 2019/10/19 19:45:13 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/24 11:19:37 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@
 
 int    save_history()
 {
-    extern char **environ;
     int	        fd;
     char        *file;
 
-    file = replace_dir(ft_strdup(TMP_FILE), environ);
+    file = replace_dir(ft_strdup(TMP_FILE), g_sh->env);
 	if ((fd = open(file, O_WRONLY | O_CREAT | O_TRUNC,
 			S_IRUSR | S_IRGRP | S_IROTH | S_IWUSR | S_IWGRP | S_IWOTH)) != -1)
 	{
@@ -34,8 +33,10 @@ int    save_history()
             g_h_session = g_h_session->down;
         }
 		close(fd);
+		free(file);
 		return (0);
 	}
+	free(file);
 	return (-1);
 }
 

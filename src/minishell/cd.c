@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 13:39:14 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 19:16:32 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/10/24 11:12:58 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,14 @@ static void	cd_ext(t_process *proc, int i)
 
 int			cd_(t_process *proc)
 {
-	int			i;
+	int		i;
+	char	*home;
 
 	i = 1;
 	proc->query[i] && !ft_strcmp(proc->query[i], "--") ? ++i : 0;
+	home = get_home();
 	if (proc->query[i] == NULL)
-		chdir(get_home()) != -1 ? set_pwd() : 0;
+		chdir(home) != -1 ? set_pwd() : 0;
 	else if (!ft_strcmp(proc->query[i], "-") && proc->query[i + 1] == NULL)
 		back_to_oldpwd();
 	else if (proc->query[i + 1] != NULL)
@@ -87,5 +89,6 @@ int			cd_(t_process *proc)
 			set_pwd();
 	}
 	sh_update_cwd_info();
+	free(home);
 	return (1);
 }
