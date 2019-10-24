@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:53:07 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/19 19:33:03 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/24 19:11:36 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,5 @@ void				shell_cleaner(void)
 	}
 	free_arg(g_sh->env);
 	alias_deinit();
+	phash_deinit();
 }
