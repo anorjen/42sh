@@ -47,6 +47,34 @@ int		input_disp(t_history_session *h_session, int key, int mode, int *temp)
 	return (1);
 }
 
+
+int ft_readkey(t_history_session *h_session)
+{
+	int				ret;
+	unsigned char	b[6];
+	int				res;
+	int				i;
+
+	ft_memset(b, 0, sizeof(b));
+	res = 0;
+	i = -1;
+	if ((ret = read(0, &b[0], 6)) > 0)
+	{
+		if (!ft_isprint(b[0]))
+		{
+			while (++i < ret)
+				res += b[i];
+			res += (ret > 1 ? 1000 : 0);
+		}
+		else
+		{
+			while (++i < ret)
+				print_ch(h_session, b[i]);
+		}
+	}
+	return (res);
+}
+
 char	*input(t_history_session **h_session,
 									int lenght_hello, int mode)
 {
@@ -60,7 +88,7 @@ char	*input(t_history_session **h_session,
 	set_keypress();
 	while (21)
 	{
-		key = ft_readkey(0);
+		key = ft_readkey(*h_session);
 		if (key == 4 && !(*h_session)->lenght)
 		{
 			shell_cleaner();

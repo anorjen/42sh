@@ -15,7 +15,7 @@
 void	multiple_promt(t_history_session *h_session, int mode)
 {
 	if (mode == MODE_QUOTE || mode == MODE_PIPE
-						|| mode == MODE_AND || mode == MODE_OR)
+						|| mode == MODE_AND || mode == MODE_OR || mode == MODE_MULTPL)
 	{
 		h_session->victor->push_back(&(h_session->victor), 0);
 		print_ch(h_session, '\n');
@@ -27,6 +27,8 @@ void	multiple_promt(t_history_session *h_session, int mode)
 			ft_printf("%s", "cmdand> ");
 		else if (mode == MODE_OR)
 			ft_printf("%s", "cmdor> ");
+		else if (mode == MODE_MULTPL)
+			ft_printf("%s", "> ");
 	}
 	if (mode == MODE_HEREDOC)
 		ft_printf("heredoc> ");

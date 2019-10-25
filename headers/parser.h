@@ -35,7 +35,7 @@ int		spec_token(char *line, int j);
 int		is_agregation(char *line, int j);
 char	*get_token(char *line, int *j);
 char	**write_arg(char *line);
-int		multiply_line(char *line);
+int		multiply_line(t_history_session *h_session, char *line);
 int		is_specdel(char *line, int i);
 int		is_redir(char *line, int i);
 int		parse_error(char *line);

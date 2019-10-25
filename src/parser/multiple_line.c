@@ -38,7 +38,23 @@ int	get_md(char *line, int *i)
 	return (0);
 }
 
-int	multiply_line(char *line)
+int	is_nwln(t_history_session *h_session,char *line, int i)
+{
+	if (line[i] =='\\' && i > 0 && line[i - 1] != '\\' && line[i + 1] == '\0')
+	{
+		cut_str(&h_session->line, h_session->lenght - 1, h_session->lenght);
+		h_session->lenght--;
+		h_session->victor->array[h_session->victor->curr_arr]--;
+		h_session->left--;
+		// ft_printf("%i %i %i %i\n", h_session->lenght, h_session->victor->curr_left, h_session->victor->array[h_session->victor->curr_arr], h_session->left);
+
+		return (MODE_MULTPL);
+	}
+	return (0);
+	
+}
+
+int	multiply_line(t_history_session *h_session, char *line)
 {
 	int		i;
 	char	quote;
@@ -58,6 +74,8 @@ int	multiply_line(char *line)
 		}
 		else if (is_specdel(line, i) && (mode = get_md(line, &i)))
 			return (mode);
+		else if (is_nwln(h_session, line, i))
+			return (MODE_MULTPL);
 		else
 			++i;
 	}

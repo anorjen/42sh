@@ -44,7 +44,7 @@ char	**parser(t_history_session **h_session, char **env, int lenght_hello)
 			free(line);
 			return (NULL);
 		}
-		mode = multiply_line(line);
+		mode = multiply_line(*h_session, line);
 		if (!mode)
 			break ;
 		free(line);

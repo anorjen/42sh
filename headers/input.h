@@ -37,6 +37,7 @@
 # define MODE_OR 103
 # define MODE_BACKGROUND 104
 # define MODE_AND 105
+# define MODE_MULTPL 106
 # include <termios.h>
 # include <term.h>
 # include <limits.h>
@@ -112,7 +113,9 @@ void							reset_keypress(void);
 void							multiple_promt
 								(t_history_session *h_session, int mode);
 void							kazekage(char **arg);
-int								ft_readkey(int fd);
+// int								ft_readkey(int fd);
+int ft_readkey(t_history_session *h_session);
+
 void							key_func(t_history_session *h_session, int key);
 int								key_entr(t_history_session *h_session);
 int								key_control_c(t_history_session *h_session);

@@ -12,33 +12,6 @@
 
 #include "../../headers/minishell.h"
 
-int		ft_readkey(int fd)
-{
-	int		ret;
-	char	*b;
-	int		res;
-	int		i;
-
-	b = ft_strnew(6);
-	res = -1;
-	if (b != NULL)
-	{
-		if ((ret = read(fd, &b[0], 6)) > 0)
-		{
-			res = b[0];
-			if (b[0] == KEY_ESC && ret > 1)
-			{
-				i = 0;
-				while (b[++i] != '\0')
-					res += b[i];
-				res += 1000;
-			}
-		}
-		free(b);
-	}
-	return (res);
-}
-
 void	key_tabs(t_history_session *h_session)
 {
 	int i;

@@ -59,3 +59,4 @@ fclean: clean
 	@make fclean -sC lib/printf/
 	@rm -rf $(NAME)
 re: fclean all clean
+	make clean;
