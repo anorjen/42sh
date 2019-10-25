@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aux_utilities.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:07:58 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/05 16:04:03 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/07/27 18:36:31 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,26 @@ void		check_zombie(void)
 
 int			execute_builtin_command(t_process *proc)
 {
-	int	(*builtin)(t_process *);
-
-	builtin = phash_search(proc->query[0], HASH_BUILT);
-	if (builtin)
-		builtin(proc);
+	if (proc->type == COMMAND_EXIT)
+		exit_shell(proc);
+	else if (proc->type == COMMAND_CD)
+		cd_(proc);
+	else if (proc->type == COMMAND_HELP)
+		help_shell(proc);
+	else if (proc->type == COMMAND_JOBS)
+		shell_jobs(proc);
+	else if (proc->type == COMMAND_FG)
+		shell_fg(proc);
+	else if (proc->type == COMMAND_BG)
+		shell_bg(proc);
+	else if (proc->type == COMMAND_KILL)
+		shell_kill(proc);
+	else if (proc->type == COMMAND_ENV)
+		print_env(proc);
+	else if (proc->type == COMMAND_SETENV)
+		setenv_(proc);
+	else if (proc->type == COMMAND_UNSETENV)
+		unset_(proc);
 	else
 		return (0);
 	return (1);

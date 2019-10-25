@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/19 15:49:20 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/07/27 19:10:54 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,8 @@ void		sh_init(char **environ)
 	ft_strcpy(g_sh->pw_dir, pw->pw_dir);
 	while (++i < NR_JOBS)
 		g_sh->jobs[i] = NULL;
-	phash_init();
+	built_init();
 	sh_update_cwd_info();
-	alias_init();
 }
 
 void		sh_print_promt(void)

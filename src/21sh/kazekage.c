@@ -102,7 +102,6 @@ void	kazekage(char **arg)
 	while (arg)
 	{
 		segment_arg = split_segment(arg);
-        segment_arg = replace_alias(segment_arg);
 		arg = segment_off(arg, &mode);
 		job = lexer(segment_arg);
 		free_arg(segment_arg);

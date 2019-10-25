@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_pro.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 14:09:23 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/12 15:34:21 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/07/27 18:36:31 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ int				shell_launch_job(t_job *job)
 	return (g_sh->launch->status);
 }
 
-void
-parent_launch_process(t_process *proc,
+void			parent_launch_process(t_process *proc,
 		t_job *job, pid_t childpid)
 {
 	proc->pid = childpid;

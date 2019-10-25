@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_launch_proc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 22:53:14 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/12 15:34:05 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/07/27 18:36:31 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,27 @@ void		pgid_and_dup_handle(t_process *proc, t_job *job,
 
 void		child_launch_cycle(t_process *proc)
 {
+	char	*path;
+	char	**paths;
+	int		i;
+
+	i = 0;
 	if (execve(proc->query[0], proc->query, g_sh->env) == -1)
 	{
-		phash_update();
-		execve(	phash_search(proc->query[0], HASH_FILES),
-				proc->query, g_sh->env);
+		paths = ft_strsplit(get_env("PATH", g_sh->env), ':');
+		while (paths && paths[i] != NULL)
+		{
+			path = ft_strjoiner(paths[i++], proc->query[0]);
+			if (DEBUG_LOG)
+				ft_printf("----> starting path: %s\n", path);
+			if (execve(path, proc->query, g_sh->env) != -1)
+			{
+				free_arg(paths);
+				exit(0);
+			}
+			free(path);
+		}
+		free_arg(paths);
 	}
 }
 

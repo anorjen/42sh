@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:41:22 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/19 15:48:27 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/07/27 18:42:23 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@
 # include "parser.h"
 # include "term.h"
 # include "lexer.h"
-# include "hashtable.h"
-# include "alias.h"
+
 # include "../lib/printf/ft_printf.h"
 # include "../lib/printf/libft/get_next_line.h"
 # define BUFF_LN 5
 # define CHANGE_ENV { free(g_sh->env[i]); g_sh->env[i] = tm;return (1);}
-# define FU_TERMCAPS 1
 
 /*
 ** 		t_env linked list structure
@@ -99,6 +97,5 @@ int						set_env(t_process *proc);
 int						unset_env(t_process *proc);
 int						echo(t_process *proc);
 int						num_shell_functions(t_process *proc);
-int						type_shell(t_process *proc);
 
 #endif
