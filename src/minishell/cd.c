@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 13:39:14 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 19:16:32 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/10/24 11:12:58 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-char		*get_home(char **environ)
+char		*get_home(void)
 {
 	char	*path;
 	char	*temp;
 
 	path = NULL;
-	temp = get_env("HOME", environ);
+	temp = get_env("HOME");
 	if (temp)
 		path = ft_strjoin("/", temp);
 	return (path);
@@ -27,30 +27,10 @@ char		*get_home(char **environ)
 static void	set_pwd(void)
 {
 	char	new_dir[100];
-	int		i;
-	int		j;
 
-	i = -1;
-	j = 0;
-	while (g_sh->env[++i])
-	{
-		if (ft_strstr(g_sh->env[i], "PWD=") &&
-			!ft_strstr(g_sh->env[i], "OLDPWD"))
-			break ;
-	}
-	while (g_sh->env[j])
-	{
-		if (ft_strstr(g_sh->env[j], "OLDPWD"))
-			break ;
-		++j;
-	}
-	if (!g_sh->env[i] || !g_sh->env[j])
-		return ;
-	free(g_sh->env[j]);
-	g_sh->env[j] = ft_strjoin("OLDPWD=", &g_sh->env[i][4]);
+	set_env("OLDPWD", get_env("PWD"));
 	getcwd(new_dir, 100);
-	free(g_sh->env[i]);
-	g_sh->env[i] = ft_strjoin("PWD=", new_dir);
+	set_env("PWD", new_dir);
 }
 
 static void	back_to_oldpwd(void)
@@ -67,7 +47,8 @@ static void	back_to_oldpwd(void)
 	if (!g_sh->env[j])
 		return ;
 	chdir(&g_sh->env[j][7]);
-	if (ft_strstr(&g_sh->env[j][7], getenv("HOME")))
+	if (get_env("HOME")
+		&& ft_strstr(&g_sh->env[j][7], get_env("HOME")))
 		ft_printf("~%s\n", &g_sh->env[j][7 + 15]);
 	else
 		ft_printf("%s\n", &g_sh->env[j][7]);
@@ -88,12 +69,14 @@ static void	cd_ext(t_process *proc, int i)
 
 int			cd_(t_process *proc)
 {
-	int			i;
+	int		i;
+	char	*home;
 
 	i = 1;
 	proc->query[i] && !ft_strcmp(proc->query[i], "--") ? ++i : 0;
+	home = get_home();
 	if (proc->query[i] == NULL)
-		chdir(get_home(g_sh->env)) != -1 ? set_pwd() : 0;
+		chdir(home) != -1 ? set_pwd() : 0;
 	else if (!ft_strcmp(proc->query[i], "-") && proc->query[i + 1] == NULL)
 		back_to_oldpwd();
 	else if (proc->query[i + 1] != NULL)
@@ -106,5 +89,6 @@ int			cd_(t_process *proc)
 			set_pwd();
 	}
 	sh_update_cwd_info();
+	free(home);
 	return (1);
 }

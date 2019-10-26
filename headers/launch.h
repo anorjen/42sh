@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 18:37:24 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/10/26 13:50:19 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,6 @@ typedef struct			s_job
 	int					mode;
 }						t_job;
 
-typedef struct			s_builtins
-{
-	char				builtin_str[NR_BUILTINS][24];
-	int					(*builtin_func[NR_BUILTINS]) (t_process*);
-}						t_builtins;
-
 typedef struct			s_launch
 {
 	t_process			*proc;
@@ -121,7 +115,6 @@ typedef struct			s_shell_info
 	char				pw_dir[PATH_BUFSIZE];
 	char				**env;
 	t_job				*jobs[NR_JOBS + 1];
-	t_builtins			*builtins;
 	int					signal;
 	t_launch			*launch;
 }						t_shell_info;
@@ -229,19 +222,6 @@ void					clean_holder(t_launch *launch);
 void					sh_update_cwd_info(void);
 int						check_access(char **files, int id);
 char					*str_join_her(char *s1, char *s2);
-
-/*
-** 				ENV
-*/
-
-int						print_env(t_process *proc);
-int						setenv_(t_process *proc);
-char					*get_env(char *varible, char **environ);
-int						remove_env(t_process *proc);
-int						unset_(t_process *proc);
-int						cd_(t_process *proc);
 void					print_error(char *error, char *name);
-void					sigint_handler(int signal);
-char					**init_environ(char **env);
 
 #endif

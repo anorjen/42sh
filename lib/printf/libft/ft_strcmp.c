@@ -3,24 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agottlie <agottlie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 18:14:25 by agottlie          #+#    #+#             */
-/*   Updated: 2019/02/02 16:11:13 by agottlie         ###   ########.fr       */
+/*   Updated: 2019/09/28 17:43:39 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 int	ft_strcmp(const char *s1, const char *s2)
 {
-	unsigned char	*new_arr1;
-	unsigned char	*new_arr2;
+	unsigned char	*str1;
+	unsigned char	*str2;
+	size_t			i;
 
-	new_arr1 = (unsigned char *)s1;
-	new_arr2 = (unsigned char *)s2;
-	while (*new_arr1 == *new_arr2 && *new_arr1 != '\0')
+	str1 = (unsigned char*)s1;
+	str2 = (unsigned char*)s2;
+	i = 0;
+	while (str1[i] || str2[i])
 	{
-		++new_arr1;
-		++new_arr2;
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
+		i++;
 	}
-	return (*new_arr1 - *new_arr2);
+	return (0);
 }
