@@ -8,6 +8,7 @@ SRC_LEXER = ./src/lexer/
 SRC_VECTOR_LIB = ./lib/vector/
 SRC_ALIAS = ./src/alias/
 SRC_HASH = ./src/hashtable/
+SRC_SET = ./src/set/
 
 NAME = 21sh
 PRINT = lib/printf/libftprintf.a
@@ -30,6 +31,7 @@ NAME_ALIAS = alias_deinit.c alias_get.c alias_init.c alias_print.c alias_set.c a
 				ms_unalias.c
 NAME_HASH = ft_path.c hash_free.c hash_functions.c hash_main.c phash_init_builtins.c phash_init.c phash_search.c \
 			phash_update.c
+NAME_SET = ms_export.c ms_set.c ms_unset.c set.c set_deinit.c set_get.c set_init.c set_print.c set_update.c unset.c
 
 SRC = 	$(addprefix $(SRC_21SH), $(NAME_21SH))\
 		$(addprefix $(SRC_MINISHELL), $(NAME_MINISHELL))\
@@ -41,6 +43,7 @@ SRC = 	$(addprefix $(SRC_21SH), $(NAME_21SH))\
 		$(addprefix $(SRC_VECTOR_LIB), $(NAME_VECTOR_LIB))\
 		$(addprefix $(SRC_ALIAS), $(NAME_ALIAS))\
 		$(addprefix $(SRC_HASH), $(NAME_HASH))\
+		$(addprefix $(SRC_SET), $(NAME_SET))\
 
 
 FLAG = -Wall -Werror -Wextra

@@ -78,6 +78,7 @@ t_term							*g_term;
 int								g_dispersion;
 char							*g_buffer;
 static struct termios			g_stored_settings;
+int                             g_input_mode;
 int								putchar_(int c);
 void							backspace_ch(t_history_session *h_session);
 void							print_ch

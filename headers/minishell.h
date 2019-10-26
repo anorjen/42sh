@@ -24,6 +24,7 @@
 # include "alias.h"
 # include "../lib/printf/ft_printf.h"
 # include "../lib/printf/libft/get_next_line.h"
+# include "set.h"
 # define BUFF_LN 5
 # define CHANGE_ENV { free(g_sh->env[i]); g_sh->env[i] = tm;return (1);}
 # define FU_TERMCAPS 1

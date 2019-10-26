@@ -70,4 +70,5 @@ void				shell_cleaner(void)
 	free_arg(g_sh->env);
 	alias_deinit();
 	phash_deinit();
+    set_deinit();
 }

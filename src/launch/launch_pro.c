@@ -81,6 +81,8 @@ int				shell_launch_process(t_job *job, t_process *proc,
 	if (proc->type != COMMAND_EXTERNAL && execute_builtin_command(proc))
 		return (0);
 	status = 0;
+    if (ft_replace_set(proc) == 1)
+        return (0);
 	childpid = fork();
 	if (childpid < 0)
 		return (-1);

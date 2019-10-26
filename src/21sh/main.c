@@ -39,6 +39,7 @@ void		sh_init(char **environ)
 	phash_init();
 	sh_update_cwd_info();
 	alias_init();
+	set_init();
 }
 
 void		sh_print_promt(void)

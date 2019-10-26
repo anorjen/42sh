@@ -27,6 +27,9 @@ const char	*g_builtin_str[] = {
 	"env",
 	"setenv",
 	"unsetenv",
+	"set",
+	"unset",
+	"export",
 	NULL
 };
 
@@ -45,6 +48,9 @@ int			(*g_builtin_func[]) (t_process *) = {
 	&print_env,
 	&setenv_,
 	&unset_,
+	&ms_set,
+	&ms_unset,
+	&ms_export,
 	NULL
 };
 
