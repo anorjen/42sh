@@ -31,6 +31,27 @@
 # define CHANGE_ENV { free(g_sh->env[i]); g_sh->env[i] = tm;return (1);}
 # define FU_TERMCAPS 1
 
+# define S_SUBSTITUTE 0
+# define S_ASSIGN 1
+# define S_ERROR 2
+
+# define S_PARAMETER 0
+# define S_WORD 1
+# define S_NULL 2
+
+# define S_MINUS 0
+# define S_EQUAL 1
+# define S_QUEST 2
+# define S_PLUS 3
+# define S_PERCENT 4
+# define S_PERCENT_D 5
+# define S_HASH 6
+# define S_HASH_D 7
+
+# define S_SET 0
+# define S_SET_NULL 1
+# define S_UNSET 2
+
 /*
 ** 		t_env linked list structure
 */
@@ -55,6 +76,17 @@ typedef struct			s_env
 	void				(*print_envv)();
 	void				(*get_dir)();
 }						t_env;
+
+typedef struct			s_expansion
+{
+	char				*param;
+	char				*word;
+	char				*env;
+	int					flag_hash;
+	int					flag_exp;
+	int					action;
+	char				(f*)(s_expansion*);
+}						t_exp;
 
 typedef void			(*t_callback)(t_vault *data);
 

@@ -12,55 +12,49 @@
 
 #include "minishell.h"
 
-char	*replace_param_value(char *line, int *length, char *env)
+char		*parse_action(char *line, int *length, t_exp *exp)
 {
-	char	symbol;
-	char	*word;
-	char	*end;
-
-	(*length)++;
-	if (line[*length] == '+' || line[*length] == '-'
-		|| line[*length] == '=' || line[*length] == '?')
-		symbol = line[*length];
-	else
-		return (" ");
-	(*length)++;
-	end = ft_strchr(line + *length, '}');
-	word = ft_strnew(end - line - *length);
-	ft_strncpy(word, line + *length, end - line - *length);
-	*length = end - line + 1;
-	if (env && ft_strcmp(env, "") && symbol != '+')
-		return (env);
-	else if ((env && ft_strcmp(env, "") && symbol == '+')
-				|| (env && !ft_strcmp(env, ""))
-				||	(!env))
-		return (word);
-	return (NULL);
-}
-
-char	*replace_param(char *line, int i, int *length)
-{
-	int		flag;
-	char	*env;
-
-	flag = 0;
-	if (line[i] == '#')
+	if (exp->flag_exp == 0 || line[*length] == '}')
 	{
-		*length = ++i;
-		flag = 1;
+		free(exp->param);
+		if (exp->env)
+			return (exp->env);
+		return (" ");
 	}
-	env = check_env_verb(line, i, length);
-	if (line[*length] == ':')
-		return (replace_param_value(line, length, env));
-	else if (line[*length] == '%');
-		//remove_suffix();
-	else if (line[*length] == '#');
-		//remove_prefix();
-	else if (line[*length] == '}')
+	else if (line[*length] == ':')
 	{
 		(*length)++;
-		return (env);
+		line[*length] == '+' ? exp->action = S_PLUS : NULL;
+		line[*length] == '-' ? exp->action = S_MINUS : NULL;
+		line[*length] == '?' ? exp->action = S_QUEST : NULL;
+		line[*length] == '=' ? exp->action = S_EQUAL : NULL;
+		
 	}
-	parser_error_set(ft_strdup("42sh: bad substitution"));
-	return (" ");
+}
+
+char		*replace_param(char *line, int i, int *length)
+{
+	t_exp	exp;
+
+	*length = ++i;
+	if (line[i] == '{')
+	{
+		exp.flag_exp = 1;
+		++(*length);
+	}
+	else if (ft_isalpha(line[i]) || ft_isdigit(line[i]))
+		exp.flag_exp = 0;
+	else
+		return ("$");
+	exp.flag_hash = 0;
+	if (line[(*length)] == '#')
+	{
+		exp.flag_hash = 1;
+		++(*length);
+	}
+	while (ft_isalpha(line[(*length)]) || ft_isdigit(line[(*length)]))
+		++(*length);
+	exp.param = ft_strsub(line, i + exp.flag_exp, (*length) - i + exp.flag_exp);
+	exp.env = get_env(exp.param);
+	return (parse_action(line, length, &exp));
 }
