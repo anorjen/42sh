@@ -5,3 +5,4 @@ cmake*
 21sh.dSYM
 42sh.dSYM
 *.o
+test.txt
