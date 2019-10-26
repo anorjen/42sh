@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_fc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:35:53 by anorjen           #+#    #+#             */
-/*   Updated: 2019/10/19 20:13:37 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/26 17:14:18 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ static void	init_fc(t_fc *fc)
 
 int     	shell_fc(t_process *proc)
 {
-	extern char	**environ;
     int     	qlen;
     char    	**query;
 	t_fc		fc;
@@ -97,7 +96,7 @@ int     	shell_fc(t_process *proc)
     qlen = arrlen(query);
     if (qlen == 1)
     {
-        run_vi(environ);
+        run_vi(g_sh->env);
         
     }
     else

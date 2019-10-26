@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:16:07 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/26 14:14:34 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/26 17:15:14 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,11 @@ void		string_var_parser(char **line)
 
 t_vault		*environ_grab(t_vault *root)
 {
-	extern char	**environ;
+	char		**environ;
 	int			i;
 
 	i = 0;
+	environ = g_sh->env;
 	while (environ[i] != NULL)
 	{
 		root = append_env(root, environ[i]);
