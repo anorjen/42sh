@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:35:35 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/05 15:46:58 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 18:34:30 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ static void	phash_fill_tables(char **path_to_dirs)
 						get_time_last_mod(*path_to_dirs));
 			while ((file = readdir(dir)))
 				add_file_in_table(*path_to_dirs, file);
+			closedir(dir);
 		}
-		closedir(dir);
 		path_to_dirs++;
 	}
 }
@@ -72,7 +72,7 @@ static int	check_time_mod(char **path_to_dirs)
 	{
 		time_old = (long*)phash_search(*path_to_dirs, HASH_DIRS);
 		time_new = get_time_last_mod(*path_to_dirs);
-		if (*time_old != *time_new)
+		if (time_old && time_new && *time_old != *time_new)
 			return (1);
 		path_to_dirs++;
 	}
@@ -85,9 +85,9 @@ void		phash_update(void)
 	char		*env_path;
 	char		**paths;
 
-	env_path = ft_strdup(get_env("PATH", g_sh->env));
+	env_path = get_env("PATH");
 	if (env_path == NULL)
-		env_path = ft_strdup("");
+		env_path = "";
 	paths = ft_strsplit(env_path, ':');
 	if (st_path_str == NULL || ft_strcmp(st_path_str, env_path)
 							|| check_time_mod(paths))

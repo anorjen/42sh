@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:21:17 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/05 16:01:37 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 18:21:27 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ const char	*g_builtin_str[] = {
 	"set",
 	"unset",
 	"export",
+	"fc",
 	NULL
 };
 
@@ -51,6 +52,7 @@ int			(*g_builtin_func[]) (t_process *) = {
 	&ms_set,
 	&ms_unset,
 	&ms_export,
+	&shell_fc,
 	NULL
 };
 

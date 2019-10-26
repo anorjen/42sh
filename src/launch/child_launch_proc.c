@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 22:53:14 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/12 15:34:05 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 18:15:23 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,12 @@ void		pgid_and_dup_handle(t_process *proc, t_job *job,
 
 void		child_launch_cycle(t_process *proc)
 {
+	if (execute_builtin_command(proc))
+		exit(0);
 	if (execve(proc->query[0], proc->query, g_sh->env) == -1)
 	{
 		phash_update();
-		execve(	phash_search(proc->query[0], HASH_FILES),
+		execve(phash_search(proc->query[0], HASH_FILES),
 				proc->query, g_sh->env);
 	}
 }

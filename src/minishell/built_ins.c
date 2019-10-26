@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:53:07 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/19 15:49:26 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 18:17:29 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int					exit_shell(t_process *proc)
 
 	i = 0;
 	proc = NULL;
-	printf(COLOR_MAGENTA "say-o-nara~\n" COLOR_NONE);
+	ft_printf(COLOR_MAGENTA "say-o-nara~\n" COLOR_NONE);
+	save_history();
 	shell_cleaner();
 	exit(1);
 }
@@ -47,14 +48,15 @@ int					echo(t_process *proc)
 	int		i;
 
 	i = 1;
-	string_var_parser(proc->query);
 	while (proc->query[i] != 0)
 	{
-		ft_printf("%s ", proc->query[i]);
+		ft_printf("%s", proc->query[i]);
 		i++;
+		if (proc->query[i])
+			ft_printf(" ");
 	}
 	ft_printf("\n");
-	return (1);
+	return (0);
 }
 
 void				shell_cleaner(void)

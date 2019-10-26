@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   set_termcap.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 18:51:43 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 19:24:34 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/10/24 11:13:04 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 void	set_keypress(void)
 {
@@ -36,7 +36,7 @@ char	*get_termcap(void)
 
 	if ((term = ft_strnew(2048)))
 	{
-		if ((term_edit = ft_strdup(getenv("TERM"))))
+		if ((term_edit = ft_strdup(get_env("TERM"))))
 		{
 			tgetent(term, term_edit);
 			if (tgetent(term, term_edit) == 1)

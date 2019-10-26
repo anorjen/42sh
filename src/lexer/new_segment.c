@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:13:28 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/05 15:41:03 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 18:23:50 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,16 @@
 
 int			get_command_type_(char *command)
 {
-	if (phash_search(command, HASH_BUILT))
+	if (ft_strequ(command, "exit")
+		|| ft_strequ(command, "cd")
+		|| ft_strequ(command, "setenv")
+		|| ft_strequ(command, "unsetenv")
+		|| ft_strequ(command, "jobs")
+		|| ft_strequ(command, "bg")
+		|| ft_strequ(command, "fg")
+		|| ft_strequ(command, "kill")
+		|| ft_strequ(command, "alias")
+		|| ft_strequ(command, "unalias"))
 		return (1);
 	else
 		return (COMMAND_EXTERNAL);

@@ -20,9 +20,9 @@ char		*new_env(t_process *proc)
 	new_env = NULL;
 	if (proc->query[1] == NULL)
 		write(2, "setenv: not enough arguments\n", 29);
-	if (!ft_strcmp(proc->query[1], "="))
+	else if (!ft_strcmp(proc->query[1], "="))
 		write(2, "zsh: bad assignment\n", 20);
-	if (proc->query[2] == NULL)
+	else if (proc->query[2] == NULL)
 	{
 		if (ft_strstr(proc->query[1], "="))
 			new_env = ft_strdup(proc->query[1]);
@@ -125,12 +125,14 @@ int			unset_(t_process *proc)
 	return (1);
 }
 
-char		*get_env(char *varible, char **environ)
+char		*get_env(char *varible)
 {
 	int		i;
 	int		j;
+	char	**environ;
 
 	i = 0;
+	environ = g_sh->env;
 	while (environ[i])
 	{
 		j = 0;

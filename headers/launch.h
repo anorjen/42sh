@@ -221,19 +221,6 @@ void					clean_holder(t_launch *launch);
 void					sh_update_cwd_info(void);
 int						check_access(char **files, int id);
 char					*str_join_her(char *s1, char *s2);
-
-/*
-** 				ENV
-*/
-
-int						print_env(t_process *proc);
-int						setenv_(t_process *proc);
-char					*get_env(char *varible, char **environ);
-int						remove_env(t_process *proc);
-int						unset_(t_process *proc);
-int						cd_(t_process *proc);
 void					print_error(char *error, char *name);
-void					sigint_handler(int signal);
-char					**init_environ(char **env);
 
 #endif

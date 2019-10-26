@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 17:21:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 15:09:36 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/10/26 16:25:06 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,22 @@ int	get_md(char *line, int *i)
 	return (0);
 }
 
-int	multiply_line(char *line)
+int	is_nwln(t_history_session *h_session,char *line, int i)
+{
+	if (line[i] =='\\' && i > 0 && line[i - 1] != '\\' && line[i + 1] == '\0')
+	{
+		cut_str(&h_session->line, h_session->lenght - 1, h_session->lenght);
+		h_session->lenght--;
+		h_session->victor->array[h_session->victor->curr_arr]--;
+		h_session->left--;
+
+		return (MODE_MULTPL);
+	}
+	return (0);
+	
+}
+
+int	multiply_line(t_history_session *h_session, char *line)
 {
 	int		i;
 	char	quote;
@@ -58,6 +73,8 @@ int	multiply_line(char *line)
 		}
 		else if (is_specdel(line, i) && (mode = get_md(line, &i)))
 			return (mode);
+		else if (is_nwln(h_session, line, i))
+			return (MODE_MULTPL);
 		else
 			++i;
 	}
