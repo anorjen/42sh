@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:53:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/19 17:17:39 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/26 16:27:39 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**parser(t_history_session **h_session, char **env, int lenght_hello)
 	char	*line;
 	int		mode;
 
-	g_input_mode = 0;
+	g_input_mode = 1;
 	*h_session = add_history(*h_session, lenght_hello);
 	mode = 0;
 	while (1)
@@ -60,7 +60,7 @@ char	**parser(t_history_session **h_session, char **env, int lenght_hello)
 			free(line);
 			return (NULL);
 		}
-		if (!(mode = multiply_line(line)))
+		if (!(mode = multiply_line(*h_session, line)))
 			break ;
 		free(line);
 	}

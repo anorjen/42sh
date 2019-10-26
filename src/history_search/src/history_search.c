@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 15:58:08 by anorjen           #+#    #+#             */
-/*   Updated: 2019/10/19 20:00:04 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/26 16:12:03 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ void	search_word(t_history_session *h_session, char *word)
 
 	tmp = h_session;
 	tmp = list_rewind_to_end(tmp);
-	if(tmp->up)
+	if (tmp->up)
 		tmp = tmp->up;
 	write(1, "\n", 1);
 	if (word && word[0] != '\0')
 	{
 		while (tmp)
 		{
-			if (ft_strstr(tmp->line, word) != NULL) 
+			if (ft_strstr(tmp->line, word) != NULL)
 			{
 				write(1, tmp->line, ft_strlen(tmp->line));
 				write(1, "\n", 1);
@@ -81,32 +81,24 @@ void	search_number(t_history_session *h_session, int number)
 
 	tmp = h_session;
 	write(1, "\n", 1);
-	i = 1;
+	i = 0;
 	if (number >= 0)
 	{
 		tmp = list_rewind_to_begin(tmp);
-		while (tmp && i < number)
-		{
+		while (tmp && ++i < number)
 			tmp = tmp->down;
-			++i;
-		}
-		if (i == number)
-			write(1, tmp->line, ft_strlen(tmp->line));
 	}
 	else
 	{
 		number = (-1) * number;
 		tmp = list_rewind_to_end(tmp);
-		if(tmp->up)
+		if (tmp->up)
 			tmp = tmp->up;
-		while (tmp && i < number)
-		{
+		while (tmp && ++i < number)
 			tmp = tmp->up;
-			++i;
-		}
-		if (i == number)
-			write(1, tmp->line, ft_strlen(tmp->line));
 	}
+	if (i == number)
+		write(1, tmp->line, ft_strlen(tmp->line));
 	h_session->line[0] = '\0';
 	key_entr(h_session);
 }
