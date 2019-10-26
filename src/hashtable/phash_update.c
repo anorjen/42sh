@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:35:35 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/26 11:06:11 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 18:13:56 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	check_time_mod(char **path_to_dirs)
 	{
 		time_old = (long*)phash_search(*path_to_dirs, HASH_DIRS);
 		time_new = get_time_last_mod(*path_to_dirs);
-		if (*time_old != *time_new)
+		if (time_old && time_new && *time_old != *time_new)
 			return (1);
 		path_to_dirs++;
 	}
@@ -99,5 +99,4 @@ void		phash_update(void)
 		hash_clean_table(g_hash_dirs, NULL);
 		phash_fill_tables(paths);
 	}
-	free_arg(paths);
 }

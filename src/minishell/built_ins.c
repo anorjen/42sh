@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:53:07 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/26 17:08:38 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 18:17:29 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ int					echo(t_process *proc)
 	i = 1;
 	while (proc->query[i] != 0)
 	{
-		ft_printf("%s ", proc->query[i]);
+		ft_printf("%s", proc->query[i]);
 		i++;
+		if (proc->query[i])
+			ft_printf(" ");
 	}
 	ft_printf("\n");
 	return (0);

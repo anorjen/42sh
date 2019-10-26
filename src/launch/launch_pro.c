@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 14:09:23 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/20 14:48:46 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 18:22:16 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,13 @@ int				check_built_in(t_process *proc)
 	if (ft_strequ(proc->query[0], "exit")
 		|| ft_strequ(proc->query[0], "cd")
 		|| ft_strequ(proc->query[0], "setenv")
-		|| ft_strequ(proc->query[0], "unsetenv"))
+		|| ft_strequ(proc->query[0], "unsetenv")
+		|| ft_strequ(proc->query[0], "jobs")
+		|| ft_strequ(proc->query[0], "bg")
+		|| ft_strequ(proc->query[0], "fg")
+		|| ft_strequ(proc->query[0], "kill")
+		|| ft_strequ(proc->query[0], "alias")
+		|| ft_strequ(proc->query[0], "unalias"))
 		return (1);
 	else
 		return (0);
