@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 11:34:11 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/26 11:34:25 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 17:12:00 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 char	*param_exp_colon(t_exp *exp)
 {
-	return NULL;
+	return (ft_strdup(exp->env));
 }

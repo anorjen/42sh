@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/26 17:02:37 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 17:06:37 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void		sh_init(char **environ)
 	int					i;
 
 	g_input_mode = 0;
+	g_env = NULL;
 	sigint_action.sa_flags = 0;
 	i = -1;
 	sigint_action.sa_handler = &sigint_handler;

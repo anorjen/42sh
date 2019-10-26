@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 16:43:12 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/19 16:41:10 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/26 16:23:37 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define MODE_OR 103
 # define MODE_BACKGROUND 104
 # define MODE_AND 105
+# define MODE_MULTPL 106
 # define KEY_SEARCH 18
 # include <termios.h>
 # include <term.h>
@@ -114,7 +115,8 @@ void							reset_keypress(void);
 void							multiple_promt
 								(t_history_session *h_session, int mode);
 void							kazekage(char **arg);
-int								ft_readkey(int fd);
+int ft_readkey(t_history_session *h_session);
+
 void							key_func(t_history_session *h_session, int key);
 int								key_entr(t_history_session *h_session);
 int								key_control_c(t_history_session *h_session);
