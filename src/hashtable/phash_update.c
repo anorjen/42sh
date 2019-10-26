@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:35:35 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/26 18:13:56 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 18:34:30 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,5 @@ void		phash_update(void)
 		hash_clean_table(g_hash_dirs, NULL);
 		phash_fill_tables(paths);
 	}
+	free_arg(paths);
 }
