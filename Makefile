@@ -9,6 +9,7 @@ SRC_VECTOR_LIB = ./lib/vector/
 SRC_ALIAS = ./src/alias/
 SRC_HASH = ./src/hashtable/
 SRC_ENV = ./src/env/
+SRC_PAR_EXP = ./src/parser/param_exp_func/
 
 SRC_DLIST = ./src/vi_mode/dlist/
 SRC_FT_STRING = ./src/vi_mode/ft_string/
@@ -51,8 +52,9 @@ NAME_VECTOR_LIB = vector_add.c vector_deinit.c vector_del_value.c vector_del.c v
 NAME_ALIAS = alias_deinit.c alias_get.c alias_init.c alias_print.c alias_set.c alias_unset.c alias_update.c ms_alias.c \
 				ms_unalias.c
 NAME_HASH = ft_path.c hash_free.c hash_functions.c hash_main.c phash_init_builtins.c phash_init.c phash_search.c \
-			phash_update.c
+			phash_update.c phash_init_param_exp.c
 NAME_ENV = env.c
+NAME_PAR_EXP = colon.c equal.c hash_d.c hash.c minus.c percent_d.c percent.c plus.c question.c
 
 ## vi_mode
 NAME_DLIST = ft_dlist_new.c ft_dlist_add.c ft_dlist_delone.c ft_dlist_rewind.c ft_dlist_del.c ft_dlist_addbegin.c \
@@ -104,7 +106,8 @@ SRC = 	$(addprefix $(SRC_21SH), $(NAME_21SH))\
 		$(addprefix $(SRC_ALIAS), $(NAME_ALIAS))\
 		$(addprefix $(SRC_HASH), $(NAME_HASH))\
 		$(addprefix $(SRC_ENV), $(NAME_ENV))\
-		$(addprefix $(SRC_HS), $(NAME_HS))
+		$(addprefix $(SRC_HS), $(NAME_HS))\
+		$(addprefix $(SRC_PAR_EXP), $(NAME_PAR_EXP))
 
 
 FLAG = -Wall -Werror -Wextra -g
@@ -115,7 +118,7 @@ CG = \033[92m
 all: start $(NAME)
 $(NAME):
 	@make -sC ./lib/printf/
-	@gcc  -g -c $(FLAG) $(SRC) $(INCLUDES)
+	@gcc  -g -c $(SRC) $(INCLUDES)
 	@gcc  -ltermcap -o $(NAME) $(OBJ) -L. $(PRINT) $(INCLUDES)
 
 	@echo "\r$(CY)------------ GO -----------------"

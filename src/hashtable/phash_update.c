@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:35:35 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/24 15:00:33 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 11:06:11 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ static void	phash_fill_tables(char **path_to_dirs)
 						get_time_last_mod(*path_to_dirs));
 			while ((file = readdir(dir)))
 				add_file_in_table(*path_to_dirs, file);
+			closedir(dir);
 		}
-		closedir(dir);
 		path_to_dirs++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:55:23 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/24 14:06:28 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 10:54:38 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char		*check_env_verb(char *line, int i, int *lenght)
 {
-	char	*temp;
+	/*char	*temp;
 	char	*temp2;
 
 	*lenght = ++i;
@@ -33,7 +33,8 @@ char		*check_env_verb(char *line, int i, int *lenght)
 		return (temp2);
 	}
 	free(temp);
-	return (" ");
+	return (" ");*/
+	return (replace_param(line, i, lenght));
 }
 
 static int	envin_quote(char **chang_line, int i, char **env)

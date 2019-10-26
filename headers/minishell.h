@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:41:22 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/24 14:44:00 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 11:44:51 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ typedef struct			s_expansion
 	char				*env;
 	int					flag_hash;
 	int					flag_exp;
-	int					action;
-	char				(f*)(s_expansion*);
+	char				*action;
+	char				(*f)(struct s_expansion *exp);
 }						t_exp;
 
 typedef void			(*t_callback)(t_vault *data);
@@ -160,5 +160,18 @@ int     				shell_fc(t_process *proc);
 ** 		assist_21sh
 */
 void					sigint_handler(int signal);
+
+/*
+** 		param expansion
+*/
+char					*param_exp_minus(t_exp *exp);
+char					*param_exp_plus(t_exp *exp);
+char					*param_exp_equal(t_exp *exp);
+char					*param_exp_question(t_exp *exp);
+char					*param_exp_colon(t_exp *exp);
+char					*param_exp_percent(t_exp *exp);
+char					*param_exp_percent_d(t_exp *exp);
+char					*param_exp_hash(t_exp *exp);
+char					*param_exp_hash_d(t_exp *exp);
 
 #endif
