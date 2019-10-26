@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:53:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/24 14:22:44 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 15:04:09 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	replace_str(char **chang_line, int i, int lenght, char *env_verb)
 	free(temp);
 }
 
-
 char	*get_line(t_history_session **h_session, int lenght_hello, int mode)
 {
 	char	*line;
@@ -37,7 +36,7 @@ char	*get_line(t_history_session **h_session, int lenght_hello, int mode)
 		line = input(h_session, lenght_hello, mode);
 	else
 		line = wait_input();
-	return line;
+	return (line);
 }
 
 char	**parser(t_history_session **h_session, char **env, int lenght_hello)
