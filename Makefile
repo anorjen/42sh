@@ -119,7 +119,7 @@ all: start $(NAME)
 $(NAME):
 	@make -sC ./lib/printf/
 	@gcc  -c $(FLAG) $(SRC) $(INCLUDES)
-	@gcc  -ltermcap -o $(NAME) $(OBJ) -L. $(PRINT) 
+	@gcc  -ltermcap -o $(NAME) $(OBJ) -L. $(PRINT) $(INCLUDES)
 
 	@echo "\r$(CY)------------ GO -----------------"
 start:

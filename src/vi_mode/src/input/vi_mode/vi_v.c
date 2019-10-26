@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 16:28:27 by anorjen           #+#    #+#             */
-/*   Updated: 2019/09/28 20:46:28 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/26 17:32:33 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,6 @@ static char	*readstr()
 	}
 	return str;
 }
-
-// static char	*readstr()
-// {
-// 	char	*str;
-	
-// 	str = ft_strdup("test");
-// 	return (str);
-// }
 
 static int	writestr(t_line *line)
 {
