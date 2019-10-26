@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 11:37:00 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/26 11:41:49 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 16:17:31 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 char	*param_exp_hash_d(t_exp *exp)
 {
-	return NULL;
+	return (param_exp_hash(exp));
 }
