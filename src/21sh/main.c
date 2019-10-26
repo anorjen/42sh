@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/24 19:10:50 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/26 14:08:30 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void		sh_init(char **environ)
 	int					i;
 
 	g_input_mode = 0;
+	g_env = NULL;
 	sigint_action.sa_flags = 0;
 	i = -1;
 	sigint_action.sa_handler = &sigint_handler;
