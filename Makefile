@@ -51,7 +51,7 @@ CG = \033[92m
 all: start $(NAME)
 $(NAME):
 	@make -sC ./lib/printf/
-	@gcc  -c $(FLAG) $(SRC) -I headers
+	@gcc  -c $(FLAG) $(SRC) -I./headers
 	@gcc  -ltermcap -o $(NAME) $(OBJ) -L. $(PRINT) 
 
 	@echo "\r$(CY)--------------------------------------------------- GO --------------------------------------------------------"
