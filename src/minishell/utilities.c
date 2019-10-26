@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:16:07 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/26 14:12:12 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/26 14:14:34 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ static void	shift_to_left(char *str)
 static char	*string_to_env(char *str)
 {
 	char	*line;
-	t_vault	*env_key;
+	t_vault	*env_value;
 
 	shift_to_left(str);
-	if (g_env != NULL && (env_key = search_key(g_env->vault, str)) != NULL)
+	if (g_env != NULL && (env_value = search_key(g_env->vault, str)) != NULL)
 	{
 		line = ft_memalloc(100);
-		ft_strcpy(line, env_key->path);
+		ft_strcpy(line, env_value->path);
 		ft_memdel((void **)&str);
 		return (line);
 	}
