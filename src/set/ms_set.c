@@ -87,12 +87,17 @@ int ms_set(t_process *proc)
 
 	if (proc->query[1] == NULL)
 		set_print();
-	else if (proc->query[0] && proc->query[1] && proc->query[2] && ft_strcmp("-o", proc->query[1]) && (!ft_strcmp(proc->query[2], "vi") || !ft_strcmp(proc->query[2], "readline")))
+	else if (proc->query[0] && proc->query[1] && proc->query[2] && ft_strcmp("-o", proc->query[1]))
 	{
-		if (!ft_strcmp(proc->query[2], "readline"))
-			g_input_mode = 1;
-		else
-			g_input_mode = 2;
+		if (!ft_strcmp(proc->query[2], "readline")) {
+            g_input_mode = 2;
+        }
+		else if (!ft_strcmp(proc->query[2], "vi")) {
+            g_input_mode = 1;
+		}
+        else {
+            g_input_mode = 0;
+        }
 	}
 	else
 	{

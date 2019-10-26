@@ -40,7 +40,7 @@ NAME_LAUNCH = aux_utilities.c job_process_status.c job_utils.c jobs_builtins.c l
 				heredoc_input.c child_launch_proc.c holder_launch_struct.c jobs_fg_bg_builtin.c jobs_kill_builtin.c\
 				out_redir_launch.c pipe_and_preconfig.c
 NAME_INPUT = assist_func.c key_backspace.c key_copy.c key_cut.c key_paste.c key_endhome.c history_session.c input.c\
-			navigation_words.c navigation_line.c save_buff.c spec_key.c set_termcap.c multiple_promt.c key_control.c\
+			navigation_words.c navigation_line.c save_buff.c spec_key.c set_termcap.c multiple_promt.c key_control.c
 NAME_VECTOR = vector.c
 NAME_PARSER = parser.c replace_env.c write_arg.c replace_dir.c get_token.c assist_parser.c parse_error.c multiple_line.c \
                 replace_alias.c replace_param.c parser_error.c
@@ -52,7 +52,6 @@ NAME_ALIAS = alias_deinit.c alias_get.c alias_init.c alias_print.c alias_set.c a
 NAME_HASH = ft_path.c hash_free.c hash_functions.c hash_main.c phash_init_builtins.c phash_init.c phash_search.c \
 			phash_update.c phash_init_param_exp.c
 NAME_SET = ms_export.c ms_set.c ms_unset.c set.c set_deinit.c set_get.c set_init.c set_print.c set_update.c unset.c
-			phash_update.c
 NAME_ENV = env.c
 NAME_PAR_EXP = colon.c equal.c hash_d.c hash.c minus.c percent_d.c percent.c plus.c question.c
 
