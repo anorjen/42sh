@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:04:25 by anorjen           #+#    #+#             */
-/*   Updated: 2019/10/19 14:05:33 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/26 17:31:28 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 **	hi_search_history
 */
 void	ft_history_search(char *line);
-char	*ft_history_last();
+char	*ft_history_last(void);
 char	*ft_history_word(char *word);
 char	*ft_history_number(int number);
 
