@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 11:30:59 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/26 11:33:29 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 14:52:41 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,11 @@
 
 char	*param_exp_plus(t_exp *exp)
 {
-	return NULL;
+	char	*res;
+	
+	if (!exp->env || ft_strequ(exp->env, ""))
+		res = ft_strdup(" ");
+	else
+		res = ft_strdup(exp->word);
+	return (res);
 }

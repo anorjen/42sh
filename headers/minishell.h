@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:41:22 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/26 11:44:51 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 14:11:59 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,8 @@ void					sigint_handler(int signal);
 /*
 ** 		param expansion
 */
+void					free_exp(t_exp *exp);
+
 char					*param_exp_minus(t_exp *exp);
 char					*param_exp_plus(t_exp *exp);
 char					*param_exp_equal(t_exp *exp);
