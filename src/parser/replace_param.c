@@ -7,7 +7,6 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:53:43 by mgorczan          #+#    #+#             */
 /*   Updated: 2019/10/27 21:53:44 by mgorczan         ###   ########.fr       */
-/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
@@ -52,7 +51,7 @@ char		*do_replace(t_exp *exp)
 		}
 	}
 	else
-		res = ft_strdup(exp->env);
+		res = exp->env ? ft_strdup(exp->env) : ft_strdup(" ");
 	if (exp->flag_hash)
 		res = do_hash(res);
 	free_exp(exp);
@@ -64,8 +63,6 @@ char		*parse_action(char *line, int *length, t_exp *exp)
 	int	counter;
 	int	i;
 
-	if (!exp->env)
-		exp->env = ft_strdup(" ");
 	counter = 0;
 	if (exp->flag_exp == 0)
 	{
