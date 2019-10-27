@@ -6,11 +6,11 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 17:28:38 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/26 11:45:41 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 11:24:51 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/hashtable.h"
+#include "hashtable.h"
 
 void		phash_init(void)
 {

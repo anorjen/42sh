@@ -6,11 +6,11 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 18:37:51 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/27 11:18:57 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 11:23:30 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 void	print_type(char *arg, char *path, int type)
 {

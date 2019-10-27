@@ -6,11 +6,11 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 17:26:51 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/05 16:04:22 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 11:23:16 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 void	sigint_handler(int signal)
 {

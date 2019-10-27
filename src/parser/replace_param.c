@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 12:01:12 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/26 14:49:32 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 11:37:06 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ char		*parse_action(char *line, int *length, t_exp *exp)
 	int	counter;
 	int	i;
 
+	if (!exp->env)
+		exp->env = ft_strdup(" ");
 	counter = 0;
 	if (exp->flag_exp == 0)
 	{
