@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 16:43:12 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/26 16:23:37 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/27 11:17:43 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void							reset_keypress(void);
 void							multiple_promt
 								(t_history_session *h_session, int mode);
 void							kazekage(char **arg);
-int ft_readkey(t_history_session *h_session);
+int								ft_readkey(t_history_session *h_session);
 
 void							key_func(t_history_session *h_session, int key);
 int								key_entr(t_history_session *h_session);

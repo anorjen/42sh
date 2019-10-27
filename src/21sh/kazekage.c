@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   kazekage.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 14:11:36 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/09/28 18:52:49 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/27 11:21:06 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	kazekage(char **arg)
 	while (arg)
 	{
 		segment_arg = split_segment(arg);
-        segment_arg = replace_alias(segment_arg);
+		segment_arg = replace_alias(segment_arg);
 		arg = segment_off(arg, &mode);
 		job = lexer(segment_arg);
 		free_arg(segment_arg);

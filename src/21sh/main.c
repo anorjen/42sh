@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/26 19:12:19 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 11:22:18 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,6 @@ void		sh_init(char **environ)
 	ft_strcpy(g_sh->pw_dir, pw->pw_dir);
 	while (++i < NR_JOBS)
 		g_sh->jobs[i] = NULL;
-	phash_init();
-	sh_update_cwd_info();
-	alias_init();
 }
 
 void		sh_print_promt(void)
@@ -73,10 +70,8 @@ void		shell_loop(char **env)
 {
 	char						**args;
 	int							status;
-	// static t_history_session	*h_session;
 	t_job						*job;
 
-	sh_init(env);
 	status = 1;
 	g_h_session = NULL;
 	set_termcap(env);
@@ -102,6 +97,10 @@ int			main(int argc, char **argv, char **env)
 {
 	argc = 0;
 	argv = NULL;
+	sh_init(env);
+	phash_init();
+	sh_update_cwd_info();
+	alias_init();
 	shell_loop(env);
 	return (0);
 }
