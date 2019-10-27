@@ -23,7 +23,11 @@ int			get_command_type_(char *command)
 		|| ft_strequ(command, "fg")
 		|| ft_strequ(command, "kill")
 		|| ft_strequ(command, "alias")
-		|| ft_strequ(command, "unalias"))
+		|| ft_strequ(command, "unalias")
+		|| ft_strequ(command, "set")
+        || ft_strequ(command, "unset")
+        || ft_strequ(command, "export")
+        || ft_strequ(command, "fc"))
 		return (1);
 	else
 		return (COMMAND_EXTERNAL);

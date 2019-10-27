@@ -130,6 +130,7 @@ char		*get_env(char *varible)
 	int		i;
 	int		j;
 	char	**environ;
+	char    *str;
 
 	i = 0;
 	environ = g_sh->env;
@@ -143,5 +144,9 @@ char		*get_env(char *varible)
 			return (&environ[i][ft_strlen(varible) + 1]);
 		i++;
 	}
+	str = set_get(varible);
+	if (!ft_strequ(str, ""))
+        return (str);
+	ft_strdel(&str);
 	return (NULL);
 }

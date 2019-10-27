@@ -30,7 +30,7 @@
 # include "set.h"
 # define BUFF_LN 5
 # define CHANGE_ENV { free(g_sh->env[i]); g_sh->env[i] = tm;return (1);}
-# define FU_TERMCAPS 0
+# define FU_TERMCAPS 1
 
 # define S_SUBSTITUTE 0
 # define S_ASSIGN 1
@@ -176,5 +176,6 @@ char					*param_exp_percent(t_exp *exp);
 char					*param_exp_percent_d(t_exp *exp);
 char					*param_exp_hash(t_exp *exp);
 char					*param_exp_hash_d(t_exp *exp);
+char                    *get_status(t_exp *exp);
 
 #endif

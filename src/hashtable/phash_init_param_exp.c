@@ -22,6 +22,7 @@ const char	*g_param_exp_str[] = {
 	"%%",
 	"#",
 	"##",
+	"?",
 	NULL
 };
 
@@ -35,6 +36,7 @@ char		*(*g_param_exp_func[]) (t_exp *) = {
 	&param_exp_percent_d,
 	&param_exp_hash,
 	&param_exp_hash_d,
+	&get_status,
 	NULL
 };
 

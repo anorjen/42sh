@@ -81,7 +81,11 @@ int				check_built_in(t_process *proc)
 		|| ft_strequ(proc->query[0], "fg")
 		|| ft_strequ(proc->query[0], "kill")
 		|| ft_strequ(proc->query[0], "alias")
-		|| ft_strequ(proc->query[0], "unalias"))
+		|| ft_strequ(proc->query[0], "unalias")
+		|| ft_strequ(proc->query[0], "set")
+		|| ft_strequ(proc->query[0], "unset")
+		|| ft_strequ(proc->query[0], "export")
+		|| ft_strequ(proc->query[0], "fc"))
 		return (1);
 	else
 		return (0);

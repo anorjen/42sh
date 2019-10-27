@@ -17,5 +17,5 @@ int ms_unset(t_process *proc)
 	(void)proc->query;
 	set_deinit();
 	set_init();
-	return (0);
+	return (1);
 }
