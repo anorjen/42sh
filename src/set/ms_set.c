@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ms_set.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcartwri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/10 17:37:06 by jcartwri          #+#    #+#             */
-/*   Updated: 2019/06/10 17:37:09 by jcartwri         ###   ########.fr       */
+/*   Created: 2019/10/27 13:21:00 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/10/27 13:28:55 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "set.h"
 
-char *ft_add_begin_end(char *str, char *new)
+char	*ft_add_begin_end(char *str, char *new)
 {
 	char	*s;
 	char	*add;
@@ -47,9 +47,9 @@ void	ft_mas_del(char **mas)
 char	**ft_strsplit_first_char(char *str, char c)
 {
 	char	**arr;
-	char 	*s;
-	int 	len;
-	int 	i;
+	char	*s;
+	int		len;
+	int		i;
 
 	i = 0;
 	if (ft_strchr(str, c) == 0)
@@ -69,7 +69,7 @@ char	**ft_strsplit_first_char(char *str, char c)
 	return (arr);
 }
 
-int ft_replace_set(t_process *proc)
+int		ft_replace_set(t_process *proc)
 {
 	char	**arr;
 
@@ -80,24 +80,28 @@ int ft_replace_set(t_process *proc)
 	return (1);
 }
 
-int ms_set(t_process *proc)
+int		ms_set(t_process *proc)
 {
 	if (proc->query[1] == NULL)
 		set_print();
-	else if (proc->query[0] && proc->query[1] && proc->query[2] && !ft_strcmp("-o", proc->query[1]))
+	else if (proc->query[0] && proc->query[1] && proc->query[2]
+			&& !ft_strcmp("-o", proc->query[1]))
 	{
-		if (!ft_strcmp(proc->query[2], "readline")) {
-		    ft_printf("readline mode\n");
-            g_input_mode = 2;
-        }
-		else if (!ft_strcmp(proc->query[2], "vi")) {
-            ft_printf("vi mode\n");
-            g_input_mode = 1;
+		if (!ft_strcmp(proc->query[2], "readline"))
+		{
+			ft_printf("readline mode\n");
+			g_input_mode = 2;
 		}
-        else {
-            ft_printf("default mode\n");
-            g_input_mode = 0;
-        }
+		else if (!ft_strcmp(proc->query[2], "vi"))
+		{
+			ft_printf("vi mode\n");
+			g_input_mode = 1;
+		}
+		else
+		{
+			ft_printf("default mode\n");
+			g_input_mode = 0;
+		}
 	}
 	return (0);
 }
