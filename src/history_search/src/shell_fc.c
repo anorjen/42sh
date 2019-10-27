@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_fc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:35:53 by anorjen           #+#    #+#             */
-/*   Updated: 2019/10/26 19:12:20 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 20:25:10 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,21 +86,18 @@ static void	init_fc(t_fc *fc)
 
 int			shell_fc(t_process *proc)
 {
-    int     	qlen;
-    char    	**query;
-	t_fc		fc;
+	int		qlen;
+	char	**query;
+	t_fc	fc;
 
 	init_fc(&fc);
-    query = proc->query;
-    qlen = arrlen(query);
-    if (qlen == 1)
-    {
-        run_vi(g_sh->env);
-        
-    }
-    else
-    {
-        if (check_query(query, &fc) == 0)
+	query = proc->query;
+	qlen = arrlen(query);
+	if (qlen == 1)
+		run_vi(g_sh->env);
+	else
+	{
+		if (check_query(query, &fc) == 0)
 		{
 			if (fc.l == 1)
 				print_history(g_h_session, fc.num, fc.n);
