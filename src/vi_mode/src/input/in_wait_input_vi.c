@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_wait_input_vi.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 16:42:26 by anorjen           #+#    #+#             */
-/*   Updated: 2019/09/28 17:56:38 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/27 12:21:06 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,5 +147,3 @@ t_line		*wait_input_vi(t_line *line)
 	}
 	return (line);
 }
-
-

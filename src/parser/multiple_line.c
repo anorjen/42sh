@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 17:21:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/26 16:25:06 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/27 11:46:33 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,17 @@ int	get_md(char *line, int *i)
 	return (0);
 }
 
-int	is_nwln(t_history_session *h_session,char *line, int i)
+int	is_nwln(t_history_session *h_session, char *line, int i)
 {
-	if (line[i] =='\\' && i > 0 && line[i - 1] != '\\' && line[i + 1] == '\0')
+	if (line[i] == '\\' && i > 0 && line[i - 1] != '\\' && line[i + 1] == '\0')
 	{
 		cut_str(&h_session->line, h_session->lenght - 1, h_session->lenght);
 		h_session->lenght--;
 		h_session->victor->array[h_session->victor->curr_arr]--;
 		h_session->left--;
-
 		return (MODE_MULTPL);
 	}
 	return (0);
-	
 }
 
 int	multiply_line(t_history_session *h_session, char *line)

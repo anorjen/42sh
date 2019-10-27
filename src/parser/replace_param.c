@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 12:01:12 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/27 11:37:06 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 11:54:31 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ char		*do_replace(t_exp *exp)
 			res = func(exp);
 		else
 		{
-			error = ft_strjoin("42sh: parameter expansion: illegal option ", exp->action);
+			error = ft_strjoin("42sh: parameter expansion: illegal option ",
+								exp->action);
 			parser_error_set(error);
 			free_exp(exp);
 			return (ft_strdup(" "));

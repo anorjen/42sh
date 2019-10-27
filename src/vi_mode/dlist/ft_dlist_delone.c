@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dlist_delone.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 16:16:25 by anorjen           #+#    #+#             */
-/*   Updated: 2019/06/05 18:26:56 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/27 12:17:56 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	ft_dlist_delone(t_dlist **lst)
 
 	pv = NULL;
 	nx = NULL;
-	if(lst && *lst)
+	if (lst && *lst)
 	{
 		nx = (*lst)->next;
 		pv = (*lst)->prev;
-		if((*lst)->content)
+		if ((*lst)->content)
 			free((*lst)->content);
 		free(*lst);
 		*lst = nx;

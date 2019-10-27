@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_stack.c                                       :+:      :+:    :+:   */
+/*   vector_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 21:55:21 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/05/10 13:26:26 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/10/27 12:26:01 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_vector_lib	*vector_init(void)
 {
 	t_vector_lib	*ret;
-	int			i;
+	int				i;
 
 	if ((ret = (t_vector_lib*)malloc(sizeof(t_vector_lib))) == NULL)
 		return (NULL);

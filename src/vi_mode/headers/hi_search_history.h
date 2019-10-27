@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hi_search_history.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:04:25 by anorjen           #+#    #+#             */
-/*   Updated: 2019/10/26 17:31:28 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/27 12:18:54 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "libft.h"
 # include "vi_input.h"
 # include "ft_dlist.h"
-
 
 /*
 **	hi_search_history

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vi_v.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 16:28:27 by anorjen           #+#    #+#             */
-/*   Updated: 2019/10/26 20:30:01 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/27 12:21:57 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #define TMP_FILE "42sh.tmp"
 
-static char	*readstr()
+static char	*readstr(void)
 {
 	int		fd;
 	char	*str;
@@ -39,7 +39,7 @@ static char	*readstr()
 		close(fd);
 		remove(TMP_FILE);
 	}
-	return str;
+	return (str);
 }
 
 static int	writestr(t_line *line)
@@ -56,7 +56,7 @@ static int	writestr(t_line *line)
 	return (0);
 }
 
-int		vi_v(t_line *line, int count)
+int			vi_v(t_line *line, int count)
 {
 	char	**arg;
 	char	*str;

@@ -3,22 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   shell_fc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:35:53 by anorjen           #+#    #+#             */
-/*   Updated: 2019/10/26 20:25:10 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/27 11:44:42 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "history_search.h"
-
-typedef struct	s_fc
-{
-	int			l;
-	int			n;
-	int			num;
-}				t_fc;
 
 static void	run_vi(char **environ)
 {
@@ -30,7 +23,6 @@ static void	run_vi(char **environ)
 	arg = write_arg(str);
 	free(str);
 	kazekage(arg);
-	// init_history();
 }
 
 static int	check_query_str(char *str, t_fc *fc)
@@ -66,7 +58,7 @@ static int	check_query(char **query, t_fc *fc)
 
 	i = 0;
 	st = 0;
-	while(query[++i] != NULL)
+	while (query[++i] != NULL)
 	{
 		if ((st = check_query_str(query[i], fc)) != 0)
 		{

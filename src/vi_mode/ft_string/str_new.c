@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   str_new.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 16:24:37 by anorjen           #+#    #+#             */
-/*   Updated: 2019/05/22 18:04:13 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/27 12:18:16 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
 
-char	*str_new()
+char	*str_new(void)
 {
 	char	*str;
 
