@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:08:35 by anorjen           #+#    #+#             */
-/*   Updated: 2019/10/26 16:13:02 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/26 17:22:54 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void				search_number(t_history_session *h_session, int number);
 t_history_session	*list_rewind_to_begin(t_history_session *h_session);
 t_history_session	*list_rewind_to_end(t_history_session *h_session);
 int					listlen(t_history_session *dlst);
+int					arrlen(char **query);
 
 void				print_history(t_history_session *h_session, int num, int n);
 void				key_search(t_history_session *h_session);

@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:01:17 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/05 16:00:04 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 19:06:15 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define NR_BUILTINS 11
 # define PATH_BUFSIZE 1024
 # define TOKEN_BUFSIZE 64
-# define DEBUG_LOG 1
+# define DEBUG_LOG 0
 
 # define BACKGROUND_EXECUTION 0
 # define FOREGROUND_EXECUTION 1

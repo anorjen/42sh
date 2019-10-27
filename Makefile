@@ -117,19 +117,19 @@ all: start $(NAME)
 $(NAME):
 	@make -sC ./lib/printf/
 	@gcc  -c $(FLAG) $(SRC) $(INCLUDES)
-	@gcc  -ltermcap -o $(NAME) $(OBJ) -L. $(PRINT) 
+	@gcc  -ltermcap -o $(NAME) $(OBJ) -L. $(PRINT) $(INCLUDES)
 
 	@echo "\r$(CY)------------ GO -----------------"
 start:
 	@echo "\r$(CG)compile..."
-	@echo "	--------------------------------------"
+	@echo "	------------------------------"
 	@echo "	|	000   000|     0000|   |"
 	@echo "	|	000   000|   0000000|  |"
-	@echo "	|	000   000|       000   |"
-	@echo "	|	000000000|     000     |"
-	@echo "	|	      000|   000       |"
+	@echo "	|	000   000|       000|  |"
+	@echo "	|	000000000|     000|    |"
+	@echo "	|	      000|   000|      |"
 	@echo "	|	      000|  00000000|  |"
-	@echo "	--------------------------------------"
+	@echo "	------------------------------"
 clean:
 	@make clean -sC lib/printf/
 	@rm -rf $(OBJ)

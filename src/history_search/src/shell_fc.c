@@ -6,73 +6,72 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:35:53 by anorjen           #+#    #+#             */
-/*   Updated: 2019/10/26 17:14:18 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 19:12:20 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "history_search.h"
 
-typedef struct			s_fc
+typedef struct	s_fc
 {
-	int					l;
-	int					n;
-	int					num;
-}						t_fc;
+	int			l;
+	int			n;
+	int			num;
+}				t_fc;
 
-static int arrlen(char **query)
+static void	run_vi(char **environ)
 {
-    int i;
+	char	*str;
+	char	**arg;
 
-    i = 0;
-    while (query[i] != NULL)
-        ++i;
-    return (i);
-}
-
-static void      run_vi(char **environ)
-{
-    char    *str;
-    char	**arg;
-
-    str = ft_strjoin("vi ", "~/.42sh_history");
+	str = ft_strjoin("vi ", "~/.42sh_history");
 	str = replace_dir(str, environ);
 	arg = write_arg(str);
 	free(str);
 	kazekage(arg);
-    // init_history();
+	// init_history();
 }
 
-static int  check_query(char **query, t_fc *fc)
+static int	check_query_str(char *str, t_fc *fc)
 {
-	int	i;
 	int	j;
 
+	if (str[0] == '-')
+	{
+		j = 0;
+		while (str[++j] != '\0')
+		{
+			if (str[j] == 'l' || str[j] == 'n'
+				|| (str[j] >= 48 && str[j] <= 57))
+			{
+				if (str[j] == 'l')
+					fc->l = 1;
+				else if (str[j] == 'n')
+					fc->n = 1;
+				else if (str[j] >= 48 && str[j] <= 57)
+					fc->num = ft_atoi(&str[1]);
+			}
+			else
+				return (-1);
+		}
+	}
+	return (0);
+}
+
+static int	check_query(char **query, t_fc *fc)
+{
+	int	i;
+	int	st;
+
 	i = 0;
+	st = 0;
 	while(query[++i] != NULL)
 	{
-		if (query[i][0] != '-')
+		if ((st = check_query_str(query[i], fc)) != 0)
 		{
 			write(1, "fc: event not found\n", 21);
 			return (-1);
-		}
-		j = 0;
-		while (query[i][++j] != '\0')
-		{
-			if (query[i][j] == 'l' || query[i][j] == 'n' || (query[i][j] >= 48 && query[i][j] <= 57))
-			{
-				if (query[i][j] == 'l')
-					fc->l = 1;
-				else if (query[i][j] == 'n')
-					fc->n = 1;
-				else if (query[i][j] >= 48 && query[i][j] <= 57)
-					fc->num = ft_atoi(&query[i][1]);
-			}
-			else
-			{
-				write(1, "fc: event not found\n", 21);
-				return (-1);
-			}
 		}
 	}
 	return (0);
@@ -85,7 +84,7 @@ static void	init_fc(t_fc *fc)
 	fc->num = 0;
 }
 
-int     	shell_fc(t_process *proc)
+int			shell_fc(t_process *proc)
 {
     int     	qlen;
     char    	**query;
@@ -104,10 +103,8 @@ int     	shell_fc(t_process *proc)
         if (check_query(query, &fc) == 0)
 		{
 			if (fc.l == 1)
-			{
-					print_history(g_h_session, fc.num, fc.n);
-			}
+				print_history(g_h_session, fc.num, fc.n);
 		}
-    }
-    return (1);   
+	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:55:23 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/26 13:22:43 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 19:21:51 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		replace_env_else(char **chang_line, int *i, int *lenght)
 	{
 		if (ft_strcmp(env_verb, "$"))
 			replace_str(chang_line, *i, *lenght, env_verb);
-		i += ft_strcmp(env_verb, "$") ? ft_strlen(env_verb) : 1;
+		*i += ft_strcmp(env_verb, "$") ? ft_strlen(env_verb) : 1;
 	}
 	free(env_verb);
 }

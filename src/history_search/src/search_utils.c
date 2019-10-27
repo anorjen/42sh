@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:22:02 by anorjen           #+#    #+#             */
-/*   Updated: 2019/10/19 20:42:35 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/26 17:22:30 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,28 @@ t_history_session	*list_rewind_to_end(t_history_session *dlst)
 	return (dlst);
 }
 
-int                 listlen(t_history_session *dlst)
+int					listlen(t_history_session *dlst)
 {
-    t_history_session   *tmp;
-    int                 i;
+	t_history_session	*tmp;
+	int					i;
 
-    i = 0;
-    tmp = dlst;
-    tmp = list_rewind_to_begin(tmp);
-    while (tmp->down != NULL)
-    {
-        ++i;
-        tmp = tmp->down;
-    }
-    return (i);
+	i = 0;
+	tmp = dlst;
+	tmp = list_rewind_to_begin(tmp);
+	while (tmp->down != NULL)
+	{
+		++i;
+		tmp = tmp->down;
+	}
+	return (i);
+}
+
+int					arrlen(char **query)
+{
+	int i;
+
+	i = 0;
+	while (query[i] != NULL)
+		++i;
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:35:35 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/26 18:34:30 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/26 19:04:39 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void		phash_update(void)
 	{
 		if (st_path_str)
 			free(st_path_str);
-		st_path_str = env_path;
+		st_path_str = ft_strdup(env_path);
 		hash_clean_table(g_hash_files, NULL);
 		hash_clean_table(g_hash_dirs, NULL);
 		phash_fill_tables(paths);
