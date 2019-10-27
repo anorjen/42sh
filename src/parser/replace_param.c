@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 12:01:12 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/27 14:52:16 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 11:54:31 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,7 @@ char		*parse_action(char *line, int *length, t_exp *exp)
 	while (line[*length] && line[*length] != '}')
 		++(*length);
 	exp->word = ft_strsub(line, i, (*length) - i);
-	if (line[*length])
-		++(*length);
+	++(*length);
 	return (do_replace(exp));
 }
 

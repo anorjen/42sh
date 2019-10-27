@@ -17,8 +17,11 @@ void	multiple_promt(t_history_session *h_session, int mode)
 	if (mode == MODE_QUOTE || mode == MODE_PIPE
 				|| mode == MODE_AND || mode == MODE_OR || mode == MODE_MULTPL)
 	{
-		h_session->victor->push_back(&(h_session->victor), 0);
-		print_ch(h_session, '\n');
+		if (mode != MODE_MULTPL)
+		{
+			h_session->victor->push_back(&(h_session->victor), 0);
+			print_ch(h_session, '\n');
+		}
 		if (mode == MODE_QUOTE)
 			ft_printf("%s", COMMAND_QUOTE);
 		else if (mode == MODE_PIPE)
