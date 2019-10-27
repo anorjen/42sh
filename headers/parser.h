@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:53:47 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 18:38:32 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/10/26 16:22:43 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define TOKEN_AGRAGATION 2
 # define TOKEN_UPPEND 2
 # include "input.h"
+# include "alias.h"
 
 char	**parser(t_history_session **h_session, char **env, int lenght_hello);
 char	*replace_env(char *line, char **env);
@@ -39,5 +40,6 @@ int		multiply_line(t_history_session *h_session, char *line);
 int		is_specdel(char *line, int i);
 int		is_redir(char *line, int i);
 int		parse_error(char *line);
+char	**replace_alias(char **argv);
 
 #endif

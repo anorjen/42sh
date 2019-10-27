@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 19:10:54 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/10/26 14:14:10 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 void		sh_init(char **environ)
 {
@@ -19,6 +19,8 @@ void		sh_init(char **environ)
 	struct passwd		*pw;
 	int					i;
 
+	g_input_mode = 0;
+	g_env = NULL;
 	sigint_action.sa_flags = 0;
 	i = -1;
 	sigint_action.sa_handler = &sigint_handler;
@@ -36,8 +38,9 @@ void		sh_init(char **environ)
 	ft_strcpy(g_sh->pw_dir, pw->pw_dir);
 	while (++i < NR_JOBS)
 		g_sh->jobs[i] = NULL;
-	built_init();
+	phash_init();
 	sh_update_cwd_info();
+	alias_init();
 }
 
 void		sh_print_promt(void)
@@ -70,19 +73,19 @@ void		shell_loop(char **env)
 {
 	char						**args;
 	int							status;
-	static t_history_session	*h_session;
+	// static t_history_session	*h_session;
 	t_job						*job;
 
 	sh_init(env);
 	status = 1;
-	h_session = NULL;
+	g_h_session = NULL;
 	set_termcap(env);
 	job = NULL;
 	while (status >= 0)
 	{
 		sh_print_promt();
 		g_sh->signal = 0;
-		args = parser(&h_session, env,
+		args = parser(&g_h_session, env,
 				ft_strlen(basename(g_sh->cur_dir)) + ft_strlen("⦿") + 1);
 		if (args == NULL)
 		{

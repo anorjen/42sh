@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 17:21:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 15:09:36 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/10/26 16:25:06 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	is_nwln(t_history_session *h_session,char *line, int i)
 		h_session->lenght--;
 		h_session->victor->array[h_session->victor->curr_arr]--;
 		h_session->left--;
-		// ft_printf("%i %i %i %i\n", h_session->lenght, h_session->victor->curr_left, h_session->victor->array[h_session->victor->curr_arr], h_session->left);
 
 		return (MODE_MULTPL);
 	}

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:52:27 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 19:27:58 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/10/26 16:23:28 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 int		is_delim(char ch)
 {
@@ -46,7 +46,6 @@ int		input_disp(t_history_session *h_session, int key, int mode, int *temp)
 	key_func(h_session, key);
 	return (1);
 }
-
 
 int ft_readkey(t_history_session *h_session)
 {
