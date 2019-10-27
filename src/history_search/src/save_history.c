@@ -3,24 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   save_history.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/19 19:12:52 by anorjen           #+#    #+#             */
-/*   Updated: 2019/10/26 20:23:07 by anorjen          ###   ########.fr       */
+/*   Created: 2019/10/27 21:42:33 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:42:34 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "history_search.h"
 
-#define HISTORY_FILE "~/.42sh_history"
-
 int	save_history(void)
 {
 	int		fd;
 	char	*file;
 
-	file = replace_dir(ft_strdup(HISTORY_FILE), g_sh->env);
+	file = ft_strdup(HISTORY_FILE);
 	if ((fd = open(file, O_WRONLY | O_CREAT | O_TRUNC,
 			S_IRUSR | S_IRGRP | S_IROTH | S_IWUSR | S_IWGRP | S_IWOTH)) != -1)
 	{

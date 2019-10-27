@@ -57,7 +57,7 @@ void				write_vector(t_history_session *h_session)
 	h_session->victor->push_back(&(h_session->victor), j);
 }
 
-static void			init_verb(t_history_session *h_session, int lenght_hello)
+void				init_verb(t_history_session *h_session, int lenght_hello)
 {
 	h_session->left = 0;
 	h_session->lenght = 0;
@@ -75,10 +75,10 @@ t_history_session	*add_history(t_history_session *h_session, int lenght_hello)
 	t_history_session *temp;
 
 	if (!h_session)
+		h_session = init_search_history(lenght_hello);
+	if (!h_session)
 	{
-		if ((h_session =
-		(t_history_session*)malloc(sizeof(t_history_session))) == NULL)
-			exit(1);
+		h_session = crt_hsess();
 		h_session->up = NULL;
 		h_session->number_hist = 0;
 		g_buffer = NULL;
@@ -86,9 +86,7 @@ t_history_session	*add_history(t_history_session *h_session, int lenght_hello)
 	}
 	else if (h_session->line)
 	{
-		if ((h_session->down =
-		(t_history_session*)malloc(sizeof(t_history_session))) == NULL)
-			exit(1);
+		h_session->down = crt_hsess();
 		temp = h_session;
 		h_session = h_session->down;
 		h_session->up = temp;
