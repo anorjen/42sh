@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 16:43:12 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 11:17:43 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 13:31:36 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_term							*g_term;
 int								g_dispersion;
 char							*g_buffer;
 static struct termios			g_stored_settings;
-int                             g_input_mode;
+int								g_input_mode;
 int								putchar_(int c);
 void							backspace_ch(t_history_session *h_session);
 void							print_ch

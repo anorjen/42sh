@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:41:22 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/27 11:37:42 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 13:33:17 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,6 @@ char					*param_exp_percent(t_exp *exp);
 char					*param_exp_percent_d(t_exp *exp);
 char					*param_exp_hash(t_exp *exp);
 char					*param_exp_hash_d(t_exp *exp);
-char                    *get_status(t_exp *exp);
+char					*get_status(t_exp *exp);
 
 #endif
