@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:41:22 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/27 13:33:17 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 13:43:28 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include "set.h"
 # define BUFF_LN 5
 # define CHANGE_ENV { free(g_sh->env[i]); g_sh->env[i] = tm;return (1);}
-# define FU_TERMCAPS 1
+# define FU_TERMCAPS 0
 
 # define S_SUBSTITUTE 0
 # define S_ASSIGN 1
@@ -52,6 +52,8 @@
 # define S_SET 0
 # define S_SET_NULL 1
 # define S_UNSET 2
+
+# define SIG_PROC signal(SIGTTOU, SIG_IGN); tcsetpgrp(0, getpid())
 
 /*
 ** 		t_env linked list structure

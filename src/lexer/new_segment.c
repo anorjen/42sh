@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:13:28 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 12:11:38 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 13:45:20 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int			get_command_type_(char *command)
 		|| ft_strequ(command, "alias")
 		|| ft_strequ(command, "unalias")
 		|| ft_strequ(command, "set")
-        || ft_strequ(command, "unset")
-        || ft_strequ(command, "export")
-        || ft_strequ(command, "fc"))
+		|| ft_strequ(command, "unset")
+		|| ft_strequ(command, "export")
+		|| ft_strequ(command, "fc"))
 		return (1);
 	else
 		return (COMMAND_EXTERNAL);

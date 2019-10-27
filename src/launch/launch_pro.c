@@ -6,11 +6,11 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 14:09:23 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/27 12:11:27 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 13:43:13 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 int				launch_proc_cycle(t_process *proc, t_launch *launch, t_job *job)
 {
@@ -101,10 +101,9 @@ int				shell_launch_process(t_job *job, t_process *proc,
 	if (check_built_in(proc))
 		return (!execute_builtin_command(proc));
 	status = 0;
-    if (ft_replace_set(proc) == 1)
-        return (0);
-	childpid = fork();
-	if (childpid < 0)
+	if (ft_replace_set(proc) == 1)
+		return (0);
+	if ((childpid = fork()) < 0)
 		return (-1);
 	else if (childpid == 0)
 		child_launch_proc(job, proc, in_fd, out_fd);
@@ -115,8 +114,7 @@ int				shell_launch_process(t_job *job, t_process *proc,
 		{
 			tcsetpgrp(0, job->pgid);
 			status = wait_for_job(job->id);
-			signal(SIGTTOU, SIG_IGN);
-			tcsetpgrp(0, getpid());
+			SIG_PROC;
 			signal(SIGTTOU, SIG_DFL);
 		}
 	}

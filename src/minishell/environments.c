@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 16:33:16 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/07 18:42:24 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 13:45:57 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ char		*get_env(char *varible)
 	int		i;
 	int		j;
 	char	**environ;
-	char    *str;
+	char	*str;
 
 	i = 0;
 	environ = g_sh->env;
@@ -146,7 +146,7 @@ char		*get_env(char *varible)
 	}
 	str = set_get(varible);
 	if (!ft_strequ(str, ""))
-        return (str);
+		return (str);
 	ft_strdel(&str);
 	return (NULL);
 }
