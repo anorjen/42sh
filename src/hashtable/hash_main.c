@@ -6,11 +6,11 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 14:14:51 by sbearded          #+#    #+#             */
-/*   Updated: 2019/09/28 17:00:10 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 11:24:40 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/hashtable.h"
+#include "hashtable.h"
 
 t_hashtable		*hash_create(int buckets)
 {

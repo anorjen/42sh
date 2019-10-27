@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history_search.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:08:35 by anorjen           #+#    #+#             */
-/*   Updated: 2019/10/26 17:22:54 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/27 11:44:27 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # include "libft.h"
 # include "input.h"
+
+typedef struct		s_fc
+{
+	int				l;
+	int				n;
+	int				num;
+}					t_fc;
 
 /*
 **	hi_search_history

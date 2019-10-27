@@ -6,11 +6,11 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:13:16 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/26 11:47:02 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 11:24:56 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/hashtable.h"
+#include "hashtable.h"
 
 void		*phash_search(const char *str, int status)
 {

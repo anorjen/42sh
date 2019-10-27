@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 15:41:22 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/26 19:33:29 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 11:37:42 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,6 @@ int						unset_(t_process *proc);
 char					*new_env_join(char *name, char *value);
 int						set_env(char *name, char *value);
 
-
 /*
 ** 		built-ins funcs
 */
@@ -155,7 +154,7 @@ int						exit_shell(t_process *proc);
 int						echo(t_process *proc);
 int						num_shell_functions(t_process *proc);
 int						type_shell(t_process *proc);
-int     				shell_fc(t_process *proc);
+int						shell_fc(t_process *proc);
 
 /*
 ** 		assist_21sh

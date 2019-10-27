@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vi_input.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 14:01:48 by anorjen           #+#    #+#             */
-/*   Updated: 2019/10/19 14:05:25 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/27 12:23:26 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VI_INPUT_H
 # define VI_INPUT_H
 
-// # include "main.h"
 # include "libft.h"
 # include "minishell.h"
 # include "ft_dlist.h"
@@ -52,18 +51,6 @@ enum
 	RL_CTRL_T = 20,
 	RL_ALT_T = 1514
 };
-
-// typedef struct	s_tterm
-// {
-// 	char	*le;
-// 	char	*nd;
-// 	char	*cd;
-// 	char	*dc;
-// 	char	*im;
-// 	char	*ei;
-// 	char	*so;
-// 	char	*se;
-// }				t_tterm;
 
 typedef struct	s_line
 {
@@ -148,7 +135,6 @@ int				is_close_bracket(char open_bracket, char c);
 int				find_close_quote(char *str, int i, char quote);
 char			ft_find_bracket(char *str);
 
-
 /*
 **	############### edit_string ######################################
 */
@@ -156,12 +142,12 @@ char			ft_find_bracket(char *str);
 /*
 **	eh_ft_list_del
 */
-void	ft_list_del(t_list **lst);
+void			ft_list_del(t_list **lst);
 
 /*
 **	eh_ft_undo
 */
-void	ft_undo(t_line *line);
+void			ft_undo(t_line *line);
 
 /*
 **	############### copy_mode ########################################
@@ -170,35 +156,33 @@ void	ft_undo(t_line *line);
 /*
 **	cm_copy_mode
 */
-void		ft_copy_mode(t_line *line);
+void			ft_copy_mode(t_line *line);
 
 /*
 **	cm_func
 */
-char		*ft_copy(char *line, int start_pos, int end_pos);
-void		ft_paste(char **line, int *len, int *left, char *buf);
-char		*ft_cut(char **line, int start_pos, int *len, int *left);
+char			*ft_copy(char *line, int start_pos, int end_pos);
+void			ft_paste(char **line, int *len, int *left, char *buf);
+char			*ft_cut(char **line, int start_pos, int *len, int *left);
 
 /*
-**	###################### rl_mode #######################################################
+**	###################### rl_mode ##############################
 */
-void		ft_swap_words(t_line *line);
-void		ft_swap_chars(t_line *line);
+void			ft_swap_words(t_line *line);
+void			ft_swap_chars(t_line *line);
 
 /*
-**	#####################################################################################
+**	#############################################################
 */
 
 t_dlist			*g_history;
 int				g_input_line;
-// t_tterm			*g_tterm;
 char			g_vi_last[2];
 int				g_input_mode;
 char			*g_strbuf;
 
-
 /*
-**	################### vi_mode ##########################################################
+**	################### vi_mode #################################
 */
 
 int				vi_a(t_line *line, int count);
@@ -242,7 +226,7 @@ int				vi_zero(t_line *line, int count);
 
 void			ft_delline(t_line *line, int start, int size);
 
-typedef int	(*t_spe_key) (t_line *line, int count);
+typedef int		(*t_spe_key) (t_line *line, int count);
 
 typedef struct	s_vi_actions
 {
@@ -250,9 +234,8 @@ typedef struct	s_vi_actions
 	char		value;
 }				t_vi_actions;
 
-
 /*
-**	########################################################################################
+**	######################################################
 */
 
 #endif

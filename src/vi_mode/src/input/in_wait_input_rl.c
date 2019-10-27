@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   in_wait_input_rl.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 16:44:20 by anorjen           #+#    #+#             */
-/*   Updated: 2019/09/28 18:01:02 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/10/27 12:20:48 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vi_input.h"
 
-static void	keycode_func_rl(int key, t_line *line)
+static void		keycode_func_rl(int key, t_line *line)
 {
 	if (key == KC_BS)
 		ft_backspace(&(line->str), &(line->len), line->left);

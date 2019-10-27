@@ -6,11 +6,11 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 14:22:42 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/19 15:28:21 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/10/27 11:24:29 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/hashtable.h"
+#include "hashtable.h"
 
 void			hash_free_item(t_buck_cont *item, const char *str,
 						t_hashtable *table, void (*free_f)(void *))
