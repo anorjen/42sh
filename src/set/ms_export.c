@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcartwri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/18 17:59:48 by jcartwri          #+#    #+#             */
-/*   Updated: 2019/06/18 17:59:50 by jcartwri         ###   ########.fr       */
+/*   Created: 2019/10/27 13:20:45 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/10/27 13:31:20 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "set.h"
 
-static void env_set(char *key, char *value)
+static void	env_set(char *key, char *value)
 {
-    char **args;
+	char **args;
 
-    args = ft_memalloc(sizeof(char *) * 3);
-    args[0] = ft_strdup("setenv");
-    args[2] = NULL;
-    args[1] = ft_strnew(ft_strlen(key) + ft_strlen(value) + 1);
-    ft_strcpy(args[1], key);
-    ft_strcpy(args[1] + ft_strlen(args[1]), "=");
-    ft_strcpy(args[1] + ft_strlen(args[1]), value);
-    kazekage(args);
+	args = ft_memalloc(sizeof(char *) * 3);
+	args[0] = ft_strdup("setenv");
+	args[2] = NULL;
+	args[1] = ft_strnew(ft_strlen(key) + ft_strlen(value) + 1);
+	ft_strcpy(args[1], key);
+	ft_strcpy(args[1] + ft_strlen(args[1]), "=");
+	ft_strcpy(args[1] + ft_strlen(args[1]), value);
+	kazekage(args);
 }
 
-int ms_export(t_process *proc)
+int			ms_export(t_process *proc)
 {
 	char *str;
 	char **arr;

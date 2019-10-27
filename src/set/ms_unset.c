@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ms_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcartwri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/10 17:37:34 by jcartwri          #+#    #+#             */
-/*   Updated: 2019/06/10 17:37:55 by jcartwri         ###   ########.fr       */
+/*   Created: 2019/10/27 13:21:32 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/10/27 13:29:15 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "set.h"
 
-int ms_unset(t_process *proc)
+int	ms_unset(t_process *proc)
 {
 	(void)proc->query;
 	set_deinit();
