@@ -71,24 +71,28 @@ int			cd_(t_process *proc)
 {
 	int		i;
 	char	*home;
+	char	*flags;
+	int		flag;
 
-	i = 1;
-	proc->query[i] && !ft_strcmp(proc->query[i], "--") ? ++i : 0;
 	home = get_home();
+	flags = flags_parse(proc->query, &i);
+	if (flags)
+	{
+		if ((flag = cd_check_flags(flags)))
+			ft_printf("%s\n", flags);
+		else
+			return (1);
+	}
 	if (proc->query[i] == NULL)
 		chdir(home) != -1 ? set_pwd() : 0;
-	else if (!ft_strcmp(proc->query[i], "-") && proc->query[i + 1] == NULL)
+	else if (!ft_strcmp(proc->query[i], "-"))
 		back_to_oldpwd();
-	else if (proc->query[i + 1] != NULL)
-		print_error("cd: string not in pwd: ", proc->query[i]);
+	else if (chdir(proc->query[i]) == -1)
+		cd_ext(proc, i);
 	else
-	{
-		if (chdir(proc->query[i]) == -1)
-			cd_ext(proc, i);
-		else
-			set_pwd();
-	}
+		set_pwd();
 	sh_update_cwd_info();
 	free(home);
-	return (1);
+	free(flags);
+	return (0);
 }

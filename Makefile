@@ -11,6 +11,7 @@ SRC_HASH = ./src/hashtable/
 SRC_SET = ./src/set/
 SRC_ENV = ./src/env/
 SRC_PAR_EXP = ./src/parser/param_exp_func/
+SRC_FLAGS = ./src/flags/
 
 SRC_DLIST = ./src/vi_mode/dlist/
 SRC_FT_STRING = ./src/vi_mode/ft_string/
@@ -35,7 +36,7 @@ NAME = 42sh
 PRINT = lib/printf/libftprintf.a
 NAME_21SH = main.c kazekage.c assist_21sh.c built_in_type.c
 NAME_MINISHELL = built_ins.c cpy_func.c launch.c linked_list.c\
-				linked_list2.c linked_list3.c sig_handler.c utilities.c utilities2.c environments.c cd.c
+				linked_list2.c linked_list3.c sig_handler.c utilities.c utilities2.c environments.c cd.c cd_flags.c
 NAME_LAUNCH = aux_utilities.c job_process_status.c job_utils.c jobs_builtins.c launch_pro.c job_utils_print.c\
 				heredoc_input.c child_launch_proc.c holder_launch_struct.c jobs_fg_bg_builtin.c jobs_kill_builtin.c\
 				out_redir_launch.c pipe_and_preconfig.c
@@ -55,6 +56,7 @@ NAME_HASH = ft_path.c hash_free.c hash_functions.c hash_main.c phash_init_builti
 NAME_SET = ms_export.c ms_set.c ms_unset.c set.c set_deinit.c set_get.c set_init.c set_print.c set_update.c unset.c
 NAME_ENV = env.c
 NAME_PAR_EXP = colon.c equal.c hash_d.c hash.c minus.c percent_d.c percent.c plus.c question.c get_status.c
+NAME_FLAGS = flags_parse.c
 
 ## vi_mode
 NAME_DLIST = ft_dlist_new.c ft_dlist_add.c ft_dlist_delone.c ft_dlist_rewind.c ft_dlist_del.c ft_dlist_addbegin.c \
@@ -107,6 +109,7 @@ SRC = 	$(addprefix $(SRC_21SH), $(NAME_21SH))\
 		$(addprefix $(SRC_ENV), $(NAME_ENV))\
 		$(addprefix $(SRC_HS), $(NAME_HS))\
 		$(addprefix $(SRC_PAR_EXP), $(NAME_PAR_EXP))\
+		$(addprefix $(SRC_FLAGS), $(NAME_FLAGS))\
 
 
 FLAG = -Wall -Werror -Wextra -g

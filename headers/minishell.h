@@ -53,6 +53,9 @@
 # define S_SET_NULL 1
 # define S_UNSET 2
 
+# define CD_L_FLAG 1
+# define CD_P_FLAG 2
+
 # define SIG_PROC signal(SIGTTOU, SIG_IGN); tcsetpgrp(0, getpid())
 
 # define HISTORY_FILE ".42sh_history"
@@ -164,6 +167,8 @@ int						shell_fc(t_process *proc);
 ** 		assist_21sh
 */
 void					sigint_handler(int signal);
+char					*flags_parse(char **argv, int *i);
+int						cd_check_flags(char *flags);
 
 /*
 ** 		param expansion
