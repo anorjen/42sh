@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:47:14 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:47:16 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/11/16 15:24:41 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@
 
 # define SIG_PROC signal(SIGTTOU, SIG_IGN); tcsetpgrp(0, getpid())
 
-# define HISTORY_FILE ".42sh_history"
+# define HISTORY_FILE "~/.42sh_history"
 
 /*
 ** 		t_env linked list structure
