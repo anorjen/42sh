@@ -6,13 +6,13 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:08:35 by anorjen           #+#    #+#             */
-/*   Updated: 2019/10/26 17:22:54 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/11/16 15:09:11 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HISTORY_SEARCH_H
 # define HISTORY_SEARCH_H
-
+# define HISTORY_FILE "~/.42sh_history"
 # include "libft.h"
 # include "input.h"
 
