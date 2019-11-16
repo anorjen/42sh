@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_ins.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:56:08 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:56:09 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/11/16 18:42:38 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,6 @@ void				shell_cleaner(void)
 	alias_deinit();
 	phash_deinit();
 	set_deinit();
+	if (g_word)
+		free(g_word);
 }

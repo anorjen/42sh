@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   history_session.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 18:17:28 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 19:20:19 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/11/16 17:35:36 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-static void			clear_line(t_history_session *h_session)
+void				clear_line(t_history_session *h_session)
 {
 	int i;
 	int j;

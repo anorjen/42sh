@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:35:53 by anorjen           #+#    #+#             */
-/*   Updated: 2019/11/16 16:36:42 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/11/16 18:55:37 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static void	run_editor(char **environ, t_fc fc)
 	kazekage(arg);
 	if (g_h_session != NULL)
 		free_hsess(g_h_session);
-	init_search_history(ft_strlen(basename(g_sh->cur_dir)) + ft_strlen("⦿") + 1);
+	init_search_history(ft_strlen(basename(g_sh->cur_dir))
+												+ ft_strlen("⦿") + 1);
 }
 
 static int	check_query_str(char *str, t_fc *fc)
@@ -55,7 +56,7 @@ static int	check_query_str(char *str, t_fc *fc)
 				fc->e = 1;
 		}
 	}
-	else if (fc->e == 1)
+	else if (fc->e == 1 && fc->editor == NULL)
 		fc->editor = str;
 	else
 		return (-1);
@@ -101,7 +102,7 @@ int			shell_fc(t_process *proc)
 	if (check_query(query, &fc) == 0)
 	{
 		if (qlen == 1 || fc.e == 1)
-				run_editor(g_sh->env, fc);
+			run_editor(g_sh->env, fc);
 		else
 		{
 			if (fc.l == 1)

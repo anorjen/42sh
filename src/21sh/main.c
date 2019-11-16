@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 22:01:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/11/16 16:17:25 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/11/16 18:38:58 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void		sh_init(char **environ)
 	int					i;
 
 	g_input_mode = 0;
+	g_word = NULL;
 	g_h_session = NULL;
 	g_env = NULL;
 	sigint_action.sa_flags = 0;

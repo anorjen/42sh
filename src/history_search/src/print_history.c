@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_history.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:42:30 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:42:31 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/11/16 19:21:52 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	print_all(t_history_session *h_session, int n)
 	i = 0;
 	tmp = h_session;
 	tmp = list_rewind_to_begin(tmp);
-	while (tmp->down != NULL)
+	while (tmp)
 	{
 		if (!n)
 			ft_printf("%5d  %s\n", ++i, tmp->line);
