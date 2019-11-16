@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:27:23 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/11/16 15:52:20 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/11/16 16:32:09 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,9 @@ t_history_session	*init_search_history(int lenght_hello)
 	int					fd;
 	// t_history_session	*h_session;
 	char				*file;
-	char				*tmp;
 
 	g_h_session = NULL;
-	tmp = ft_strdup(HISTORY_FILE);
-	file = replace_dir(tmp, g_sh->env);
-	free(tmp);
+	file = replace_dir(ft_strdup(HISTORY_FILE), g_sh->env);
 	fd = open(file, O_RDONLY);
 	if (fd != -1)
 	{

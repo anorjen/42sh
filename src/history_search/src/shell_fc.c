@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:35:53 by anorjen           #+#    #+#             */
-/*   Updated: 2019/11/16 15:58:38 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/11/16 16:36:42 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,11 @@ int			shell_fc(t_process *proc)
 	init_fc(&fc);
 	query = proc->query;
 	qlen = arrlen(query);
-	if (qlen == 1 || fc.e == 1)
-		run_editor(g_sh->env, fc);
-	else
+	if (check_query(query, &fc) == 0)
 	{
-		if (check_query(query, &fc) == 0)
+		if (qlen == 1 || fc.e == 1)
+				run_editor(g_sh->env, fc);
+		else
 		{
 			if (fc.l == 1)
 				print_history(g_h_session, fc.num, fc.n);

@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 22:01:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/11/16 15:53:54 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/11/16 16:17:25 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,17 @@ void		shell_loop(char **env)
 	}
 }
 
-int			main(int argc, char **argv, char **env)
+int			main(int argc, char **argv)
 {
+	extern char	**environ;
+
 	argc = 0;
 	argv = NULL;
-	sh_init(env);
+	sh_init(environ);
 	phash_init();
 	sh_update_cwd_info();
 	alias_init();
 	set_init();
-	shell_loop(env);
+	shell_loop(environ);
 	return (0);
 }
