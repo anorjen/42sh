@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   assist_21sh.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/27 17:26:51 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/05 16:04:22 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 22:00:30 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 22:00:31 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 void	sigint_handler(int signal)
 {

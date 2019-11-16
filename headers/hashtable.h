@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hashtable.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/08 14:14:55 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/26 11:53:38 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 21:31:38 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:31:40 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "minishell.h"
 
-#include <dirent.h>
+# include <dirent.h>
 
 # define DEFAULT_HASH_BUCKETS 128
 
@@ -56,24 +56,24 @@ t_hashtable						*g_hash_dirs;
 t_hashtable						*g_hash_files;
 t_hashtable						*g_hash_param_exp;
 
-t_hashtable						*hash_create(	int buckets);
-unsigned int					hash_string(	const char *s);
+t_hashtable						*hash_create(int buckets);
+unsigned int					hash_string(const char *s);
 
-int								hash_bucket(	const char *str,
+int								hash_bucket(const char *str,
 												t_hashtable *table,
 												unsigned int *h);
 
-t_buck_cont						*hash_search(	const char *str,
+t_buck_cont						*hash_search(const char *str,
 												t_hashtable *table);
 
-t_buck_cont						*hash_remove(	const char *str,
+t_buck_cont						*hash_remove(const char *str,
 												t_hashtable *table);
 
-t_buck_cont						*hash_insert(	const char *str,
+t_buck_cont						*hash_insert(const char *str,
 												t_hashtable *table,
 												void *data);
 
-void							hash_free_item(	t_buck_cont *item,
+void							hash_free_item(t_buck_cont *item,
 												const char *str,
 												t_hashtable *table,
 												void (*free_f)(void *));

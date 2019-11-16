@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   launch_pro.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/26 14:09:23 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/26 18:22:16 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 21:59:00 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:59:01 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 int				launch_proc_cycle(t_process *proc, t_launch *launch, t_job *job)
 {
@@ -81,7 +81,11 @@ int				check_built_in(t_process *proc)
 		|| ft_strequ(proc->query[0], "fg")
 		|| ft_strequ(proc->query[0], "kill")
 		|| ft_strequ(proc->query[0], "alias")
-		|| ft_strequ(proc->query[0], "unalias"))
+		|| ft_strequ(proc->query[0], "unalias")
+		|| ft_strequ(proc->query[0], "set")
+		|| ft_strequ(proc->query[0], "unset")
+		|| ft_strequ(proc->query[0], "export")
+		|| ft_strequ(proc->query[0], "fc"))
 		return (1);
 	else
 		return (0);
@@ -97,8 +101,9 @@ int				shell_launch_process(t_job *job, t_process *proc,
 	if (check_built_in(proc))
 		return (!execute_builtin_command(proc));
 	status = 0;
-	childpid = fork();
-	if (childpid < 0)
+	if (ft_replace_set(proc) == 1)
+		return (0);
+	if ((childpid = fork()) < 0)
 		return (-1);
 	else if (childpid == 0)
 		child_launch_proc(job, proc, in_fd, out_fd);
@@ -109,8 +114,7 @@ int				shell_launch_process(t_job *job, t_process *proc,
 		{
 			tcsetpgrp(0, job->pgid);
 			status = wait_for_job(job->id);
-			signal(SIGTTOU, SIG_IGN);
-			tcsetpgrp(0, getpid());
+			SIG_PROC;
 			signal(SIGTTOU, SIG_DFL);
 		}
 	}

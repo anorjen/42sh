@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   phash_update.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/20 15:35:35 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/26 19:04:39 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 21:44:37 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:44:38 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/hashtable.h"
+#include "hashtable.h"
 
 static long	*get_time_last_mod(char *path)
 {

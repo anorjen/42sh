@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phash_init_param_exp.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/26 11:20:03 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/26 11:48:57 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 21:44:30 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:44:31 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ const char	*g_param_exp_str[] = {
 	"%%",
 	"#",
 	"##",
+	"?",
 	NULL
 };
 
@@ -35,6 +36,7 @@ char		*(*g_param_exp_func[]) (t_exp *) = {
 	&param_exp_percent_d,
 	&param_exp_hash,
 	&param_exp_hash_d,
+	&get_status,
 	NULL
 };
 

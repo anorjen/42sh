@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ms_alias.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/27 13:12:32 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/10/27 13:16:50 by rwalder-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "alias.h"
 
-void ft_strdel_alias_mas(char **mas)
+void	ft_strdel_alias_mas(char **mas)
 {
 	int i;
 
@@ -13,11 +25,11 @@ void ft_strdel_alias_mas(char **mas)
 	free(mas);
 }
 
-int ms_alias(t_process *proc)
+int		ms_alias(t_process *proc)
 {
 	char	*str;
-	char 	**mas;
-	int 	i;
+	char	**mas;
+	int		i;
 
 	i = 0;
 	if (proc->query[1] == NULL)

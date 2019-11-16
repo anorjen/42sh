@@ -1,10 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   alias.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/27 21:31:49 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:31:51 by mgorczan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MINISHELL_ALIAS_H
 # define MINISHELL_ALIAS_H
 
 # include "vector_lib.h"
-// # include "../lib/printf/ft_printf.h"
-#include "minishell.h"
+# include "minishell.h"
 
 char			**g_alias;
 t_vector_lib	*g_alias_key;

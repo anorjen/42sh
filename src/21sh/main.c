@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/20 17:41:11 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/26 19:12:19 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 22:01:05 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/11/16 15:53:54 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void		sh_init(char **environ)
 	int					i;
 
 	g_input_mode = 0;
+	g_h_session = NULL;
 	g_env = NULL;
 	sigint_action.sa_flags = 0;
 	i = -1;
@@ -38,9 +39,6 @@ void		sh_init(char **environ)
 	ft_strcpy(g_sh->pw_dir, pw->pw_dir);
 	while (++i < NR_JOBS)
 		g_sh->jobs[i] = NULL;
-	phash_init();
-	sh_update_cwd_info();
-	alias_init();
 }
 
 void		sh_print_promt(void)
@@ -73,10 +71,8 @@ void		shell_loop(char **env)
 {
 	char						**args;
 	int							status;
-	// static t_history_session	*h_session;
 	t_job						*job;
 
-	sh_init(env);
 	status = 1;
 	g_h_session = NULL;
 	set_termcap(env);
@@ -102,6 +98,11 @@ int			main(int argc, char **argv, char **env)
 {
 	argc = 0;
 	argv = NULL;
+	sh_init(env);
+	phash_init();
+	sh_update_cwd_info();
+	alias_init();
+	set_init();
 	shell_loop(env);
 	return (0);
 }

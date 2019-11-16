@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_type.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 18:37:51 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/19 14:42:44 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 22:00:44 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 22:00:45 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 void	print_type(char *arg, char *path, int type)
 {
@@ -29,7 +29,7 @@ void	search_type(char *str)
 	int		i;
 
 	i = 1;
-	if (ft_strcmp( (res = alias_get(str)), ""))
+	if (ft_strcmp((res = alias_get(str)), ""))
 		return (print_type(str, res, 50));
 	while (i < HASH_NUM)
 	{
@@ -44,7 +44,7 @@ void	search_type(char *str)
 	ft_printf("%s not found\n", str);
 }
 
-int	type_shell(t_process *proc)
+int		type_shell(t_process *proc)
 {
 	char	**query;
 

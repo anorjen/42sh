@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   alias_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/04 18:52:35 by jcartwri          #+#    #+#             */
-/*   Updated: 2019/06/22 10:18:22 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 13:11:46 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/10/27 13:20:00 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include "alias.h"
 
-static void ft_strdel_alias_mas(char **mas)
+static void	ft_strdel_alias_mas(char **mas)
 {
 	int i;
 
@@ -26,19 +26,20 @@ static void ft_strdel_alias_mas(char **mas)
 	free(mas);
 }
 
-int file_len(void)
+int			file_len(void)
 {
 	int		i;
 	int		fd;
 	char	*str;
-	char 	**arr;
+	char	**arr;
 
 	i = 0;
 	fd = open("~/.alias_profile", O_RDONLY);
 	while (get_next_line(fd, &str) > 0)
 	{
 		arr = ft_strsplit(str, ' ');
-		if (!arr || !arr[0] || !arr[1] || ft_strcmp(arr[0], "alias") != 0 || ft_strchr(arr[1], '=') == NULL)
+		if (!arr || !arr[0] || !arr[1] || ft_strcmp(arr[0], "alias") != 0
+				|| ft_strchr(arr[1], '=') == NULL)
 			i--;
 		ft_strdel_alias_mas(arr);
 		ft_strdel(&str);
@@ -48,13 +49,14 @@ int file_len(void)
 	return (i);
 }
 
-int ft_add_alias(char *str, int i)
+int			ft_add_alias(char *str, int i)
 {
 	char	**arr;
 	char	**mas;
 
 	arr = ft_strsplit(str, ' ');
-	if (!arr || !arr[0] || !arr[1] || ft_strcmp(arr[0], "alias") != 0 || ft_strchr(arr[1], '=') == NULL)
+	if (!arr || !arr[0] || !arr[1] || ft_strcmp(arr[0], "alias") != 0
+			|| ft_strchr(arr[1], '=') == NULL)
 	{
 		ft_strdel_alias_mas(arr);
 		return (-1);
@@ -68,19 +70,18 @@ int ft_add_alias(char *str, int i)
 	return (0);
 }
 
-void alias_init(void)
+void		alias_init(void)
 {
 	unsigned int	i;
-	int 			len;
-	int 			fd;
-	char 			*str;
+	int				len;
+	int				fd;
+	char			*str;
 
 	i = 0;
 	g_alias_value = vector_init();
 	g_alias_key = vector_init();
-	if (access("~/.zshrc", 0) == -1) {
-        return;
-    }
+	if (access("~/.zshrc", 0) == -1)
+		return ;
 	len = file_len();
 	g_alias = (char **)malloc(sizeof(char *) * (len + 1));
 	g_alias[len] = NULL;

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hash_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/20 14:22:42 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/19 15:28:21 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 21:44:10 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:44:11 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/hashtable.h"
+#include "hashtable.h"
 
 void			hash_free_item(t_buck_cont *item, const char *str,
 						t_hashtable *table, void (*free_f)(void *))

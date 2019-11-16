@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_segment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/23 19:13:28 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/26 18:23:50 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 21:57:37 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:57:38 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ int			get_command_type_(char *command)
 		|| ft_strequ(command, "fg")
 		|| ft_strequ(command, "kill")
 		|| ft_strequ(command, "alias")
-		|| ft_strequ(command, "unalias"))
+		|| ft_strequ(command, "unalias")
+		|| ft_strequ(command, "set")
+		|| ft_strequ(command, "unset")
+		|| ft_strequ(command, "export")
+		|| ft_strequ(command, "fc"))
 		return (1);
 	else
 		return (COMMAND_EXTERNAL);

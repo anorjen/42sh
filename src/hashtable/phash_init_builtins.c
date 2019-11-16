@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   phash_init_builtins.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/27 13:21:17 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/26 18:21:27 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 21:44:26 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:44:27 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/hashtable.h"
+#include "hashtable.h"
 
 const char	*g_builtin_str[] = {
 	"cd",
@@ -27,6 +27,9 @@ const char	*g_builtin_str[] = {
 	"env",
 	"setenv",
 	"unsetenv",
+	"set",
+	"unset",
+	"export",
 	"fc",
 	NULL
 };
@@ -46,6 +49,9 @@ int			(*g_builtin_func[]) (t_process *) = {
 	&print_env,
 	&setenv_,
 	&unset_,
+	&ms_set,
+	&ms_unset,
+	&ms_export,
 	&shell_fc,
 	NULL
 };

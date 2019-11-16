@@ -8,6 +8,7 @@ SRC_LEXER = ./src/lexer/
 SRC_VECTOR_LIB = ./lib/vector/
 SRC_ALIAS = ./src/alias/
 SRC_HASH = ./src/hashtable/
+SRC_SET = ./src/set/
 SRC_ENV = ./src/env/
 SRC_PAR_EXP = ./src/parser/param_exp_func/
 
@@ -21,7 +22,7 @@ SRC_RL = ./src/vi_mode/src/input/rl_mode/
 SRC_VI = ./src/vi_mode/src/input/vi_mode/
 SRC_HS = ./src/history_search/src/
 
-INCLUDES  = -I./headers/ 
+INCLUDES  = -I./headers/
 INCLUDES += -I./lib/printf/
 INCLUDES += -I./lib/printf/libft/
 INCLUDES += -I./src/vi_mode/dlist/
@@ -35,14 +36,12 @@ PRINT = lib/printf/libftprintf.a
 NAME_21SH = main.c kazekage.c assist_21sh.c built_in_type.c
 NAME_MINISHELL = built_ins.c cpy_func.c launch.c linked_list.c\
 				linked_list2.c linked_list3.c sig_handler.c utilities.c utilities2.c environments.c cd.c
-
 NAME_LAUNCH = aux_utilities.c job_process_status.c job_utils.c jobs_builtins.c launch_pro.c job_utils_print.c\
 				heredoc_input.c child_launch_proc.c holder_launch_struct.c jobs_fg_bg_builtin.c jobs_kill_builtin.c\
 				out_redir_launch.c pipe_and_preconfig.c
-
 NAME_INPUT = assist_func.c key_backspace.c key_copy.c key_cut.c key_paste.c key_endhome.c history_session.c input.c\
 			navigation_words.c navigation_line.c save_buff.c spec_key.c set_termcap.c multiple_promt.c key_control.c\
-			
+			fill_hsees_search.c
 NAME_VECTOR = vector.c
 NAME_PARSER = parser.c replace_env.c write_arg.c replace_dir.c get_token.c assist_parser.c parse_error.c multiple_line.c \
                 replace_alias.c replace_param.c parser_error.c
@@ -53,8 +52,9 @@ NAME_ALIAS = alias_deinit.c alias_get.c alias_init.c alias_print.c alias_set.c a
 				ms_unalias.c
 NAME_HASH = ft_path.c hash_free.c hash_functions.c hash_main.c phash_init_builtins.c phash_init.c phash_search.c \
 			phash_update.c phash_init_param_exp.c
+NAME_SET = ms_export.c ms_set.c ms_unset.c set.c set_deinit.c set_get.c set_init.c set_print.c set_update.c unset.c
 NAME_ENV = env.c
-NAME_PAR_EXP = colon.c equal.c hash_d.c hash.c minus.c percent_d.c percent.c plus.c question.c
+NAME_PAR_EXP = colon.c equal.c hash_d.c hash.c minus.c percent_d.c percent.c plus.c question.c get_status.c
 
 ## vi_mode
 NAME_DLIST = ft_dlist_new.c ft_dlist_add.c ft_dlist_delone.c ft_dlist_rewind.c ft_dlist_del.c ft_dlist_addbegin.c \
@@ -84,7 +84,6 @@ NAME_VI = vi_a.c vi_ab.c vi_arr_up.c vi_b.c vi_c.c \
 NAME_HS = history_search.c search_utils.c shell_fc.c \
 		  print_history.c key_search.c save_history.c
 
-###
 
 SRC = 	$(addprefix $(SRC_21SH), $(NAME_21SH))\
 		$(addprefix $(SRC_MINISHELL), $(NAME_MINISHELL))\
@@ -93,7 +92,6 @@ SRC = 	$(addprefix $(SRC_21SH), $(NAME_21SH))\
 		$(addprefix $(SRC_VECTOR), $(NAME_VECTOR))\
 		$(addprefix $(SRC_PARSER), $(NAME_PARSER))\
 		$(addprefix $(SRC_LEXER), $(NAME_LEXER))\
-\
 		$(addprefix $(SRC_DLIST), $(NAME_DLIST))\
 		$(addprefix $(SRC_FT_STRING), $(NAME_FT_STRING))\
 		$(addprefix $(SRC_VI_INPUT), $(NAME_VI_INPUT))\
@@ -105,9 +103,10 @@ SRC = 	$(addprefix $(SRC_21SH), $(NAME_21SH))\
 		$(addprefix $(SRC_VECTOR_LIB), $(NAME_VECTOR_LIB))\
 		$(addprefix $(SRC_ALIAS), $(NAME_ALIAS))\
 		$(addprefix $(SRC_HASH), $(NAME_HASH))\
+		$(addprefix $(SRC_SET), $(NAME_SET))\
 		$(addprefix $(SRC_ENV), $(NAME_ENV))\
 		$(addprefix $(SRC_HS), $(NAME_HS))\
-		$(addprefix $(SRC_PAR_EXP), $(NAME_PAR_EXP))
+		$(addprefix $(SRC_PAR_EXP), $(NAME_PAR_EXP))\
 
 
 FLAG = -Wall -Werror -Wextra -g

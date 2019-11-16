@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_ins.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/20 17:53:07 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/26 19:12:15 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 21:56:08 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:56:09 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,5 @@ void				shell_cleaner(void)
 	free_arg(g_sh->env);
 	alias_deinit();
 	phash_deinit();
+	set_deinit();
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/01 16:43:12 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/26 16:23:37 by anorjen          ###   ########.fr       */
+/*   Created: 2019/10/27 21:47:56 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:47:57 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_term							*g_term;
 int								g_dispersion;
 char							*g_buffer;
 static struct termios			g_stored_settings;
+int								g_input_mode;
 int								putchar_(int c);
 void							backspace_ch(t_history_session *h_session);
 void							print_ch
@@ -115,11 +116,15 @@ void							reset_keypress(void);
 void							multiple_promt
 								(t_history_session *h_session, int mode);
 void							kazekage(char **arg);
-int ft_readkey(t_history_session *h_session);
+int								ft_readkey(t_history_session *h_session);
 
 void							key_func(t_history_session *h_session, int key);
 int								key_entr(t_history_session *h_session);
 int								key_control_c(t_history_session *h_session);
 void							set_keypress(void);
+t_history_session				*init_search_history(int lenght_hello);
+void							init_verb(t_history_session *h_session,
+								int lenght_hello);
+t_history_session				*crt_hsess(void);
 
 #endif

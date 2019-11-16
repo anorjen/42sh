@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   phash_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/08 17:28:38 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/26 11:45:41 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 21:44:22 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:44:23 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/hashtable.h"
+#include "hashtable.h"
 
 void		phash_init(void)
 {

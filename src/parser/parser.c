@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/18 16:53:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/26 20:26:17 by anorjen          ###   ########.fr       */
+/*   Created: 2019/10/27 21:52:53 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:52:54 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ char	**parser(t_history_session **h_session, char **env, int lenght_hello)
 	mode = 0;
 	while (1)
 	{
-		if (FU_TERMCAPS)
-			line = read_ln();
-		else
-			line = get_line(h_session, lenght_hello, mode);
+		line = get_line(h_session, lenght_hello, mode);
 		if (parse_error(line))
 		{
 			free(line);

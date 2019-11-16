@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/01 11:09:28 by sbearded          #+#    #+#             */
-/*   Updated: 2019/09/28 16:56:54 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 21:44:05 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:44:06 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/hashtable.h"
+#include "hashtable.h"
 
 char	*ft_get_path(char *path, char *name)
 {

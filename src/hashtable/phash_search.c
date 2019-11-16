@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   phash_search.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/20 16:13:16 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/26 11:47:02 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 21:44:34 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:44:34 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/hashtable.h"
+#include "hashtable.h"
 
 void		*phash_search(const char *str, int status)
 {

@@ -6,21 +6,12 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:35:53 by anorjen           #+#    #+#             */
-/*   Updated: 2019/11/16 15:16:34 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/11/16 15:58:38 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "history_search.h"
-
-typedef struct	s_fc
-{
-	int			e;
-	char		*editor;
-	int			l;
-	int			n;
-	int			num;
-}				t_fc;
 
 static void	run_editor(char **environ, t_fc fc)
 {
@@ -40,7 +31,9 @@ static void	run_editor(char **environ, t_fc fc)
 	arg = write_arg(str);
 	free(str);
 	kazekage(arg);
-	// init_history();
+	if (g_h_session != NULL)
+		free_hsess(g_h_session);
+	init_search_history(ft_strlen(basename(g_sh->cur_dir)) + ft_strlen("⦿") + 1);
 }
 
 static int	check_query_str(char *str, t_fc *fc)
@@ -76,7 +69,7 @@ static int	check_query(char **query, t_fc *fc)
 
 	i = 0;
 	st = 0;
-	while(query[++i] != NULL)
+	while (query[++i] != NULL)
 	{
 		if ((st = check_query_str(query[i], fc)) != 0)
 		{
@@ -105,7 +98,7 @@ int			shell_fc(t_process *proc)
 	init_fc(&fc);
 	query = proc->query;
 	qlen = arrlen(query);
-	if (qlen == 1 || fc->e == 1)
+	if (qlen == 1 || fc.e == 1)
 		run_editor(g_sh->env, fc);
 	else
 	{

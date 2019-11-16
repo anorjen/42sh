@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/23 15:54:35 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/26 16:33:22 by anorjen          ###   ########.fr       */
+/*   Created: 2019/10/27 21:57:25 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:57:26 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int		get_backgraund(char **arg)
 		++i;
 	if (i > 0)
 		i--;
-	
 	if (arg != NULL && arg[i] != NULL && !ft_strcmp(arg[i], "&"))
 		return (BACKGROUND_EXECUTION);
 	else

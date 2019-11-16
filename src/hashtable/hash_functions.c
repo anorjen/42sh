@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hash_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/20 14:21:05 by sbearded          #+#    #+#             */
-/*   Updated: 2019/09/28 16:57:53 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 21:44:13 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:44:14 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/hashtable.h"
+#include "hashtable.h"
 
 t_buck_cont		*hash_search(const char *str, t_hashtable *table)
 {

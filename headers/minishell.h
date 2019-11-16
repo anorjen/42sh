@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/28 15:41:22 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/26 19:33:29 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 21:47:14 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:47:16 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "alias.h"
 # include "../lib/printf/ft_printf.h"
 # include "../lib/printf/libft/get_next_line.h"
+# include "set.h"
 # define BUFF_LN 5
 # define CHANGE_ENV { free(g_sh->env[i]); g_sh->env[i] = tm;return (1);}
 # define FU_TERMCAPS 0
@@ -51,6 +52,10 @@
 # define S_SET 0
 # define S_SET_NULL 1
 # define S_UNSET 2
+
+# define SIG_PROC signal(SIGTTOU, SIG_IGN); tcsetpgrp(0, getpid())
+
+# define HISTORY_FILE ".42sh_history"
 
 /*
 ** 		t_env linked list structure
@@ -143,7 +148,6 @@ int						unset_(t_process *proc);
 char					*new_env_join(char *name, char *value);
 int						set_env(char *name, char *value);
 
-
 /*
 ** 		built-ins funcs
 */
@@ -154,7 +158,7 @@ int						exit_shell(t_process *proc);
 int						echo(t_process *proc);
 int						num_shell_functions(t_process *proc);
 int						type_shell(t_process *proc);
-int     				shell_fc(t_process *proc);
+int						shell_fc(t_process *proc);
 
 /*
 ** 		assist_21sh
@@ -175,5 +179,6 @@ char					*param_exp_percent(t_exp *exp);
 char					*param_exp_percent_d(t_exp *exp);
 char					*param_exp_hash(t_exp *exp);
 char					*param_exp_hash_d(t_exp *exp);
+char					*get_status(t_exp *exp);
 
 #endif

@@ -3,11 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_param.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/24 12:01:12 by sbearded          #+#    #+#             */
-/*   Updated: 2019/10/26 14:49:32 by sbearded         ###   ########.fr       */
-/*                                                                            */
+/*   Created: 2019/10/27 21:53:43 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:53:44 by mgorczan         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "minishell.h"
@@ -44,14 +43,15 @@ char		*do_replace(t_exp *exp)
 			res = func(exp);
 		else
 		{
-			error = ft_strjoin("42sh: parameter expansion: illegal option ", exp->action);
+			error = ft_strjoin("42sh: parameter expansion: illegal option ",
+								exp->action);
 			parser_error_set(error);
 			free_exp(exp);
 			return (ft_strdup(" "));
 		}
 	}
 	else
-		res = ft_strdup(exp->env);
+		res = exp->env ? ft_strdup(exp->env) : ft_strdup(" ");
 	if (exp->flag_hash)
 		res = do_hash(res);
 	free_exp(exp);

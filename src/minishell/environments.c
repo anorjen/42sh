@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environments.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/26 16:33:16 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/10/07 18:42:24 by sbearded         ###   ########.fr       */
+/*   Created: 2019/10/27 21:56:30 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/11/16 16:03:07 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,11 @@ char		*get_env(char *varible)
 	int		i;
 	int		j;
 	char	**environ;
+	char	*str;
 
 	i = 0;
 	environ = g_sh->env;
-	while (environ[i])
+	while (environ && environ[i])
 	{
 		j = 0;
 		while (environ[i][j] && environ[i][j] != '='
@@ -143,5 +144,9 @@ char		*get_env(char *varible)
 			return (&environ[i][ft_strlen(varible) + 1]);
 		i++;
 	}
+	str = set_get(varible);
+	if (!ft_strequ(str, ""))
+		return (str);
+	ft_strdel(&str);
 	return (NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/02 15:52:27 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/26 16:23:28 by anorjen          ###   ########.fr       */
+/*   Created: 2019/10/27 21:59:18 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:59:19 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		input_disp(t_history_session *h_session, int key, int mode, int *temp)
 	return (1);
 }
 
-int ft_readkey(t_history_session *h_session)
+int		ft_readkey(t_history_session *h_session)
 {
 	int				ret;
 	unsigned char	b[6];

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_wait_input.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/08 14:16:28 by sbearded          #+#    #+#             */
-/*   Updated: 2019/09/28 18:35:27 by anorjen          ###   ########.fr       */
+/*   Created: 2019/10/27 21:15:17 by mgorczan          #+#    #+#             */
+/*   Updated: 2019/10/27 21:15:19 by mgorczan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ char		*wait_input(void)
 		line = wait_input_vi(line);
 	else if (g_input_mode == 2)
 		line = wait_input_rl(line);
-	// else
-	// 	line = wait_input_default(line);
 	str = ft_strdup(line->str);
 	line_deinit(line);
 	reset_keypress();
