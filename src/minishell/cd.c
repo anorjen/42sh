@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:56:18 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:56:19 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/11/19 19:43:39 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,7 @@ char		*get_home(void)
 	return (path);
 }
 
-static void	set_pwd(void)
-{
-	char	new_dir[100];
-
-	set_env("OLDPWD", get_env("PWD"));
-	getcwd(new_dir, 100);
-	set_env("PWD", new_dir);
-}
-
-static void	back_to_oldpwd(void)
+static int	back_to_oldpwd(void)
 {
 	int	j;
 
@@ -45,54 +36,99 @@ static void	back_to_oldpwd(void)
 		++j;
 	}
 	if (!g_sh->env[j])
-		return ;
-	chdir(&g_sh->env[j][7]);
+		return (0);
+	if (chdir(&g_sh->env[j][7]) == -1)
+	{
+		cd_ext(&g_sh->env[j][7]);
+		return (1);
+	}
 	if (get_env("HOME")
 		&& ft_strstr(&g_sh->env[j][7], get_env("HOME")))
 		ft_printf("~%s\n", &g_sh->env[j][7 + 15]);
 	else
 		ft_printf("%s\n", &g_sh->env[j][7]);
-	set_pwd();
+	set_pwd(&g_sh->env[j][7], CD_L_FLAG);
+	return (0);
 }
 
-static void	cd_ext(t_process *proc, int i)
-{
-	struct stat buff;
-
-	if (!lstat(proc->query[i], &buff) && access(proc->query[i], 0) != 0)
-		print_error("cd: no such file or directory: ", proc->query[i]);
-	else if ((buff.st_mode & S_IFMT) != S_IFDIR)
-		print_error("cd: not a directory: ", proc->query[i]);
-	else
-		print_error("cd: permission denied: ", proc->query[i]);
-}
-
-int			cd_(t_process *proc)
+/*int			cd_(t_process *proc)
 {
 	int		i;
 	char	*home;
 	char	*flags;
 	int		flag;
+	int		res;
 
 	home = get_home();
 	flags = flags_parse(proc->query, &i);
+	res = 0;
 	if (flags)
 	{
-		if ((flag = cd_check_flags(flags)))
-			ft_printf("%s\n", flags);
-		else
+		if (!(flag = cd_check_flags(flags)))
 			return (1);
 	}
 	if (proc->query[i] == NULL)
-		chdir(home) != -1 ? set_pwd() : 0;
+		chdir(home) != -1 ? set_pwd(proc->query[i], CD_P_FLAG) : 0;
 	else if (!ft_strcmp(proc->query[i], "-"))
-		back_to_oldpwd();
-	else if (chdir(proc->query[i]) == -1)
-		cd_ext(proc, i);
+		res = back_to_oldpwd();
 	else
-		set_pwd();
+		res = cd_path(proc->query[i], flag);
 	sh_update_cwd_info();
 	free(home);
 	free(flags);
-	return (0);
+	ft_printf("return: %d\n", res);
+	return (res);
+}*/
+
+char			*path_exp(char **dir_o)
+{
+	char	*tmp;
+	char	*dir;
+	char	*pwd;
+	char	buff[PATH_MAX];
+
+	dir = *dir_o;
+	pwd = get_env("PWD");
+	if (!pwd)
+		pwd = ft_strdup(getcwd(buff, PATH_MAX));
+	if (dir[0] && dir[0] != '/')
+	{
+		if (pwd[ft_strlen(pwd) - 1] != '/')
+		{
+			tmp = pwd;
+			pwd = ft_strjoin(pwd, "/");
+			free(tmp);
+		}
+		tmp = dir;
+		dir = ft_strjoin(pwd, dir);
+		free(tmp);
+	}
+	free(pwd);
+}
+
+int				cd_(t_process *proc)
+{
+	char	*home;
+	char	*flags;
+	char	*dir;
+	int		flag;
+	int		i;
+
+	home = get_env("HOME");
+	flags = flags_parse(proc->query, &i);
+	if (flags)
+		if (!(flag = cd_check_flags(flags)))
+			return (1);
+	dir = ft_strdup(proc->query[i]);
+	if (dir == NULL)
+	{
+		if (!home || ft_strequ(home, ""))
+			return (0);
+		else
+			dir = home;
+	}
+	if (flag != CD_P_FLAG)
+	{
+		;
+	}
 }

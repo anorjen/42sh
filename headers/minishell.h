@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:47:14 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:47:16 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/11/19 19:24:21 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@
 
 # define CD_L_FLAG 1
 # define CD_P_FLAG 2
+# define PATH_MAX 200
 
 # define SIG_PROC signal(SIGTTOU, SIG_IGN); tcsetpgrp(0, getpid())
 
@@ -156,6 +157,10 @@ int						set_env(char *name, char *value);
 */
 
 int						cd_(t_process *proc);
+int						cd_path(char *path, int flag);
+int						cd_check_flags(char *flags);
+int						cd_ext(char *path);
+void					set_pwd(char *path, int flag);
 int						help_shell(t_process *proc);
 int						exit_shell(t_process *proc);
 int						echo(t_process *proc);
@@ -168,7 +173,6 @@ int						shell_fc(t_process *proc);
 */
 void					sigint_handler(int signal);
 char					*flags_parse(char **argv, int *i);
-int						cd_check_flags(char *flags);
 
 /*
 ** 		param expansion
