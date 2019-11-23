@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:57:37 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:57:38 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:08:56 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int			get_command_type_(char *command)
 		|| ft_strequ(command, "set")
 		|| ft_strequ(command, "unset")
 		|| ft_strequ(command, "export")
-		|| ft_strequ(command, "fc"))
+		|| ft_strequ(command, "fc")
+		|| ft_strequ(command, "echo"))
 		return (1);
 	else
 		return (COMMAND_EXTERNAL);
@@ -51,6 +52,7 @@ t_process	*init_process(void)
 	new_process->type = 0;
 	new_process->status = 0;
 	new_process->next = NULL;
+	new_process->out_fdPIPE = 1;
 	return (new_process);
 }
 

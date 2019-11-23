@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:59:00 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:59:01 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:11:27 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ int				shell_launch_job(t_job *job)
 		free(g_sh->launch);
 	g_sh->launch = h_launch_init();
 	check_zombie();
-	if (job->root->type == COMMAND_EXTERNAL)
+<<<<<<< HEAD
+//	if (job->root->type == COMMAND_EXTERNAL)
 		g_sh->launch->job_id = insert_job(job);
 	proc = job->root;
 	g_sh->launch->status = launch_proc_cycle(proc, g_sh->launch, job);
-	if (job->root->type == COMMAND_EXTERNAL)
+	if (job->root->type == COMMAND_EXTERNAL || job->root->type != COMMAND_EXTERNAL)
 	{
 		if (g_sh->launch->status >= 0 && job->mode == FOREGROUND_EXECUTION)
 			remove_job(g_sh->launch->job_id);
@@ -85,7 +86,8 @@ int				check_built_in(t_process *proc)
 		|| ft_strequ(proc->query[0], "set")
 		|| ft_strequ(proc->query[0], "unset")
 		|| ft_strequ(proc->query[0], "export")
-		|| ft_strequ(proc->query[0], "fc"))
+		|| ft_strequ(proc->query[0], "fc")
+		|| ft_strequ(proc->query[0], "echo"))
 		return (1);
 	else
 		return (0);
@@ -98,11 +100,14 @@ int				shell_launch_process(t_job *job, t_process *proc,
 	int			status;
 
 	proc->status = STATUS_RUNNING;
+	proc->out_fdPIPE = out_fd;
 	if (check_built_in(proc))
 		return (!execute_builtin_command(proc));
 	status = 0;
 	if (ft_replace_set(proc) == 1)
 		return (0);
+	if (fork_after_check_exist(proc))
+		return (1);
 	if ((childpid = fork()) < 0)
 		return (-1);
 	else if (childpid == 0)

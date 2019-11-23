@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:58:24 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:58:25 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:12:28 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static int		wait_for_job_ext(t_job_pid *job_pids, int id)
 	{
 		job_pids->wait_pid = waitpid(-g_sh->jobs[id]->pgid,
 				&job_pids->status, WUNTRACED);
-		kill(g_sh->jobs[id]->root->pid, SIGQUIT);
+		if (!(g_sh->jobs[id]->root->type))
+			kill(g_sh->jobs[id]->root->pid, SIGQUIT);
 		job_pids->wait_count++;
 		if (WIFEXITED(job_pids->status))
 		{
