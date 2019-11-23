@@ -1,0 +1,8 @@
+.idea
+cmake*
+.DS_*
+.vscode
+21sh.dSYM
+42sh.dSYM
+*.o
+test.txt
