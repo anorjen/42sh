@@ -92,27 +92,29 @@ char	**segment_off(char **arg, int *mode)
 
 void	kazekage(char **arg)
 {
-	t_job	*job;
-	char	**segment_arg;
-	int		mode;
-	int		status;
+    t_job	*job;
+    char	**segment_arg;
+    int		mode;
+    int		status;
+    int     prev_mode;
 
-	status = 0;
-	mode = 0;
-	while (arg)
-	{
-		segment_arg = split_segment(arg);
-		segment_arg = replace_alias(segment_arg);
-		arg = segment_off(arg, &mode);
-		job = lexer(segment_arg);
-		free_arg(segment_arg);
-		if (job && job->root)
-			status = shell_launch_job(job);
-		if (mode == 2 && !status)
-			break ;
-		if (mode == 3 && status)
-			break ;
-		if (mode == 4 && !status)
-			break ;
-	}
+    status = 0;
+    mode = 0;
+    while (arg)
+    {
+        segment_arg = split_segment(arg);
+        segment_arg = replace_alias(segment_arg);
+        prev_mode = mode;
+        arg = segment_off(arg, &mode);
+        job = lexer(segment_arg);
+        free_arg(segment_arg);
+        if (prev_mode == 3 && status)
+            continue ;
+        if (prev_mode == 4 && !status)
+            continue ;
+        if (job && job->root)
+            status = shell_launch_job(job);
+        if (mode == 2 && !status)
+            break ;
+    }
 }
