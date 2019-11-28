@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:41:29 by sbearded          #+#    #+#             */
-/*   Updated: 2019/11/19 20:00:44 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/11/28 20:37:50 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,15 @@ int			cd_ext(char *path)
 	return (1);
 }
 
-void		set_pwd(char *path, int flag)
+void		set_pwd(char *path)
 {
-	char	new_dir[100];
+	size_t	len;
 
+	len = ft_strlen(path);
+	if (len != 1 && path[len - 1] == '/')
+		cut_str(&path, len - 1, len);
 	set_env("OLDPWD", get_env("PWD"));
-	if (flag == CD_P_FLAG)
-		set_env("PWD", getcwd(new_dir, 100));
-	else
-		set_env("PWD", path);
-}
-
-int			cd_path(char *path, int flag)
-{
-	char	*abs_path;
-
-	abs_path = path;
-	if (chdir(abs_path) == -1)
-	{
-		cd_ext(path);
-		return (1);
-	}
-	set_pwd(path, flag);
-	return (0);
-	//if (chdir(dir) == -1)
-//		return (cd_ext(dir));
+	set_env("PWD", path);
+	sh_update_cwd_info();
+	free(path);
 }

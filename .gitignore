@@ -6,3 +6,4 @@ cmake*
 42sh.dSYM
 *.o
 test.txt
+.42sh_history

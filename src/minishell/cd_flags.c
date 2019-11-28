@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:41:36 by sbearded          #+#    #+#             */
-/*   Updated: 2019/11/19 16:41:53 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/11/28 20:22:49 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		cd_check_flags(char *flags)
 	int	res;
 
 	i = 0;
-	res = 0;
+	res = CD_L_FLAG;
 	while (flags[i])
 	{
 		if (flags[i] == 'L')
@@ -33,5 +33,6 @@ int		cd_check_flags(char *flags)
 		}
 		i++;
 	}
+	free(flags);
 	return (res);
 }
