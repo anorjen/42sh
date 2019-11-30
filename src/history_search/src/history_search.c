@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:42:22 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/11/16 19:04:13 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/11/30 15:59:06 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_history_session	*search_last(t_history_session *h_session)
 
 	tmp = h_session;
 	tmp = list_rewind_to_end(tmp);
+	tmp = tmp->up;
 	return (tmp);
 }
 
