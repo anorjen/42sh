@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:47:39 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:47:40 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:15:15 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct			s_process
 	int					status;
 	int					exec_mode;
 	struct s_process	*next;
+	int 				out_fdPIPE;
 }						t_process;
 
 typedef struct			s_job
@@ -222,5 +223,8 @@ void					sh_update_cwd_info(void);
 int						check_access(char **files, int id);
 char					*str_join_her(char *s1, char *s2);
 void					print_error(char *error, char *name);
+
+int				fork_after_check_exist(t_process *proc);
+
 
 #endif

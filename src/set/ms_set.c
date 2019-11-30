@@ -6,7 +6,7 @@
 /*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 13:21:00 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/10/27 13:28:55 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:09:43 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int		ft_replace_set(t_process *proc)
 		return (0);
 	set(arr[0], arr[1]);
 	ft_mas_del(arr);
+	proc->type = 1;
 	return (1);
 }
 
