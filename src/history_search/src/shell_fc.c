@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:35:53 by anorjen           #+#    #+#             */
-/*   Updated: 2019/11/16 18:55:37 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/11/30 17:41:47 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static int	check_query_str(char *str, t_fc *fc)
 				fc->l = 1;
 			else if (str[j] == 'n')
 				fc->n = 1;
+			else if (str[j] == 'r')
+				fc->r = 1;
 			else if (str[j] >= 48 && str[j] <= 57)
 				fc->num = ft_atoi(&str[1]);
 			else if (str[j] == 'e')
@@ -86,6 +88,7 @@ static void	init_fc(t_fc *fc)
 	fc->l = 0;
 	fc->n = 0;
 	fc->e = 0;
+	fc->r = 0;
 	fc->editor = NULL;
 	fc->num = 0;
 }
@@ -106,7 +109,7 @@ int			shell_fc(t_process *proc)
 		else
 		{
 			if (fc.l == 1)
-				print_history(g_h_session, fc.num, fc.n);
+				print_history(g_h_session, &fc);
 		}
 	}
 	return (1);

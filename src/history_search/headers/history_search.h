@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:08:35 by anorjen           #+#    #+#             */
-/*   Updated: 2019/11/16 18:58:03 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/11/30 17:12:34 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct	s_fc
 	char		*editor;
 	int			l;
 	int			n;
+	int			r;
 	int			num;
 }				t_fc;
 
@@ -39,7 +40,7 @@ t_history_session	*list_rewind_to_end(t_history_session *h_session);
 int					listlen(t_history_session *dlst);
 int					arrlen(char **query);
 
-void				print_history(t_history_session *h_session, int num, int n);
+void				print_history(t_history_session *h_session, t_fc *fc);
 void				key_search(t_history_session *h_session);
 
 int					save_history();

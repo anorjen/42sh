@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:42:39 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:42:40 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/11/30 17:51:50 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int					listlen(t_history_session *dlst)
 	i = 0;
 	tmp = dlst;
 	tmp = list_rewind_to_begin(tmp);
-	while (tmp->down != NULL)
+	while (tmp)
 	{
 		++i;
 		tmp = tmp->down;
