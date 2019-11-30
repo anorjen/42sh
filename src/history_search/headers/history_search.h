@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:08:35 by anorjen           #+#    #+#             */
-/*   Updated: 2019/11/30 17:12:34 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/11/30 20:44:15 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef struct	s_fc
 /*
 **	hi_search_history
 */
-char				*g_word;
+char				*g_search_word;
+t_history_session	*g_old_search;
 t_history_session	*search_all_str(t_history_session *h_session);
 t_history_session	*search_last(t_history_session *h_session);
 t_history_session	*search_word(t_history_session *h_session, char *word);

@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:27:23 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/11/16 16:32:09 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/11/30 18:35:34 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_history_session	*initsrch_loop(int fd, int lenght_hello)
 			if (get_next_line(fd, &line))
 			{
 				h_session->down =
-				add_hsess_search(h_session->down, line, lenght_hello);
+					add_hsess_search(h_session->down, line, lenght_hello);
 				h_session->down->up = h_session;
 				h_session = h_session->down;
 			}

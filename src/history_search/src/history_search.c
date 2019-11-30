@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:42:22 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/11/30 15:59:06 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/11/30 20:45:54 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 t_history_session	*search_all_str(t_history_session *h_session)
 {
-	static t_history_session	*old_search;
+	// static t_history_session	*old_search;
 	t_history_session			*tmp;
 
 	if (!(tmp = h_session) || !h_session->line || h_session->line[0] == '\0')
 		return (NULL);
-	if (old_search && ft_strcmp(old_search->line, h_session->line) == 0
-																	&& g_word)
-		tmp = old_search;
+	if (g_old_search &&
+		ft_strcmp(g_old_search->line, h_session->line) == 0 && g_search_word)
+		tmp = g_old_search;
 	else
 	{
-		if (g_word)
-			free(g_word);
+		if (g_search_word)
+			free(g_search_word);
 		tmp = list_rewind_to_end(tmp);
-		g_word = ft_strdup(h_session->line);
+		g_search_word = ft_strdup(h_session->line);
 	}
 	while ((tmp = tmp->up))
 	{
-		if (ft_strstr(tmp->line, g_word))
+		if (ft_strstr(tmp->line, g_search_word))
 		{
-			old_search = tmp;
+			g_old_search = tmp;
 			return (tmp);
 		}
 	}
-	old_search = NULL;
+	g_old_search = NULL;
 	return (NULL);
 }
 

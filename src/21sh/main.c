@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 22:01:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/11/16 18:38:58 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/11/30 20:44:04 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void		sh_init(char **environ)
 	int					i;
 
 	g_input_mode = 0;
-	g_word = NULL;
+	g_search_word = NULL;
+	g_old_search = NULL;
 	g_h_session = NULL;
 	g_env = NULL;
 	sigint_action.sa_flags = 0;
@@ -57,11 +58,15 @@ void		free_hsess(t_history_session *h_session)
 {
 	t_history_session *temp;
 
+	h_session = list_rewind_to_end(h_session);
 	while (h_session)
 	{
-		h_session->victor->del(&h_session->victor);
+		h_session->victor->del(&(h_session->victor));
 		if (h_session->line)
+		{
 			free(h_session->line);
+			h_session->line = NULL;
+		}
 		temp = h_session;
 		h_session = h_session->up;
 		free(temp);

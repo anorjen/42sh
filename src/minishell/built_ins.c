@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:56:08 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/11/16 18:42:38 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/11/30 20:47:55 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ void				shell_cleaner(void)
 	alias_deinit();
 	phash_deinit();
 	set_deinit();
-	if (g_word)
-		free(g_word);
+	if (g_search_word)
+		free(g_search_word);
 }

@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:35:53 by anorjen           #+#    #+#             */
-/*   Updated: 2019/11/30 17:41:47 by anorjen          ###   ########.fr       */
+/*   Updated: 2019/11/30 21:03:26 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	run_editor(char **environ, t_fc fc)
 		free_hsess(g_h_session);
 	init_search_history(ft_strlen(basename(g_sh->cur_dir))
 												+ ft_strlen("⦿") + 1);
+	g_old_search = NULL;
 }
 
 static int	check_query_str(char *str, t_fc *fc)
@@ -79,6 +80,11 @@ static int	check_query(char **query, t_fc *fc)
 			write(1, "fc: event not found\n", 21);
 			return (-1);
 		}
+	}
+	if (fc->e == 1 && fc->editor == NULL)
+	{
+		write(1, "fc: argument expected: -e\n", 26);
+		return (-1);
 	}
 	return (0);
 }
