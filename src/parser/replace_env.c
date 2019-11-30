@@ -73,18 +73,39 @@ void		replace_env_else(char **chang_line, int *i, int *lenght)
 	free(env_verb);
 }
 
+char        **replace_env_wrapper(char **argv)
+{
+    int i;
+    int length;
+    int k;
+
+    i = -1;
+    while (argv[++i])
+    {
+        k = 0;
+        while (argv[i] && argv[i][k])
+        {
+            if (argv[i][k] == '$')
+                replace_env_else(&argv[i], &k, &length);
+            else
+                ++k;
+        }
+    }
+    return argv;
+}
+
 char		*replace_env(char *chang_line, char **env)
 {
 	int		i;
-	int		lenght;
+//	int		lenght;
 
 	i = 0;
 	while (chang_line && chang_line[i])
 	{
 		if (chang_line[i] == '\'' || chang_line[i] == '\"')
 			i = miss_quote(&chang_line, i, env);
-		else if (chang_line[i] == '$')
-			replace_env_else(&chang_line, &i, &lenght);
+//		else if (chang_line[i] == '$')
+//			replace_env_else(&chang_line, &i, &lenght);
 		else
 			++i;
 	}

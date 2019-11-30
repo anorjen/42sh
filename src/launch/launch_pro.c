@@ -40,8 +40,7 @@ int				shell_launch_job(t_job *job)
 		free(g_sh->launch);
 	g_sh->launch = h_launch_init();
 	check_zombie();
-	if (job->root->type == COMMAND_EXTERNAL)
-		g_sh->launch->job_id = insert_job(job);
+	g_sh->launch->job_id = insert_job(job);
 	proc = job->root;
 	g_sh->launch->status = launch_proc_cycle(proc, g_sh->launch, job);
 	if (job->root->type == COMMAND_EXTERNAL || job->root->type != COMMAND_EXTERNAL)
@@ -100,11 +99,12 @@ int				shell_launch_process(t_job *job, t_process *proc,
 
 	proc->status = STATUS_RUNNING;
 	proc->out_fdPIPE = out_fd;
-	if (check_built_in(proc))
+    if (is_sets(proc))
+        return add2set(proc);
+    proc->query = ft_replace_set(proc);
+    if (check_built_in(proc))
 		return (!execute_builtin_command(proc));
 	status = 0;
-	if (ft_replace_set(proc) == 1)
-		return (0);
 	if (fork_after_check_exist(proc))
 		return (1);
 	if ((childpid = fork()) < 0)

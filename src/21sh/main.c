@@ -21,6 +21,7 @@ void		sh_init(char **environ)
 
 	g_input_mode = 0;
 	g_env = NULL;
+    g_env_copy = NULL;
 	sigint_action.sa_flags = 0;
 	i = -1;
 	sigint_action.sa_handler = &sigint_handler;

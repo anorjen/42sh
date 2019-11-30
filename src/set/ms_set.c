@@ -69,17 +69,7 @@ char	**ft_strsplit_first_char(char *str, char c)
 	return (arr);
 }
 
-int		ft_replace_set(t_process *proc)
-{
-	char	**arr;
 
-	if ((arr = ft_strsplit_first_char(proc->query[0], '=')) == NULL)
-		return (0);
-	set(arr[0], arr[1]);
-	ft_mas_del(arr);
-	proc->type = 1;
-	return (1);
-}
 
 int		ms_set(t_process *proc)
 {

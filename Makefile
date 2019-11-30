@@ -52,7 +52,8 @@ NAME_ALIAS = alias_deinit.c alias_get.c alias_init.c alias_print.c alias_set.c a
 				ms_unalias.c
 NAME_HASH = ft_path.c hash_free.c hash_functions.c hash_main.c phash_init_builtins.c phash_init.c phash_search.c \
 			phash_update.c phash_init_param_exp.c
-NAME_SET = ms_export.c ms_set.c ms_unset.c set.c set_deinit.c set_get.c set_init.c set_print.c set_update.c unset.c
+NAME_SET = ms_export.c ms_set.c ms_unset.c set.c set_deinit.c set_get.c set_init.c set_print.c set_update.c unset.c \
+            set_handler.c
 NAME_ENV = env.c
 NAME_PAR_EXP = colon.c equal.c hash_d.c hash.c minus.c percent_d.c percent.c plus.c question.c get_status.c
 

@@ -129,6 +129,7 @@ typedef struct			s_job_pid
 }						t_job_pid;
 
 t_shell_info				*g_sh;
+char                        **g_env_copy;
 
 /*
 ** 				t_job handlers

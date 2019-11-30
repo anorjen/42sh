@@ -43,5 +43,6 @@ int		is_specdel(char *line, int i);
 int		is_redir(char *line, int i);
 int		parse_error(char *line);
 char	**replace_alias(char **argv);
+char    **replace_env_wrapper(char **argv);
 
 #endif
