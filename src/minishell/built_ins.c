@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_ins.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:56:08 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:56:09 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/11/30 15:06:32 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,46 @@ int					help_shell(t_process *proc)
 	return (1);
 }
 
+int					check_numeric(char *str)
+{
+	int i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (1);
+	}
+	return (0);
+}
+
 int					exit_shell(t_process *proc)
 {
 	int		i;
 
 	i = 0;
-	proc = NULL;
+	if (proc->query[1] && proc->query[2])
+	{
+		print_error("exit: too many arguments", "");
+		return (1);
+	}
+	if (proc->query[1])
+	{
+		if (check_numeric(proc->query[1]))
+		{
+			print_error("exit: numeric argument required", "");
+			return (1);
+		}
+		i = ft_atoi(proc->query[1]);
+	}
+	if (i == -1)
+		i = 255;
+	else if (i > 255)
+		i %= 256;
 	ft_printf(COLOR_MAGENTA "say-o-nara~\n" COLOR_NONE);
 	save_history();
 	shell_cleaner();
-	exit(1);
+	exit(i);
 }
 
 int					echo(t_process *proc)
