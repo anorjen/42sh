@@ -40,8 +40,6 @@ int				shell_launch_job(t_job *job)
 		free(g_sh->launch);
 	g_sh->launch = h_launch_init();
 	check_zombie();
-<<<<<<< HEAD
-//	if (job->root->type == COMMAND_EXTERNAL)
 		g_sh->launch->job_id = insert_job(job);
 	proc = job->root;
 	g_sh->launch->status = launch_proc_cycle(proc, g_sh->launch, job);

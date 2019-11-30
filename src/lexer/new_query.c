@@ -12,25 +12,29 @@
 
 #include "../../headers/minishell.h"
 
-int		get_mode(char *command)
+int		get_mode(char *command) //11
 {
 	if (strcmp(command, "|") == 0)
 		return (COMMAND_PIPE);
-	else if (strcmp(command, "<") == 0)
+	else if (strcmp(command, "<") == 0  || (ft_isdigit(command[0])  && strcmp(&command[1], "<") == 0))
 		return (COMMAND_LREDIR);
-	else if (strcmp(command, ">") == 0)
+	else if (strcmp(command, ">") == 0 || (ft_isdigit(command[0])  && strcmp(&command[1], ">") == 0))
 		return (COMMAND_RREDIR);
+	else if ((ft_isdigit(command[0]) && strcmp(&command[1], ">&") == 0) || strcmp(command, ">&") == 0)
+		return (COMMAND_ARG);
+	else if ((ft_isdigit(command[0]) && strcmp(&command[1], "<&") == 0) || strcmp(command, "<&") == 0)
+		return (COMMAND_ARG);
 	else if (strcmp(command, "<<") == 0)
 		return (COMMAND_HEREDOC);
 	else if (strcmp(command, ">>") == 0)
 		return (COMMAND_APPEND);
-	else if (strcmp(command, "&") == 0)
+	else if (strcmp(command, "&") == 0) // в этом месте может боить &
 		return (COMMAND_BACKGR);
 	else
 		return (COMMAND_EXTERNAL);
 }
 
-int		lenght_argproc(char **arg, int i)
+int		lenght_argproc(char **arg, int i) //11
 {
 	int lenght;
 
@@ -39,20 +43,21 @@ int		lenght_argproc(char **arg, int i)
 	{
 		if (get_mode(arg[i]))
 			++i;
-		else if (!is_agrarg((arg[i])))
+		else
 			++lenght;
 		arg[i] ? ++i : 0;
 	}
 	return (lenght);
 }
 
-char	**new_query(char **arg, int i)
+char	**new_query(char **arg, int i)// 11
 {
 	char	**query;
 	int		lenght;
 	int		j;
 
 	j = 0;
+	
 	if ((lenght = lenght_argproc(arg, i)) == 0)
 		return (NULL);
 	if ((query = malloc(sizeof(char*) * (lenght + 1))) == NULL)

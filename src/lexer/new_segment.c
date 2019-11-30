@@ -67,10 +67,15 @@ t_process	*new_segment(char **arg, int i)
 		free(new_process);
 		return (NULL);
 	}
+
+	int j = 0;
+	while (new_process->query && new_process->query[j])
+		ft_printf("%s\n", new_process->query[j++]);
 	new_process->type = get_command_type_(new_process->query[0]);
 	new_process->exec_mode = 1;
-	input_path(arg, i, new_process);
-	output_path(arg, i, new_process);
-	new_agregation(arg, i, new_process);
+	input_path(arg, i, new_process); // fix this
+	return (0);
+	output_path(arg, i, new_process); // fix this
+	new_agregation(arg, i, new_process); // fix this
 	return (new_process);
 }

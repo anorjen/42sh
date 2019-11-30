@@ -70,6 +70,7 @@ void	input_path(char **arg, int i, t_process *new_process)
 
 	lenght_he = lenght_argher(arg, i);
 	lenght_re = lenght_argre(arg, i);
+	ft_printf("%i\n", lenght_re);
 	if (lenght_he)
 	{
 		new_process->heredoc =
