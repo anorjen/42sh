@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   percent_d.c                                        :+:      :+:    :+:   */
+/*   match.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/27 21:41:09 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/12/03 16:18:24 by sbearded         ###   ########.fr       */
+/*   Created: 2019/12/03 15:55:12 by sbearded          #+#    #+#             */
+/*   Updated: 2019/12/03 16:11:42 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*param_exp_percent_d(t_exp *exp)
+int		match(char *s1, char *s2)
 {
-	size_t	len_env;
-	size_t		i;
-
-	len_env = ft_strlen(exp->env);
-	i = 0;
-	while (i < len_env)
-	{
-		if (match(exp->env + i, exp->word))
-			return (ft_strsub(exp->env, 0, i));
-		i++;
-	}
-	return (ft_strdup(exp->env));
+	if (*s1 != '\0' && *s2 == '*')
+		return (match(s1 + 1, s2) || match(s1, s2 + 1));
+	if (*s1 == '\0' && *s2 == '*')
+		return (match(s1, s2 + 1));
+	if ((*s1 == *s2 || *s2 == '?') && *s1 != '\0' && *s2 != '\0')
+		return (match(s1 + 1, s2 + 1));
+	if (*s1 == *s2 && *s1 == '\0' && *s2 == '\0')
+		return (1);
+	return (0);
 }

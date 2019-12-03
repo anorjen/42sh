@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:40:53 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:40:54 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:15:52 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,28 @@
 char	*param_exp_hash(t_exp *exp)
 {
 	size_t	len_env;
-	size_t	len_word;
+	char	*str;
+	char	*word_rev;
+	char	*tmp;
 	char	*res;
 
-	len_env = ft_strlen(exp->env);
-	len_word = ft_strlen(exp->word);
-	if (!ft_strncmp(exp->env, exp->word, len_word))
-		res = ft_strsub(exp->env, 0, (len_env - len_word));
-	else
-		res = ft_strdup(exp->env);
+	res = ft_strdup(exp->env);
+	str = ft_strrev(exp->env);
+	word_rev = ft_strrev(exp->word);
+	len_env = ft_strlen(str);
+	while (len_env > 0)
+	{
+		if (match(str + len_env - 1, word_rev))
+		{
+			tmp = ft_strsub(str, 0, len_env - 1);
+			free(res);
+			res = ft_strrev(tmp);
+			free(tmp);
+			break ;
+		}
+		len_env--;
+	}
+	free(str);
+	free(word_rev);
 	return (res);
 }

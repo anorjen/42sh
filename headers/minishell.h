@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:47:14 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/12/03 15:28:09 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:09:10 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include "set.h"
 # define BUFF_LN 5
 # define CHANGE_ENV { free(g_sh->env[i]); g_sh->env[i] = tm;return (1);}
-# define FU_TERMCAPS 1
+# define FU_TERMCAPS 0
 
 # define S_SUBSTITUTE 0
 # define S_ASSIGN 1
@@ -93,6 +93,7 @@ typedef struct			s_expansion
 	int					flag_hash;
 	int					flag_exp;
 	char				*action;
+	char				*(*func)(struct s_expansion *);
 	char				(*f)(struct s_expansion *exp);
 }						t_exp;
 
@@ -175,6 +176,8 @@ char					*flags_parse(char **argv, int *i);
 /*
 ** 		param expansion
 */
+char					*ft_strrev(char *str);
+int						match(char *s1, char *s2);
 void					free_exp(t_exp *exp);
 
 char					*param_exp_minus(t_exp *exp);

@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   phash_init_param_exp.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:44:30 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:44:31 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:57:14 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hashtable.h"
 
 const char	*g_param_exp_str[] = {
-	":",
 	":-",
 	":+",
 	":=",
@@ -27,7 +26,6 @@ const char	*g_param_exp_str[] = {
 };
 
 char		*(*g_param_exp_func[]) (t_exp *) = {
-	&param_exp_colon,
 	&param_exp_minus,
 	&param_exp_plus,
 	&param_exp_equal,

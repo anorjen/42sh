@@ -3,10 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   replace_param.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:53:43 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:53:44 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:54:58 by sbearded         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
@@ -32,15 +33,13 @@ char		*do_hash(char *str)
 
 char		*do_replace(t_exp *exp)
 {
-	char	*(*func)(t_exp *);
 	char	*error;
 	char	*res;
 
-	if (ft_strcmp(exp->action, ""))
+	if (exp->action)
 	{
-		func = phash_search(exp->action, HASH_PARAM_EXP);
-		if (func)
-			res = func(exp);
+		if (exp->func)
+			res = exp->func(exp);
 		else
 		{
 			error = ft_strjoin("42sh: parameter expansion: illegal option ",
@@ -58,6 +57,26 @@ char		*do_replace(t_exp *exp)
 	return (res);
 }
 
+void			choose_action(char *line, int *length, t_exp *exp)
+{
+	char	*(*func)(t_exp *);
+	char	*str;
+
+	str = ft_strsub(line, *length, 2);
+	func = phash_search(str, HASH_PARAM_EXP);
+	if (func)
+		*length += 2;
+	else
+	{
+		free(str);
+		str = ft_strsub(line, *length, 1);
+		func = phash_search(str, HASH_PARAM_EXP);
+		*length += 1;
+	}
+	exp->action = str;
+	exp->func = func;
+}
+
 char		*parse_action(char *line, int *length, t_exp *exp)
 {
 	int	counter;
@@ -71,11 +90,14 @@ char		*parse_action(char *line, int *length, t_exp *exp)
 			return (exp->env);
 		return (ft_strdup(" "));
 	}
-	i = *length;
+	/*i = *length;
 	while (line[*length] && !ft_isdigit(line[*length])
 			&& !ft_isalpha(line[*length]) && line[*length] != '}')
 		++(*length);
-	exp->action = ft_strsub(line, i, (*length) - i);
+	exp->action = ft_strsub(line, i, (*length) - i);*/
+	exp->action = NULL;
+	if (line[*length] != '}')
+		choose_action(line, length, exp);
 	i = *length;
 	while (line[*length] && line[*length] != '}')
 		++(*length);
