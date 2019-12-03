@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:47:56 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:47:57 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/11/16 17:37:43 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ t_history_session				*add_history
 							(t_history_session *h_session, int lenght_hello);
 void							key_history
 								(t_history_session *h_session, int key);
+void							clear_line
+								(t_history_session *h_session);
 void							navigation_line
 								(t_history_session *h_session, int key);
 void							navigation_words

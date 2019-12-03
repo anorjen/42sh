@@ -6,11 +6,11 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:56:08 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/11/30 15:06:32 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:27:16 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "minishell.h"
 
 extern const char	*g_builtin_str[];
 
@@ -103,4 +103,6 @@ void				shell_cleaner(void)
 	alias_deinit();
 	phash_deinit();
 	set_deinit();
+	if (g_search_word)
+		free(g_search_word);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_hsees_search.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 20:27:23 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 20:27:24 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/11/30 18:35:34 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_history_session	*initsrch_loop(int fd, int lenght_hello)
 			if (get_next_line(fd, &line))
 			{
 				h_session->down =
-				add_hsess_search(h_session->down, line, lenght_hello);
+					add_hsess_search(h_session->down, line, lenght_hello);
 				h_session->down->up = h_session;
 				h_session = h_session->down;
 			}
@@ -91,14 +91,16 @@ t_history_session	*initsrch_loop(int fd, int lenght_hello)
 t_history_session	*init_search_history(int lenght_hello)
 {
 	int					fd;
-	t_history_session	*h_session;
+	// t_history_session	*h_session;
+	char				*file;
 
-	h_session = NULL;
-	fd = open(HISTORY_FILE, O_RDONLY);
+	g_h_session = NULL;
+	file = replace_dir(ft_strdup(HISTORY_FILE), g_sh->env);
+	fd = open(file, O_RDONLY);
 	if (fd != -1)
 	{
-		h_session = initsrch_loop(fd, lenght_hello);
+		g_h_session = initsrch_loop(fd, lenght_hello);
 		close(fd);
 	}
-	return (h_session);
+	return (g_h_session);
 }

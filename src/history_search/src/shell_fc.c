@@ -3,26 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   shell_fc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/27 21:42:42 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:42:43 by mgorczan         ###   ########.fr       */
+/*   Created: 2019/10/19 14:35:53 by anorjen           #+#    #+#             */
+/*   Updated: 2019/11/30 21:03:26 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "history_search.h"
 
-static void	run_vi(char **environ)
+static void	run_editor(char **environ, t_fc fc)
 {
 	char	*str;
 	char	**arg;
+	char	*tmp;
 
-	str = ft_strjoin("vi ", "~/.42sh_history");
+	if (fc.e == 0)
+		str = ft_strjoin("vi ", HISTORY_FILE);
+	else
+	{
+		tmp = ft_strjoin(fc.editor, " ");
+		str = ft_strjoin(tmp, HISTORY_FILE);
+		free(tmp);
+	}
 	str = replace_dir(str, environ);
 	arg = write_arg(str);
 	free(str);
 	kazekage(arg);
+	if (g_h_session != NULL)
+		free_hsess(g_h_session);
+	init_search_history(ft_strlen(basename(g_sh->cur_dir))
+												+ ft_strlen("⦿") + 1);
+	g_old_search = NULL;
 }
 
 static int	check_query_str(char *str, t_fc *fc)
@@ -34,20 +47,22 @@ static int	check_query_str(char *str, t_fc *fc)
 		j = 0;
 		while (str[++j] != '\0')
 		{
-			if (str[j] == 'l' || str[j] == 'n'
-				|| (str[j] >= 48 && str[j] <= 57))
-			{
-				if (str[j] == 'l')
-					fc->l = 1;
-				else if (str[j] == 'n')
-					fc->n = 1;
-				else if (str[j] >= 48 && str[j] <= 57)
-					fc->num = ft_atoi(&str[1]);
-			}
-			else
-				return (-1);
+			if (str[j] == 'l')
+				fc->l = 1;
+			else if (str[j] == 'n')
+				fc->n = 1;
+			else if (str[j] == 'r')
+				fc->r = 1;
+			else if (str[j] >= 48 && str[j] <= 57)
+				fc->num = ft_atoi(&str[1]);
+			else if (str[j] == 'e')
+				fc->e = 1;
 		}
 	}
+	else if (fc->e == 1 && fc->editor == NULL)
+		fc->editor = str;
+	else
+		return (-1);
 	return (0);
 }
 
@@ -66,6 +81,11 @@ static int	check_query(char **query, t_fc *fc)
 			return (-1);
 		}
 	}
+	if (fc->e == 1 && fc->editor == NULL)
+	{
+		write(1, "fc: argument expected: -e\n", 26);
+		return (-1);
+	}
 	return (0);
 }
 
@@ -73,6 +93,9 @@ static void	init_fc(t_fc *fc)
 {
 	fc->l = 0;
 	fc->n = 0;
+	fc->e = 0;
+	fc->r = 0;
+	fc->editor = NULL;
 	fc->num = 0;
 }
 
@@ -85,14 +108,14 @@ int			shell_fc(t_process *proc)
 	init_fc(&fc);
 	query = proc->query;
 	qlen = arrlen(query);
-	if (qlen == 1)
-		run_vi(g_sh->env);
-	else
+	if (check_query(query, &fc) == 0)
 	{
-		if (check_query(query, &fc) == 0)
+		if (qlen == 1 || fc.e == 1)
+			run_editor(g_sh->env, fc);
+		else
 		{
 			if (fc.l == 1)
-				print_history(g_h_session, fc.num, fc.n);
+				print_history(g_h_session, &fc);
 		}
 	}
 	return (1);

@@ -3,53 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   history_search.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:42:22 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:42:24 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/11/30 20:45:54 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "history_search.h"
 
-void	search_all_str(t_history_session *h_session, char *line)
+t_history_session	*search_all_str(t_history_session *h_session)
 {
-	t_history_session	*tmp;
-	char				*str;
+	// static t_history_session	*old_search;
+	t_history_session			*tmp;
 
-	tmp = h_session;
-	tmp = list_rewind_to_begin(tmp);
-	write(1, "\n", 1);
-	if (line && line[0] != '\0')
+	if (!(tmp = h_session) || !h_session->line || h_session->line[0] == '\0')
+		return (NULL);
+	if (g_old_search &&
+		ft_strcmp(g_old_search->line, h_session->line) == 0 && g_search_word)
+		tmp = g_old_search;
+	else
 	{
-		while (tmp->down)
+		if (g_search_word)
+			free(g_search_word);
+		tmp = list_rewind_to_end(tmp);
+		g_search_word = ft_strdup(h_session->line);
+	}
+	while ((tmp = tmp->up))
+	{
+		if (ft_strstr(tmp->line, g_search_word))
 		{
-			str = ft_strstr(tmp->line, line);
-			if (str)
-			{
-				write(1, tmp->line, ft_strlen(tmp->line));
-				write(1, "\n", 1);
-			}
-			tmp = tmp->down;
+			g_old_search = tmp;
+			return (tmp);
 		}
 	}
-	h_session->line[0] = '\0';
-	key_entr(h_session);
+	g_old_search = NULL;
+	return (NULL);
 }
 
-void	search_last(t_history_session *h_session)
+t_history_session	*search_last(t_history_session *h_session)
 {
 	t_history_session	*tmp;
 
 	tmp = h_session;
 	tmp = list_rewind_to_end(tmp);
-	write(1, "\n", 1);
-	write(1, tmp->up->line, ft_strlen(tmp->up->line));
-	h_session->line[0] = '\0';
-	key_entr(h_session);
+	tmp = tmp->up;
+	return (tmp);
 }
 
-void	search_word(t_history_session *h_session, char *word)
+t_history_session	*search_word(t_history_session *h_session, char *word)
 {
 	t_history_session	*tmp;
 
@@ -57,30 +59,26 @@ void	search_word(t_history_session *h_session, char *word)
 	tmp = list_rewind_to_end(tmp);
 	if (tmp->up)
 		tmp = tmp->up;
-	write(1, "\n", 1);
 	if (word && word[0] != '\0')
 	{
 		while (tmp)
 		{
 			if (ft_strstr(tmp->line, word) != NULL)
 			{
-				write(1, tmp->line, ft_strlen(tmp->line));
-				write(1, "\n", 1);
+				return (tmp);
 			}
 			tmp = tmp->up;
 		}
 	}
-	h_session->line[0] = '\0';
-	key_entr(h_session);
+	return (NULL);
 }
 
-void	search_number(t_history_session *h_session, int number)
+t_history_session	*search_number(t_history_session *h_session, int number)
 {
 	t_history_session	*tmp;
 	int					i;
 
 	tmp = h_session;
-	write(1, "\n", 1);
 	i = 0;
 	if (number >= 0)
 	{
@@ -98,7 +96,6 @@ void	search_number(t_history_session *h_session, int number)
 			tmp = tmp->up;
 	}
 	if (i == number)
-		write(1, tmp->line, ft_strlen(tmp->line));
-	h_session->line[0] = '\0';
-	key_entr(h_session);
+		return (tmp);
+	return (NULL);
 }
