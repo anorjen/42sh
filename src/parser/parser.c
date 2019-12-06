@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:52:53 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:52:54 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/12/06 14:56:38 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ char	*get_line(t_history_session **h_session, int lenght_hello, int mode)
 {
 	char	*line;
 
-    if (FU_TERMCAPS)
-        return read_ln();
+	if (FU_TERMCAPS)
+		return (read_ln());
 	if (g_input_mode == 0)
 		line = input(h_session, lenght_hello, mode);
 	else

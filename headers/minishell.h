@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:47:14 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/12/03 17:09:10 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/12/06 14:59:12 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,8 @@ char					*flags_parse(char **argv, int *i);
 char					*ft_strrev(char *str);
 int						match(char *s1, char *s2);
 void					free_exp(t_exp *exp);
+
+char					*parse_action(char *line, int *length, t_exp *exp);
 
 char					*param_exp_minus(t_exp *exp);
 char					*param_exp_plus(t_exp *exp);

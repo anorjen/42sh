@@ -47,7 +47,7 @@ NAME_INPUT = assist_func.c key_backspace.c key_copy.c key_cut.c key_paste.c key_
 			fill_hsees_search.c
 NAME_VECTOR = vector.c
 NAME_PARSER = parser.c replace_env.c write_arg.c replace_dir.c get_token.c assist_parser.c parse_error.c multiple_line.c \
-                replace_alias.c replace_param.c parser_error.c match.c ft_strrev.c
+                replace_alias.c replace_param.c parser_error.c match.c ft_strrev.c replace_param_action.c
 NAME_LEXER = lexer.c new_segment.c input_path.c output_path.c  free_job.c new_query.c new_agregation.c
 NAME_VECTOR_LIB = vector_add.c vector_deinit.c vector_del_value.c vector_del.c vector_get.c vector_init.c vector_resize.c \
 				vector_search.c vector_set.c

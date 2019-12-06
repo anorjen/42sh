@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:41:09 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/12/03 16:18:24 by sbearded         ###   ########.fr       */
+/*   Updated: 2019/12/06 14:55:38 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*param_exp_percent_d(t_exp *exp)
 {
 	size_t	len_env;
-	size_t		i;
+	size_t	i;
 
 	len_env = ft_strlen(exp->env);
 	i = 0;
