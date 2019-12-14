@@ -133,9 +133,9 @@ char		*get_env(char *varible)
 	char	*str;
 
 	i = 0;
-    str = set_get(varible);
-    if (!ft_strequ(str, ""))
-        return (str);
+	str = set_get(varible);
+	if (!ft_strequ(str, ""))
+		return (str);
 	environ = g_sh->env;
 	while (environ[i])
 	{

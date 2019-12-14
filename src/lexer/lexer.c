@@ -12,10 +12,25 @@
 
 #include "../../headers/minishell.h"
 
-t_job	*init_job(void)
+static void	check_copy_env(void)
+{
+	int i;
+
+	if (!g_env_copy)
+		return ;
+	i = -1;
+	while (g_sh->env[++i])
+		ft_strdel(&(g_sh->env[i]));
+	ft_memdel((void **)&(g_sh->env));
+	g_sh->env = g_env_copy;
+	g_env_copy = NULL;
+}
+
+t_job		*init_job(void)
 {
 	t_job	*new_job;
 
+	check_copy_env();
 	if ((new_job = (t_job*)malloc(sizeof(t_job))) == NULL)
 		exit(1);
 	new_job->pgid = -1;
@@ -24,7 +39,7 @@ t_job	*init_job(void)
 	return (new_job);
 }
 
-int		get_backgraund(char **arg)
+int			get_backgraund(char **arg)
 {
 	int	i;
 
@@ -39,28 +54,13 @@ int		get_backgraund(char **arg)
 		return (FOREGROUND_EXECUTION);
 }
 
-static void check_copy_env(void)
-{
-    int i;
-
-    if (!g_env_copy)
-        return ;
-    i = -1;
-    while (g_sh->env[++i])
-        ft_strdel(&(g_sh->env[i]));
-    ft_memdel((void **)&(g_sh->env));
-    g_sh->env = g_env_copy;
-    g_env_copy = NULL;
-}
-
-t_job	*lexer(char **arg)
+t_job		*lexer(char **arg)
 {
 	t_job		*new_job;
 	t_process	*temp_process;
 	int			i;
 
 	new_job = init_job();
-	check_copy_env();
 	new_job->mode = get_backgraund(arg);
 	i = 0;
 	new_job->root = new_segment(arg, i);

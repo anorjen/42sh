@@ -14,18 +14,18 @@
 
 int	ms_unset(t_process *proc)
 {
-    int i;
-    char **args;
+	int		i;
+	char	**args;
 
-    i = 0;
-    while (proc->query[++i])
-    {
-        unset(proc->query[i]);
-        args = ft_memalloc(sizeof(char *) * 3);
-        args[0] = ft_strdup("unsetenv");
-        args[1] = ft_strdup(proc->query[i]);
-        args[2] = NULL;
-        kazekage(args);
-    }
+	i = 0;
+	while (proc->query[++i])
+	{
+		unset(proc->query[i]);
+		args = ft_memalloc(sizeof(char *) * 3);
+		args[0] = ft_strdup("unsetenv");
+		args[1] = ft_strdup(proc->query[i]);
+		args[2] = NULL;
+		kazekage(args);
+	}
 	return (1);
 }

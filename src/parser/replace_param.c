@@ -7,6 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:53:43 by mgorczan          #+#    #+#             */
 /*   Updated: 2019/10/27 21:53:44 by mgorczan         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
@@ -60,10 +61,8 @@ char		*do_replace(t_exp *exp)
 
 char		*parse_action(char *line, int *length, t_exp *exp)
 {
-	int	counter;
 	int	i;
 
-	counter = 0;
 	if (exp->flag_exp == 0)
 	{
 		free(exp->param);
