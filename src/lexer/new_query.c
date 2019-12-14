@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 20:49:40 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 15:09:35 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/12/14 13:50:18 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ int		get_mode(char *command) //11
 		return (COMMAND_APPEND);
 	else if (strcmp(command, "&") == 0) // в этом месте может боить &
 		return (COMMAND_BACKGR);
+	else if (ft_isdigit(command[0]) && command[1] == '>'  && command[2] == '&')
+		return (1);
+	else if (ft_isdigit(command[0]) && command[1] == '<'  && command[2] == '&')
+		return (1);
 	else
 		return (COMMAND_EXTERNAL);
 }
@@ -66,7 +70,7 @@ char	**new_query(char **arg, int i)// 11
 	{
 		if (get_mode(arg[i]))
 			i += 1;
-		else if (!is_agrarg(arg[i]))
+		else
 		{
 			query[j] = ft_strdup(arg[i]);
 			++j;

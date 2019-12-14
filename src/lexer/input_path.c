@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 20:50:04 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 15:09:35 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/12/14 12:01:20 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ int		lenght_argre(char **arg, int i)
 	int lenght;
 
 	lenght = 0;
-	while (arg[i] && ft_strcmp(arg[i], "|"))
-		if (!ft_strcmp(arg[i++], "<"))
+	while (arg[i] && ft_strcmp(arg[i], "|")) {
+		if (!ft_strcmp(arg[i], "<") || !ft_strcmp(arg[i], "<&"))
 			lenght++;
+		i++;
+	}
 	return (lenght);
 }
 
@@ -50,11 +52,12 @@ void	fill_inputpath(char **arg, int i, t_process *new_process)
 				free(new_process->input_path);
 			new_process->input_path = NULL;
 		}
-		if (!ft_strcmp(arg[i], "<"))
+		if (!ft_strcmp(arg[i], "<") || !ft_strcmp(arg[i], "<&"))
 		{
 			new_process->input_file[k] = ft_strdup(arg[i + 1]);
 			if (new_process->input_path)
 				free(new_process->input_path);
+			new_process->is_input_fd = !ft_strcmp(arg[i], "<&") ? IS_INPUT_FD : 0;
 			new_process->input_path = ft_strdup(new_process->input_file[k++]);
 		}
 		++i;
@@ -70,7 +73,6 @@ void	input_path(char **arg, int i, t_process *new_process)
 
 	lenght_he = lenght_argher(arg, i);
 	lenght_re = lenght_argre(arg, i);
-	ft_printf("%i\n", lenght_re);
 	if (lenght_he)
 	{
 		new_process->heredoc =

@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 22:44:23 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 19:19:18 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/12/14 15:43:46 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@ int				check_access(char **files, int id)
 			return (0);
 		}
 		++i;
+	}
+	return (1);
+}
+
+int				check_access_fd(char *fd) // if fd not 0..2 do bad filedescriptor
+{
+	if (fd[0] != '-' && !(fd[0] >= '0' && fd[0] <= '2'))
+	{
+		ft_printf("21sh: %s:  bad file descriptor\n", fd);
+		return (0);
 	}
 	return (1);
 }

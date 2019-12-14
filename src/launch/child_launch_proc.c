@@ -6,7 +6,7 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:58:09 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:58:10 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/12/14 16:34:24 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void		pgid_and_dup_handle(t_process *proc, t_job *job,
 		int in_fd, int out_fd)
 {
 	signal_default_changer(proc, job);
+
 	if (in_fd != 0)
 	{
 		dup2(in_fd, 0);
@@ -71,6 +72,11 @@ void		child_launch_cycle(t_process *proc)
 void		child_launch_proc(t_job *job, t_process *proc,
 		int in_fd, int out_fd)
 {
+	if (proc->aggregate && proc->aggregate->in == 2 && proc->aggregate->out == 1)
+	{
+		printf("%i, %i", proc->aggregate->in, proc->aggregate->out);
+		exit(1);
+	}
 	pgid_and_dup_handle(proc, job, in_fd, out_fd);
 	child_launch_cycle(proc);
 	ft_printf("21sh: %s: command not found\n", proc->query[0]);

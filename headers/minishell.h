@@ -30,7 +30,7 @@
 # include "set.h"
 # define BUFF_LN 5
 # define CHANGE_ENV { free(g_sh->env[i]); g_sh->env[i] = tm;return (1);}
-# define FU_TERMCAPS 0
+# define FU_TERMCAPS 1
 
 # define S_SUBSTITUTE 0
 # define S_ASSIGN 1
