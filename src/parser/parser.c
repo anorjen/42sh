@@ -30,20 +30,14 @@ void	replace_str(char **chang_line, int i, int lenght, char *env_verb)
 
 char	*get_line(t_history_session **h_session, int lenght_hello, int mode)
 {
-	char *line;
+	char	*line;
 
-	if (FU_TERMCAPS)
-	{
-		return (read_ln());
-	}
+    if (FU_TERMCAPS)
+        return read_ln();
 	if (g_input_mode == 0)
-	{
 		line = input(h_session, lenght_hello, mode);
-	}
 	else
-	{
 		line = wait_input();
-	}
 	return (line);
 }
 
@@ -64,9 +58,7 @@ char	**parser(t_history_session **h_session, char **env, int lenght_hello)
 			return (NULL);
 		}
 		if (!(mode = multiply_line(*h_session, line)))
-		{
 			break ;
-		}
 		free(line);
 	}
 	line = replace_env(line, env);

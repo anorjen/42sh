@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   percent_d.c                                        :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/27 21:41:09 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/12/06 14:55:38 by sbearded         ###   ########.fr       */
+/*   Created: 2019/12/03 17:03:47 by sbearded          #+#    #+#             */
+/*   Updated: 2019/12/03 17:27:04 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*param_exp_percent_d(t_exp *exp)
+char	*ft_strrev(char *str)
 {
-	size_t	len_env;
+	char	*rev;
+	size_t	len;
 	size_t	i;
 
-	len_env = ft_strlen(exp->env);
+	if (str == NULL)
+		return (NULL);
+	len = ft_strlen(str);
+	rev = ft_strnew(len);
 	i = 0;
-	while (i < len_env)
+	while (i < len)
 	{
-		if (match(exp->env + i, exp->word))
-			return (ft_strsub(exp->env, 0, i));
+		rev[i] = str[len - i - 1];
 		i++;
 	}
-	return (ft_strdup(exp->env));
+	return (rev);
 }

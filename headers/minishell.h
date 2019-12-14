@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:47:14 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/11/23 18:14:24 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/12/06 14:59:12 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include "set.h"
 # define BUFF_LN 5
 # define CHANGE_ENV { free(g_sh->env[i]); g_sh->env[i] = tm;return (1);}
-# define FU_TERMCAPS 1
+# define FU_TERMCAPS 0
 
 # define S_SUBSTITUTE 0
 # define S_ASSIGN 1
@@ -53,9 +53,12 @@
 # define S_SET_NULL 1
 # define S_UNSET 2
 
+# define CD_L_FLAG 1
+# define CD_P_FLAG 2
+
 # define SIG_PROC signal(SIGTTOU, SIG_IGN); tcsetpgrp(0, getpid())
 
-# define HISTORY_FILE ".42sh_history"
+# define HISTORY_FILE "~/.42sh_history"
 
 /*
 ** 		t_env linked list structure
@@ -90,6 +93,7 @@ typedef struct			s_expansion
 	int					flag_hash;
 	int					flag_exp;
 	char				*action;
+	char				*(*func)(struct s_expansion *);
 	char				(*f)(struct s_expansion *exp);
 }						t_exp;
 
@@ -153,6 +157,9 @@ int						set_env(char *name, char *value);
 */
 
 int						cd_(t_process *proc);
+int						cd_check_flags(char *flags);
+int						cd_ext(char *path);
+void					set_pwd(char *path);
 int						help_shell(t_process *proc);
 int						exit_shell(t_process *proc);
 int						echo(t_process *proc);
@@ -164,11 +171,16 @@ int						shell_fc(t_process *proc);
 ** 		assist_21sh
 */
 void					sigint_handler(int signal);
+char					*flags_parse(char **argv, int *i);
 
 /*
 ** 		param expansion
 */
+char					*ft_strrev(char *str);
+int						match(char *s1, char *s2);
 void					free_exp(t_exp *exp);
+
+char					*parse_action(char *line, int *length, t_exp *exp);
 
 char					*param_exp_minus(t_exp *exp);
 char					*param_exp_plus(t_exp *exp);

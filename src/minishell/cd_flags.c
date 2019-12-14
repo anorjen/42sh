@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   percent_d.c                                        :+:      :+:    :+:   */
+/*   cd_flags.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/27 21:41:09 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/12/06 14:55:38 by sbearded         ###   ########.fr       */
+/*   Created: 2019/11/19 16:41:36 by sbearded          #+#    #+#             */
+/*   Updated: 2019/11/28 20:22:49 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*param_exp_percent_d(t_exp *exp)
+int		cd_check_flags(char *flags)
 {
-	size_t	len_env;
-	size_t	i;
+	int	i;
+	int	res;
 
-	len_env = ft_strlen(exp->env);
 	i = 0;
-	while (i < len_env)
+	res = CD_L_FLAG;
+	while (flags[i])
 	{
-		if (match(exp->env + i, exp->word))
-			return (ft_strsub(exp->env, 0, i));
+		if (flags[i] == 'L')
+			res = CD_L_FLAG;
+		else if (flags[i] == 'P')
+			res = CD_P_FLAG;
+		else
+		{
+			print_error("42sh: cd: invalid option", "");
+			print_error("cd: ", "usage: cd [-L|-P] [dir]");
+			return (0);
+		}
 		i++;
 	}
-	return (ft_strdup(exp->env));
+	free(flags);
+	return (res);
 }

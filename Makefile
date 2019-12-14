@@ -11,6 +11,7 @@ SRC_HASH = ./src/hashtable/
 SRC_SET = ./src/set/
 SRC_ENV = ./src/env/
 SRC_PAR_EXP = ./src/parser/param_exp_func/
+SRC_FLAGS = ./src/flags/
 
 SRC_DLIST = ./src/vi_mode/dlist/
 SRC_FT_STRING = ./src/vi_mode/ft_string/
@@ -35,7 +36,9 @@ NAME = 42sh
 PRINT = lib/printf/libftprintf.a
 NAME_21SH = main.c kazekage.c assist_21sh.c built_in_type.c
 NAME_MINISHELL = built_ins.c cpy_func.c launch.c linked_list.c\
-				linked_list2.c linked_list3.c sig_handler.c utilities.c utilities2.c environments.c cd.c
+				linked_list2.c linked_list3.c sig_handler.c utilities.c utilities2.c environments.c \
+				cd.c cd_flags.c cd_path.c
+				
 NAME_LAUNCH = aux_utilities.c job_process_status.c job_utils.c jobs_builtins.c launch_pro.c job_utils_print.c\
 				heredoc_input.c child_launch_proc.c holder_launch_struct.c jobs_fg_bg_builtin.c jobs_kill_builtin.c\
 				out_redir_launch.c pipe_and_preconfig.c fork_after_check_exist.c
@@ -44,7 +47,7 @@ NAME_INPUT = assist_func.c key_backspace.c key_copy.c key_cut.c key_paste.c key_
 			fill_hsees_search.c
 NAME_VECTOR = vector.c
 NAME_PARSER = parser.c replace_env.c write_arg.c replace_dir.c get_token.c assist_parser.c parse_error.c multiple_line.c \
-                replace_alias.c replace_param.c parser_error.c
+                replace_alias.c replace_param.c parser_error.c match.c ft_strrev.c replace_param_action.c
 NAME_LEXER = lexer.c new_segment.c input_path.c output_path.c  free_job.c new_query.c new_agregation.c
 NAME_VECTOR_LIB = vector_add.c vector_deinit.c vector_del_value.c vector_del.c vector_get.c vector_init.c vector_resize.c \
 				vector_search.c vector_set.c
@@ -56,6 +59,7 @@ NAME_SET = ms_export.c ms_set.c ms_unset.c set.c set_deinit.c set_get.c set_init
             set_handler.c
 NAME_ENV = env.c
 NAME_PAR_EXP = colon.c equal.c hash_d.c hash.c minus.c percent_d.c percent.c plus.c question.c get_status.c
+NAME_FLAGS = flags_parse.c
 
 ## vi_mode
 NAME_DLIST = ft_dlist_new.c ft_dlist_add.c ft_dlist_delone.c ft_dlist_rewind.c ft_dlist_del.c ft_dlist_addbegin.c \
@@ -108,6 +112,7 @@ SRC = 	$(addprefix $(SRC_21SH), $(NAME_21SH))\
 		$(addprefix $(SRC_ENV), $(NAME_ENV))\
 		$(addprefix $(SRC_HS), $(NAME_HS))\
 		$(addprefix $(SRC_PAR_EXP), $(NAME_PAR_EXP))\
+		$(addprefix $(SRC_FLAGS), $(NAME_FLAGS))\
 
 
 FLAG = -Wall -Werror -Wextra -g

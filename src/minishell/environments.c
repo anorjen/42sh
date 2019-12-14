@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environments.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:56:30 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:56:31 by mgorczan         ###   ########.fr       */
+/*   Updated: 2019/11/16 16:03:07 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ char		*get_env(char *varible)
 	if (!ft_strequ(str, ""))
 		return (str);
 	environ = g_sh->env;
-	while (environ[i])
+	while (environ && environ[i])
 	{
 		j = 0;
 		while (environ[i][j] && environ[i][j] != '='
