@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:47:14 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/12/06 14:59:12 by sbearded         ###   ########.fr       */
+/*   Updated: 2020/01/12 17:12:27 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include "set.h"
 # define BUFF_LN 5
 # define CHANGE_ENV { free(g_sh->env[i]); g_sh->env[i] = tm;return (1);}
-# define FU_TERMCAPS 0
+# define FU_TERMCAPS 1
 
 # define S_SUBSTITUTE 0
 # define S_ASSIGN 1

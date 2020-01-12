@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phash_init_builtins.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:44:26 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/11/23 18:13:49 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2020/01/12 17:06:37 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			echo_(t_process *proc)
 	if (proc->query[1] == NULL)
 	{
 		write(proc->out_fdPIPE, "\n", 1);
-		return (1);
+		return (0);
 	}
 	while (proc->query[i] &&
 		   (!ft_strcmp(proc->query[i], "-n")
@@ -54,14 +54,14 @@ int			echo_(t_process *proc)
 		!ft_strcmp(proc->query[i], "-"))
 		++i;
 	if (!proc->query[i] && n)
-		return (1);
+		return (0);
 	while (proc->query[i])
 	{
 		write(proc->out_fdPIPE, proc->query[i], ft_strlen(proc->query[i]));
 		proc->query[++i] ? write(proc->out_fdPIPE, " ", 1) : 0;
 	}
 	write(proc->out_fdPIPE, "\n", 1);
-	return (1);
+	return (0);
 
 }
 
