@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 22:01:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/11/30 20:44:04 by anorjen          ###   ########.fr       */
+/*   Updated: 2020/01/12 18:08:28 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ void		shell_loop(char **env)
 		g_sh->signal = 0;
 		args = parser(&g_h_session, env,
 				ft_strlen(basename(g_sh->cur_dir)) + ft_strlen("⦿") + 1);
-		if (parser_error_print(args))
-			continue ;
 		if (args == NULL)
 		{
 			check_zombie();

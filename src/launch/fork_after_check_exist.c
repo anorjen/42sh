@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 13:31:08 by mgorczan          #+#    #+#             */
-/*   Updated: 2020/01/12 17:14:05 by sbearded         ###   ########.fr       */
+/*   Updated: 2020/01/12 17:53:16 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int				fork_after_check_exist(t_process *proc)
 		if (lstat(proc->query[0], &buf))
 			print_error("42sh: command not found: ", proc->query[0]);
 		else
-			ft_printf("42sh: %s: permission denied\n", proc->query[0]);
+			print_error("42sh: permission denied: ", proc->query[0]);
 		g_sh->signal = 1;
 		return (1);
 	}

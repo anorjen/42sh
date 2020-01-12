@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_launch_proc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:58:09 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:58:10 by mgorczan         ###   ########.fr       */
+/*   Updated: 2020/01/12 17:53:48 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ void		child_launch_proc(t_job *job, t_process *proc,
 {
 	pgid_and_dup_handle(proc, job, in_fd, out_fd);
 	child_launch_cycle(proc);
-	ft_printf("21sh: %s: command not found\n", proc->query[0]);
+	ft_printf("How u do it?\n", proc->query[0]);
 	exit(1);
 }

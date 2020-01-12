@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:52:41 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:52:43 by mgorczan         ###   ########.fr       */
+/*   Updated: 2020/01/12 18:21:46 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int		parser_error_print(char **arg)
 {
 	if (g_error_parse_msg)
 	{
-		ft_printf("%s\n", g_error_parse_msg);
+		write(2, g_error_parse_msg, ft_strlen(g_error_parse_msg));
+		write(2, "\n", 1);
 		free(g_error_parse_msg);
 		g_error_parse_msg = NULL;
 		free_arg(arg);
