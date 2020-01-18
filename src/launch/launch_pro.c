@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:59:00 by mgorczan          #+#    #+#             */
-/*   Updated: 2020/01/18 13:24:34 by sbearded         ###   ########.fr       */
+/*   Updated: 2020/01/18 19:21:22 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int				shell_launch_process(t_job *job, t_process *proc,
 	int			status;
 
 	proc->status = STATUS_RUNNING;
-	proc->out_fdPIPE = out_fd;
+	proc->out_fdpipe = out_fd;
 	if (is_sets(proc))
 		return (add2set(proc));
 	proc->query = ft_replace_set(proc);
