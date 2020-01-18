@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:53:43 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/12/06 14:58:27 by sbearded         ###   ########.fr       */
+/*   Updated: 2020/01/18 12:26:05 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ char		*replace_param(char *line, int i, int *length)
 		exp.flag_hash = 1;
 		++(*length);
 	}
-	while (ft_isalpha(line[(*length)]) || ft_isdigit(line[(*length)]))
+	while (ft_isalpha(line[(*length)]) || ft_isdigit(line[(*length)])
+			|| line[(*length)] == '_')
 		++(*length);
 	exp.param = ft_strsub(line, i + exp.flag_exp + exp.flag_hash,
 				(*length) - i - exp.flag_exp - exp.flag_hash);

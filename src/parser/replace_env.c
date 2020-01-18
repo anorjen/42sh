@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:53:28 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:53:29 by mgorczan         ###   ########.fr       */
+/*   Updated: 2020/01/18 12:20:52 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,18 @@ char		**replace_env_wrapper(char **argv)
 char		*replace_env(char *chang_line, char **env)
 {
 	int i;
+	int	lenght;
 
 	i = 0;
 	while (chang_line && chang_line[i])
 	{
 		if (chang_line[i] == '\'' || chang_line[i] == '\"')
 			i = miss_quote(&chang_line, i, env);
+		else if (chang_line[i] == '$')
+		{
+			replace_param(chang_line, i, &lenght);
+			i++;
+		}
 		else
 			++i;
 	}
