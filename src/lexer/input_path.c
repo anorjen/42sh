@@ -49,15 +49,13 @@ void	fill_inputpath(char **arg, int i, t_process *new_process)
 		if (!ft_strcmp(arg[i], "<<"))
 		{
 			new_process->heredoc[j++] = ft_strdup(arg[i + 1]);
-			if (new_process->input_path)
-				free(new_process->input_path);
+			(new_process->input_path) ? (free(new_process->input_path)) : (0);
 			new_process->input_path = NULL;
 		}
 		if (!ft_strcmp(arg[i], "<") || !ft_strcmp(arg[i], "<&"))
 		{
 			new_process->input_file[k] = ft_strdup(arg[i + 1]);
-			if (new_process->input_path)
-				free(new_process->input_path);
+			(new_process->input_path) ? (free(new_process->input_path)) : (0);
 			new_process->is_input_fd = !ft_strcmp(arg[i], "<&") ?
 					IS_INPUT_FD : 0;
 			new_process->input_path = ft_strdup(new_process->input_file[k++]);

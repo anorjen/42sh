@@ -38,8 +38,7 @@ int		get_mode(char *command)
 		return (1);
 	else if (ft_isdigit(command[0]) && command[1] == '<' && command[2] == '&')
 		return (1);
-	else
-		return (COMMAND_EXTERNAL);
+	return (COMMAND_EXTERNAL);
 }
 
 int		lenght_argproc(char **arg, int i)

@@ -48,8 +48,7 @@ void	fill_outputline(char **arg, int i, t_process *new_process)
 		{
 			new_process->output_file[j++] = ft_strdup(arg[i + 1]);
 			new_process->output_mode = 2;
-			if (new_process->output_path)
-				free(new_process->output_path);
+			(new_process->output_path) ? (free(new_process->output_path)) : (0);
 			new_process->output_path = ft_strdup(arg[i + 1]);
 		}
 		++i;
