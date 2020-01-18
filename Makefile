@@ -41,7 +41,7 @@ NAME_MINISHELL = built_ins.c cpy_func.c launch.c linked_list.c\
 				
 NAME_LAUNCH = aux_utilities.c job_process_status.c job_utils.c jobs_builtins.c launch_pro.c job_utils_print.c\
 				heredoc_input.c child_launch_proc.c holder_launch_struct.c jobs_fg_bg_builtin.c jobs_kill_builtin.c\
-				out_redir_launch.c pipe_and_preconfig.c fork_after_check_exist.c
+				out_redir_launch.c pipe_and_preconfig.c fork_after_check_exist.c check_access.c
 NAME_INPUT = assist_func.c key_backspace.c key_copy.c key_cut.c key_paste.c key_endhome.c history_session.c input.c\
 			navigation_words.c navigation_line.c save_buff.c spec_key.c set_termcap.c multiple_promt.c key_control.c\
 			fill_hsees_search.c
