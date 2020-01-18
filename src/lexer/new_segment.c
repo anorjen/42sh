@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:57:37 by mgorczan          #+#    #+#             */
-/*   Updated: 2020/01/18 19:21:22 by sbearded         ###   ########.fr       */
+/*   Updated: 2020/01/18 20:15:32 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,5 @@ t_process	*new_segment(char **arg, int i)
 	input_path(arg, i, new_process);
 	output_path(arg, i, new_process);
 	new_agregation(arg, i, new_process);
-	if (new_process->aggregate)
-		ft_printf("%i %i\n", new_process->aggregate->in,
-				new_process->aggregate->out);
 	return (new_process);
 }
