@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 22:01:05 by mgorczan          #+#    #+#             */
-/*   Updated: 2020/01/18 13:24:37 by sbearded         ###   ########.fr       */
+/*   Updated: 2020/01/18 19:31:56 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@ void		sh_init(char **environ)
 	struct passwd		*pw;
 	int					i;
 
-	g_input_mode = 0;
-	g_search_word = NULL;
-	g_old_search = NULL;
-	g_h_session = NULL;
-	g_env = NULL;
-	g_env_copy = NULL;
 	sigint_action.sa_flags = 0;
 	i = -1;
 	sigint_action.sa_handler = &sigint_handler;
@@ -105,6 +99,12 @@ int			main(int argc, char **argv)
 {
 	extern char	**environ;
 
+	g_input_mode = 0;
+	g_search_word = NULL;
+	g_old_search = NULL;
+	g_h_session = NULL;
+	g_env = NULL;
+	g_env_copy = NULL;
 	argc = 0;
 	argv = NULL;
 	sh_init(environ);

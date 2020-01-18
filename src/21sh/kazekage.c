@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 22:00:55 by mgorczan          #+#    #+#             */
-/*   Updated: 2020/01/18 13:24:36 by sbearded         ###   ########.fr       */
+/*   Updated: 2020/01/18 19:35:27 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,7 @@ void	kazekage(char **arg)
 		arg = segment_off(arg, &mode);
 		job = lexer(segment_arg);
 		free_arg(segment_arg);
-		if (prev_mode == 3 && status)
-			continue ;
-		if (prev_mode == 4 && !status)
+		if ((prev_mode == 3 && status) || (prev_mode == 4 && !status))
 			continue ;
 		if (job && job->root)
 			status = shell_launch_job(job);
