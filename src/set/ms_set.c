@@ -103,7 +103,7 @@ int			ms_set(t_process *proc)
 {
 	if (proc->query[1] == NULL)
 	{
-		set_print();
+		set_print(proc);
 	}
 	else
 	{

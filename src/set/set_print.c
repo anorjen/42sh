@@ -12,15 +12,20 @@
 
 #include "set.h"
 
-void	set_print(void)
+void	set_print(t_process *proc)
 {
-	int i;
+	int		i;
+	char	*str;
 
 	i = 0;
 	while (i < (int)g_set_value->size)
 	{
-		ft_printf("%s=%s\n", vector_get(g_set_key, i),
-			vector_get(g_set_value, i));
+		str = vector_get(g_set_key, i);
+		write(proc->out_fdPIPE, str, ft_strlen(str));
+		write(proc->out_fdPIPE, "=", 1);
+		str = vector_get(g_set_value, i);
+		write(proc->out_fdPIPE, str, ft_strlen(str));
+		write(proc->out_fdPIPE, "\n", 1);
 		i++;
 	}
 }
