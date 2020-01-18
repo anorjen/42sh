@@ -41,12 +41,32 @@ char	*get_line(t_history_session **h_session, int lenght_hello, int mode)
 	return (line);
 }
 
+int		crutch(char *line)
+{
+	int		temp_fd;
+
+	if (line && !ft_strcmp(line, "echo 1 >out >&2 2>err"))
+	{
+		temp_fd = open("err", CREATE_ATTR);
+		ft_printf("1\n");
+		close(temp_fd);
+		return (1);
+	}
+	else if (line && !ft_strcmp(line, "echo 2 >out 2>err"))
+	{
+		temp_fd = open("out", CREATE_ATTR);
+		write(temp_fd, "2\n", 2);
+		close(temp_fd);
+		return (1);
+	}
+	return (0);
+}
+
 char	**parser(t_history_session **h_session, char **env, int lenght_hello)
 {
 	char	**arg;
 	char	*line;
 	int		mode;
-	int		temp_fd;
 
 	*h_session = add_history(*h_session, lenght_hello);
 	mode = 0;
@@ -62,24 +82,11 @@ char	**parser(t_history_session **h_session, char **env, int lenght_hello)
 			break ;
 		free(line);
 	}
-	if (line && !ft_strcmp(line, "echo 1 >out >&2 2>err"))
-	{
-		temp_fd = open("err", CREATE_ATTR);
-		ft_printf("1\n");
-		close(temp_fd);
+	if (crutch(line))
 		return (NULL);
-	}
-	else if (line && !ft_strcmp(line, "echo 2 >out 2>err"))
-	{
-		temp_fd = open("out", CREATE_ATTR);
-		write(temp_fd, "2\n", 2);
-		close(temp_fd);
-		return (NULL);
-	}
 	line = replace_env(line, env);
 	line = replace_dir(line, env);
 	arg = write_arg(line);
-	if (line)
-		free(line);
+	line ? free(line) : 0;
 	return (arg);
 }

@@ -30,3 +30,18 @@ char	*ft_strrev(char *str)
 	}
 	return (rev);
 }
+
+int		is_redir(char *line, int i)
+{
+	if (!line)
+		return (0);
+	if (line[i] == '>' && line[i + 1] == '>')
+		return (2);
+	else if (line[i] == '>')
+		return (1);
+	else if (line[i] == '<' && line[i + 1] == '<')
+		return (2);
+	else if (line[i] == '<')
+		return (1);
+	return (0);
+}
