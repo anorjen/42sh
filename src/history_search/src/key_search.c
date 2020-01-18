@@ -6,7 +6,7 @@
 /*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:42:26 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/11/16 18:57:47 by anorjen          ###   ########.fr       */
+/*   Updated: 2020/01/18 19:24:53 by anorjen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ void		key_search(t_history_session *h_session)
 		{
 			if (line[i + 1] == '!')
 				result = search_last(h_session);
-			else if ((line[i + 1] >= 48 && line[i + 1] <= 57)
-						|| line[i + 1] == '-')
+			else if (ft_isdigit(line[i + 1]) || line[i + 1] == '-')
 				result = search_number(h_session, ft_atoi(&line[i + 1]));
 			else
 				result = search_word(h_session, &line[i + 1]);
