@@ -47,13 +47,11 @@ int			launch_out_redir(t_process *proc, t_launch *launch)
 				close(launch->out_fd);
 		}
 	}
-
 	return (1);
 }
 
 int			launch_base_config(t_launch *launch, t_process *proc, t_job *job)
 {
-
 	launch->out_fd = 1;
 	if (proc->output_path != NULL)
 	{

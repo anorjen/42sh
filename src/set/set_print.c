@@ -3,24 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   set_print.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 13:22:23 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/10/27 13:24:21 by rwalder-         ###   ########.fr       */
+/*   Updated: 2020/01/18 19:21:22 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "set.h"
 
-void	set_print(void)
+void	set_print(t_process *proc)
 {
-	int i;
+	int		i;
+	char	*str;
 
 	i = 0;
 	while (i < (int)g_set_value->size)
 	{
-		ft_printf("%s=%s\n", vector_get(g_set_key, i),
-			vector_get(g_set_value, i));
+		str = vector_get(g_set_key, i);
+		write(proc->out_fdpipe, str, ft_strlen(str));
+		write(proc->out_fdpipe, "=", 1);
+		str = vector_get(g_set_value, i);
+		write(proc->out_fdpipe, str, ft_strlen(str));
+		write(proc->out_fdpipe, "\n", 1);
 		i++;
 	}
 }

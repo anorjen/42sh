@@ -19,7 +19,8 @@ int		lenght_outpth(char **arg, int i)
 	lenght = 0;
 	while (arg[i] && ft_strcmp(arg[i], "|"))
 	{
-		if (!ft_strcmp(arg[i], ">") || !ft_strcmp(arg[i], ">>") || !ft_strcmp(arg[i], ">&"))
+		if (!ft_strcmp(arg[i], ">") || !ft_strcmp(arg[i], ">>")
+			|| !ft_strcmp(arg[i], ">&"))
 			lenght++;
 		++i;
 	}
@@ -35,7 +36,8 @@ void	fill_outputline(char **arg, int i, t_process *new_process)
 	{
 		if (!ft_strcmp(arg[i], ">") || !ft_strcmp(arg[i], ">&"))
 		{
-			new_process->is_output_fd[j] = !ft_strcmp(arg[i], ">&") ? IS_OUTPUT_FD : 0;
+			new_process->is_output_fd[j] = !ft_strcmp(arg[i], ">&")
+					? IS_OUTPUT_FD : 0;
 			new_process->output_file[j++] = ft_strdup(arg[i + 1]);
 			new_process->output_mode = 1;
 			if (new_process->output_path)
@@ -59,13 +61,11 @@ void	output_path(char **arg, int i, t_process *new_process)
 {
 	int lenght;
 
-
 	lenght = lenght_outpth(arg, i);
 	if (!lenght)
 		return ;
 	new_process->output_file = (char**)malloc(sizeof(char*) * (lenght + 1));
 	new_process->is_output_fd = (int*)malloc(sizeof(int) * (lenght));
-
 	if (new_process->output_file == NULL || new_process->is_output_fd == NULL)
 		exit(1);
 	fill_outputline(arg, i, new_process);

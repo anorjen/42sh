@@ -12,33 +12,37 @@
 
 #include "../../headers/minishell.h"
 
-int		get_mode(char *command) //11
+int		get_mode(char *command)
 {
 	if (strcmp(command, "|") == 0)
 		return (COMMAND_PIPE);
-	else if (strcmp(command, "<") == 0  || (ft_isdigit(command[0])  && strcmp(&command[1], "<") == 0))
+	else if (strcmp(command, "<") == 0 || (ft_isdigit(command[0]) &&
+		strcmp(&command[1], "<") == 0))
 		return (COMMAND_LREDIR);
-	else if (strcmp(command, ">") == 0 || (ft_isdigit(command[0])  && strcmp(&command[1], ">") == 0))
+	else if (strcmp(command, ">") == 0 || (ft_isdigit(command[0]) &&
+		strcmp(&command[1], ">") == 0))
 		return (COMMAND_RREDIR);
-	else if ((ft_isdigit(command[0]) && strcmp(&command[1], ">&") == 0) || strcmp(command, ">&") == 0)
+	else if ((ft_isdigit(command[0]) && strcmp(&command[1], ">&") == 0) ||
+		strcmp(command, ">&") == 0)
 		return (COMMAND_ARG);
-	else if ((ft_isdigit(command[0]) && strcmp(&command[1], "<&") == 0) || strcmp(command, "<&") == 0)
+	else if ((ft_isdigit(command[0]) && strcmp(&command[1], "<&") == 0) ||
+		strcmp(command, "<&") == 0)
 		return (COMMAND_ARG);
 	else if (strcmp(command, "<<") == 0)
 		return (COMMAND_HEREDOC);
 	else if (strcmp(command, ">>") == 0)
 		return (COMMAND_APPEND);
-	else if (strcmp(command, "&") == 0) // в этом месте может боить &
+	else if (strcmp(command, "&") == 0)
 		return (COMMAND_BACKGR);
-	else if (ft_isdigit(command[0]) && command[1] == '>'  && command[2] == '&')
+	else if (ft_isdigit(command[0]) && command[1] == '>' && command[2] == '&')
 		return (1);
-	else if (ft_isdigit(command[0]) && command[1] == '<'  && command[2] == '&')
+	else if (ft_isdigit(command[0]) && command[1] == '<' && command[2] == '&')
 		return (1);
 	else
 		return (COMMAND_EXTERNAL);
 }
 
-int		lenght_argproc(char **arg, int i) //11
+int		lenght_argproc(char **arg, int i)
 {
 	int lenght;
 
@@ -54,14 +58,13 @@ int		lenght_argproc(char **arg, int i) //11
 	return (lenght);
 }
 
-char	**new_query(char **arg, int i)// 11
+char	**new_query(char **arg, int i)
 {
 	char	**query;
 	int		lenght;
 	int		j;
 
 	j = 0;
-	
 	if ((lenght = lenght_argproc(arg, i)) == 0)
 		return (NULL);
 	if ((query = malloc(sizeof(char*) * (lenght + 1))) == NULL)

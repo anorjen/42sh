@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:59:00 by mgorczan          #+#    #+#             */
-/*   Updated: 2020/01/18 13:24:34 by sbearded         ###   ########.fr       */
+/*   Updated: 2020/01/18 19:21:22 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ int				shell_launch_job(t_job *job)
 		free(g_sh->launch);
 	g_sh->launch = h_launch_init();
 	check_zombie();
-		g_sh->launch->job_id = insert_job(job);
+	g_sh->launch->job_id = insert_job(job);
 	proc = job->root;
 	g_sh->launch->status = launch_proc_cycle(proc, g_sh->launch, job);
-	if (job->root->type == COMMAND_EXTERNAL || job->root->type != COMMAND_EXTERNAL)
+	if (job->root->type == COMMAND_EXTERNAL ||
+		job->root->type != COMMAND_EXTERNAL)
 	{
 		if (g_sh->launch->status >= 0 && job->mode == FOREGROUND_EXECUTION)
 			remove_job(g_sh->launch->job_id);
@@ -92,17 +93,17 @@ int				check_built_in(t_process *proc)
 }
 
 int				shell_launch_process(t_job *job, t_process *proc,
-		int in_fd, int out_fd)
+			int in_fd, int out_fd)
 {
 	pid_t		childpid;
 	int			status;
 
 	proc->status = STATUS_RUNNING;
-	proc->out_fdPIPE = out_fd;
-    if (is_sets(proc))
-        return add2set(proc);
-    proc->query = ft_replace_set(proc);
-    if (check_built_in(proc))
+	proc->out_fdpipe = out_fd;
+	if (is_sets(proc))
+		return (add2set(proc));
+	proc->query = ft_replace_set(proc);
+	if (check_built_in(proc))
 		return (!execute_builtin_command(proc));
 	status = 0;
 	if (fork_after_check_exist(proc))

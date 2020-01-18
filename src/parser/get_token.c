@@ -18,8 +18,6 @@ int		lenght_token(char *line, int j)
 	char	temp;
 
 	lenght = 0;
-	// if (is_agregation(line, j))
-	// 	return (4);
 	if ((lenght = spec_token(line, j)))
 		return (lenght);
 	while (line[j] && !is_delimetr(line[j]) && !spec_token(line, j))

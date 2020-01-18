@@ -13,7 +13,8 @@
 #include "minishell.h"
 #include "history_search.h"
 
-static void	print_command(t_history_session *h_session, t_history_session *result)
+static void	print_command(t_history_session *h_session,
+		t_history_session *result)
 {
 	if (h_session != NULL && result != NULL)
 	{
@@ -29,7 +30,7 @@ static void	print_command(t_history_session *h_session, t_history_session *resul
 	}
 }
 
-void	key_search(t_history_session *h_session)
+void		key_search(t_history_session *h_session)
 {
 	char				*line;
 	int					len;

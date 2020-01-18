@@ -25,7 +25,7 @@ int				set_deinit(void);
 int				set_init();
 void			set_update(void);
 void			unset(char *key);
-void			set_print(void);
+void			set_print(t_process *proc);
 char			*set_get(char *key);
 char			**ft_strsplit_first_char(char *str, char c);
 char			**ft_replace_set(t_process *proc);
@@ -33,7 +33,7 @@ void			ft_mas_del(char **mas);
 int				ms_set(t_process *proc);
 int				ms_unset(t_process *proc);
 int				ms_export(t_process *proc);
-int             is_sets(t_process *proc);
-int             add2set(t_process *proc);
+int				is_sets(t_process *proc);
+int				add2set(t_process *proc);
 
 #endif

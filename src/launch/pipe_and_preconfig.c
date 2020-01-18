@@ -27,7 +27,8 @@ int			pre_launch_config(t_process *proc, t_launch *launch)
 {
 	if (proc->heredoc == NULL)
 	{
-		if (!proc->is_input_fd && check_access(proc->input_file, launch->job_id))
+		if (!proc->is_input_fd &&
+			check_access(proc->input_file, launch->job_id))
 		{
 			launch->in_fd = open(proc->input_path, O_RDONLY);
 			update_holder(launch, launch->in_fd);

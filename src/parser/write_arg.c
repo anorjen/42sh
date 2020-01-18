@@ -41,9 +41,6 @@ void	assis_coutargv(char *line, int *i, int *count)
 		++(*i);
 }
 
-
-
-
 int		count_argv(char *line)
 {
 	int		i;
@@ -70,7 +67,6 @@ int		count_argv(char *line)
 	return (count);
 }
 
-
 char	**write_arg(char *line)
 {
 	char	**arg;
@@ -93,7 +89,5 @@ char	**write_arg(char *line)
 		++i;
 	}
 	arg[i] = NULL;
-
-	
 	return (arg);
 }

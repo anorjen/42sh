@@ -91,7 +91,6 @@ t_history_session	*initsrch_loop(int fd, int lenght_hello)
 t_history_session	*init_search_history(int lenght_hello)
 {
 	int					fd;
-	// t_history_session	*h_session;
 	char				*file;
 
 	g_h_session = NULL;

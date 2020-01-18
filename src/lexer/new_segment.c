@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_segment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:57:37 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/12/14 14:04:36 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2020/01/18 19:21:22 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,9 @@ t_process	*init_process(void)
 	new_process->type = 0;
 	new_process->status = 0;
 	new_process->next = NULL;
-	new_process->out_fdPIPE = 1;
+	new_process->out_fdpipe = 1;
 	new_process->is_input_fd = 0;
 	new_process->is_output_fd = NULL;
-
 	return (new_process);
 }
 
@@ -70,20 +69,13 @@ t_process	*new_segment(char **arg, int i)
 		free(new_process);
 		return (NULL);
 	}
-//
-//	int j = 0;
-//	while (new_process->query && new_process->query[j])
-//		ft_printf("%s\n", new_process->query[j++]);
-
 	new_process->type = get_command_type_(new_process->query[0]);
 	new_process->exec_mode = 1;
-//	int j = 0;
-//	while (arg[i])
-//		ft_printf("%s\n", arg[i++]);
-	input_path(arg, i, new_process); // fix this
-	output_path(arg, i, new_process); // fix this
-	new_agregation(arg, i, new_process); // fix this
+	input_path(arg, i, new_process);
+	output_path(arg, i, new_process);
+	new_agregation(arg, i, new_process);
 	if (new_process->aggregate)
-		ft_printf("%i %i\n", new_process->aggregate->in, new_process->aggregate->out);
+		ft_printf("%i %i\n", new_process->aggregate->in,
+				new_process->aggregate->out);
 	return (new_process);
 }

@@ -12,25 +12,7 @@
 
 #include "../../headers/minishell.h"
 
-int				check_access(char **files, int id)
-{
-	int			i;
-
-	id = 0;
-	i = 0;
-	while (files[i])
-	{
-		if (access(files[i], F_OK) == -1)
-		{
-			ft_printf("21sh: %s: No such file or directory\n", files[i]);
-			return (0);
-		}
-		++i;
-	}
-	return (1);
-}
-
-int				check_access_fd(char *fd) // if fd not 0..2 do bad filedescriptor
+int				check_access_fd(char *fd)
 {
 	if (fd[0] != '-' && !(fd[0] >= '0' && fd[0] <= '2'))
 	{
