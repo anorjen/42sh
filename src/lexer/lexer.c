@@ -60,6 +60,8 @@ t_job		*lexer(char **arg)
 	t_process	*temp_process;
 	int			i;
 
+
+	
 	new_job = init_job();
 	new_job->mode = get_backgraund(arg);
 	i = 0;

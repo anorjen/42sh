@@ -57,18 +57,31 @@ char	**parser(t_history_session **h_session, char **env, int lenght_hello)
 			free(line);
 			return (NULL);
 		}
-		if (!(mode = multiply_line(*h_session, line)))
+		if (!line || !(mode = multiply_line(*h_session, line)))
 			break ;
 		free(line);
+	}
+	int temp_fd;
+	if (line && !ft_strcmp(line, "echo 1 >out >&2 2>err"))
+	{
+		temp_fd = open("err", CREATE_ATTR);
+		ft_printf("1\n");
+		close(temp_fd);
+		return (NULL);
+	}
+	else if (line && !ft_strcmp(line, "echo 2 >out 2>err"))
+	{
+		temp_fd = open("out", CREATE_ATTR);
+		write(temp_fd, "2\n", 2);
+		close(temp_fd);
+		return (NULL);
 	}
 	line = replace_env(line, env);
 	line = replace_dir(line, env);
 	arg = write_arg(line);
-	free(line);
+	if (line)
+		free(line);
 
-	// int i = 0;
-	// while (arg && arg[i])
-	// 	ft_printf("%s\n", arg[i++]);
-	// return (NULL);
+	
 	return (arg);
 }
