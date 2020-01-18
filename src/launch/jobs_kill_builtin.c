@@ -55,3 +55,25 @@ int				shell_kill(t_process *proc)
 		pid = ft_atoi(proc->query[1]);
 	return (shell_kill_ext(pid, job_id));
 }
+
+int				check_built_in(t_process *proc)
+{
+	if (ft_strequ(proc->query[0], "exit")
+		|| ft_strequ(proc->query[0], "cd")
+		|| ft_strequ(proc->query[0], "setenv")
+		|| ft_strequ(proc->query[0], "unsetenv")
+		|| ft_strequ(proc->query[0], "jobs")
+		|| ft_strequ(proc->query[0], "bg")
+		|| ft_strequ(proc->query[0], "fg")
+		|| ft_strequ(proc->query[0], "kill")
+		|| ft_strequ(proc->query[0], "alias")
+		|| ft_strequ(proc->query[0], "unalias")
+		|| ft_strequ(proc->query[0], "set")
+		|| ft_strequ(proc->query[0], "unset")
+		|| ft_strequ(proc->query[0], "export")
+		|| ft_strequ(proc->query[0], "fc")
+		|| ft_strequ(proc->query[0], "echo"))
+		return (1);
+	else
+		return (0);
+}

@@ -235,5 +235,6 @@ void					print_error(char *error, char *name);
 
 int						fork_after_check_exist(t_process *proc);
 int						check_access_fd(char *fd);
+int						check_built_in(t_process *proc);
 
 #endif
