@@ -40,7 +40,6 @@ void	new_agregation(char **arg, int i, t_process *new_process)
 	int lenght;
 
 	lenght = lenght_agrg(arg, i);
-	ft_printf("%i\n", lenght);
 	if (lenght == 0)
 		return ;
 	new_process->aggregate = (t_aggregation*)malloc(sizeof(t_aggregation));
