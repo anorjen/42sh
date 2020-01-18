@@ -71,14 +71,7 @@ void		child_launch_cycle(t_process *proc)
 void		child_launch_proc(t_job *job, t_process *proc,
 		int in_fd, int out_fd)
 {
-	if (proc->aggregate && proc->aggregate->in == 2 &&
-		proc->aggregate->out == 1)
-	{
-		printf("%i, %i", proc->aggregate->in, proc->aggregate->out);
-		exit(1);
-	}
 	pgid_and_dup_handle(proc, job, in_fd, out_fd);
 	child_launch_cycle(proc);
-	ft_printf("How u do it?\n", proc->query[0]);
 	exit(1);
 }

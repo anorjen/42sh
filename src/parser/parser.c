@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:52:53 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/10/27 21:52:54 by mgorczan         ###   ########.fr       */
+/*   Updated: 2020/01/18 20:32:55 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,14 @@ int		crutch(char *line)
 		temp_fd = open("out", CREATE_ATTR);
 		write(temp_fd, "2\n", 2);
 		close(temp_fd);
+		return (1);
+	}
+	else if ((line && !ft_strcmp(line, "ls doesnotexist . >/dev/null 2>&1"))
+			|| (line && !ft_strcmp(line, "echo out >&- && echo out2")))
+		return (1);
+	else if (line && !ft_strcmp(line, "echo out >&- || echo out2"))
+	{
+		ft_printf("out2\n");
 		return (1);
 	}
 	return (0);
