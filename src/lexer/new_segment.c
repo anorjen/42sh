@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_segment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:57:37 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/12/14 14:04:36 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2020/01/18 19:21:22 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_process	*init_process(void)
 	new_process->type = 0;
 	new_process->status = 0;
 	new_process->next = NULL;
-	new_process->out_fdPIPE = 1;
+	new_process->out_fdpipe = 1;
 	new_process->is_input_fd = 0;
 	new_process->is_output_fd = NULL;
 	return (new_process);

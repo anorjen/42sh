@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:47:39 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/12/14 15:09:59 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2020/01/18 19:21:22 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct			s_process
 	int					exec_mode;
 	struct s_process	*next;
 
-	int					out_fdPIPE;
+	int					out_fdpipe;
 	char				*input_path;
 	int					is_input_fd;
 	char				**input_file;
