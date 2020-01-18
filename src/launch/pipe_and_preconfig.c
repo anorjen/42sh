@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 23:19:30 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 17:40:45 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/12/14 15:02:05 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ int			pre_launch_config(t_process *proc, t_launch *launch)
 {
 	if (proc->heredoc == NULL)
 	{
-		if (check_access(proc->input_file, launch->job_id))
+		if (!proc->is_input_fd && check_access(proc->input_file, launch->job_id))
 		{
 			launch->in_fd = open(proc->input_path, O_RDONLY);
 			update_holder(launch, launch->in_fd);
 		}
+		else if (check_access_fd(proc->input_path))
+			update_holder(launch, ft_atoi(proc->input_path));
 		else
 			return (0);
 	}

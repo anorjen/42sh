@@ -6,7 +6,7 @@
 /*   By: yharwyn- <yharwyn-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 22:48:19 by yharwyn-          #+#    #+#             */
-/*   Updated: 2019/07/27 17:38:13 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/12/14 16:23:23 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ int			launch_out_redir(t_process *proc, t_launch *launch)
 				close(launch->out_fd);
 		}
 	}
+
 	return (1);
 }
 
 int			launch_base_config(t_launch *launch, t_process *proc, t_job *job)
 {
+
 	launch->out_fd = 1;
 	if (proc->output_path != NULL)
 	{

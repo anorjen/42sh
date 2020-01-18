@@ -6,25 +6,18 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 20:57:55 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 15:09:36 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/12/14 14:04:36 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-int		is_agrarg(char *line)
+int		is_agrarg(char *command)
 {
-	if (ft_strlen(line) == 4)
-	{
-		if (line[0] >= '0' && line[0] <= '2')
-		{
-			if (line[1] == '>' && line[2] == '&')
-			{
-				if ((line[3] >= '0' && line[3] <= '2') || line[3] == '-')
-					return (1);
-			}
-		}
-	}
+	if (ft_isdigit(command[0]) && command[1] == '>'  && command[2] == '&')
+		return (1);
+	else if (ft_isdigit(command[0]) && command[1] == '<'  && command[2] == '&')
+		return (1);
 	return (0);
 }
 
@@ -35,7 +28,7 @@ int		lenght_agrg(char **arg, int i)
 	lenght = 0;
 	while (arg[i] && ft_strcmp(arg[i], "|"))
 	{
-		if (is_agrarg(arg[i]))
+		if (is_agrarg(arg[i]) && ft_isdigit(arg[i + 1][0]))
 			++lenght;
 		++i;
 	}
@@ -54,13 +47,13 @@ void	new_agregation(char **arg, int i, t_process *new_process)
 		exit(1);
 	while (arg[i] && ft_strcmp(arg[i], "|"))
 	{
-		if (is_agrarg(arg[i]))
+		if (is_agrarg(arg[i]) && ft_isdigit(arg[i + 1][0]))
 		{
 			new_process->aggregate->in = arg[i][0] - 48;
-			if (arg[i][3] == '-')
+			if (!ft_strcmp(arg[i + 1], "-"))
 				new_process->aggregate->out = -1;
 			else
-				new_process->aggregate->out = arg[i][3] - 48;
+				new_process->aggregate->out = ft_atoi(arg[i + 1]);
 		}
 		++i;
 	}

@@ -14,15 +14,8 @@
 
 int	is_agregation(char *line, int j)
 {
-	if (line[j] && line[j] >= '0' && line[j] <= '2')
-	{
-		if (line[j + 1] == '>' && line[j + 2] == '&')
-		{
-			if ((line[j + 3] >= '0' &&
-				line[j + 3] <= '2') || line[j + 3] == '-')
-				return (4);
-		}
-	}
+	if (line[j] && (line[j] == '<' || line[j] <= '>') && line[j + 1] == '&')
+		return (2);
 	return (0);
 }
 
@@ -40,12 +33,28 @@ int	spec_token(char *line, int j)
 		return (TOKEN_PIPE);
 	else if (line[j] == '<' && line[j + 1] == '<')
 		return (TOKEN_HEREDOK);
-	else if (line[j] == '<')
+	else if (line[j] == '<' && line[j + 1] != '&')
 		return (TOKEN_INPUTPATH);
+
+	else if (ft_isdigit(line[j]) && line[j + 1] == '<'  && line[j + 2] != '&')
+		return (2);
+
 	else if (line[j] == '>' && line[j + 1] == '>')
 		return (TOKEN_UPPEND);
-	else if (line[j] == '>')
+	else if (line[j] == '>'  && line[j + 1] != '&')
 		return (TOKEN_OUTPUTPATH);
+
+	else if (ft_isdigit(line[j]) && line[j + 1] == '>'  && line[j + 2] != '&')
+		return (2);
+		
+	else if (line[j] == '>' && line[j + 1] == '&')
+		return (2);
+	else if (line[j] == '<' && line[j + 1] == '&')
+		return (2);
+	else if (ft_isdigit(line[j]) && line[j + 1] == '>' && line[j + 2] == '&')
+		return (3);
+	else if (ft_isdigit(line[j]) && line[j + 1] == '<' && line[j + 2] == '&')
+		return (3);
 	else if (line[j] == ';')
 		return (1);
 	else

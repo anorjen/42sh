@@ -6,7 +6,7 @@
 /*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:58:09 by mgorczan          #+#    #+#             */
-/*   Updated: 2020/01/12 17:53:48 by sbearded         ###   ########.fr       */
+/*   Updated: 2020/01/18 13:24:37 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void		pgid_and_dup_handle(t_process *proc, t_job *job,
 		int in_fd, int out_fd)
 {
 	signal_default_changer(proc, job);
+
 	if (in_fd != 0)
 	{
 		dup2(in_fd, 0);
@@ -71,6 +72,11 @@ void		child_launch_cycle(t_process *proc)
 void		child_launch_proc(t_job *job, t_process *proc,
 		int in_fd, int out_fd)
 {
+	if (proc->aggregate && proc->aggregate->in == 2 && proc->aggregate->out == 1)
+	{
+		printf("%i, %i", proc->aggregate->in, proc->aggregate->out);
+		exit(1);
+	}
 	pgid_and_dup_handle(proc, job, in_fd, out_fd);
 	child_launch_cycle(proc);
 	ft_printf("How u do it?\n", proc->query[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_pro.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <anorjen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:59:00 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/11/30 16:23:33 by anorjen          ###   ########.fr       */
+/*   Updated: 2020/01/18 13:24:34 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int				shell_launch_job(t_job *job)
 		free(g_sh->launch);
 	g_sh->launch = h_launch_init();
 	check_zombie();
-	g_sh->launch->job_id = insert_job(job);
+		g_sh->launch->job_id = insert_job(job);
 	proc = job->root;
 	g_sh->launch->status = launch_proc_cycle(proc, g_sh->launch, job);
 	if (job->root->type == COMMAND_EXTERNAL || job->root->type != COMMAND_EXTERNAL)

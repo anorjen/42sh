@@ -6,31 +6,39 @@
 /*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 20:49:40 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/07/27 15:09:35 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2019/12/14 13:50:18 by yharwyn-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-int		get_mode(char *command)
+int		get_mode(char *command) //11
 {
 	if (strcmp(command, "|") == 0)
 		return (COMMAND_PIPE);
-	else if (strcmp(command, "<") == 0)
+	else if (strcmp(command, "<") == 0  || (ft_isdigit(command[0])  && strcmp(&command[1], "<") == 0))
 		return (COMMAND_LREDIR);
-	else if (strcmp(command, ">") == 0)
+	else if (strcmp(command, ">") == 0 || (ft_isdigit(command[0])  && strcmp(&command[1], ">") == 0))
 		return (COMMAND_RREDIR);
+	else if ((ft_isdigit(command[0]) && strcmp(&command[1], ">&") == 0) || strcmp(command, ">&") == 0)
+		return (COMMAND_ARG);
+	else if ((ft_isdigit(command[0]) && strcmp(&command[1], "<&") == 0) || strcmp(command, "<&") == 0)
+		return (COMMAND_ARG);
 	else if (strcmp(command, "<<") == 0)
 		return (COMMAND_HEREDOC);
 	else if (strcmp(command, ">>") == 0)
 		return (COMMAND_APPEND);
-	else if (strcmp(command, "&") == 0)
+	else if (strcmp(command, "&") == 0) // в этом месте может боить &
 		return (COMMAND_BACKGR);
+	else if (ft_isdigit(command[0]) && command[1] == '>'  && command[2] == '&')
+		return (1);
+	else if (ft_isdigit(command[0]) && command[1] == '<'  && command[2] == '&')
+		return (1);
 	else
 		return (COMMAND_EXTERNAL);
 }
 
-int		lenght_argproc(char **arg, int i)
+int		lenght_argproc(char **arg, int i) //11
 {
 	int lenght;
 
@@ -39,20 +47,21 @@ int		lenght_argproc(char **arg, int i)
 	{
 		if (get_mode(arg[i]))
 			++i;
-		else if (!is_agrarg((arg[i])))
+		else
 			++lenght;
 		arg[i] ? ++i : 0;
 	}
 	return (lenght);
 }
 
-char	**new_query(char **arg, int i)
+char	**new_query(char **arg, int i)// 11
 {
 	char	**query;
 	int		lenght;
 	int		j;
 
 	j = 0;
+	
 	if ((lenght = lenght_argproc(arg, i)) == 0)
 		return (NULL);
 	if ((query = malloc(sizeof(char*) * (lenght + 1))) == NULL)
@@ -61,7 +70,7 @@ char	**new_query(char **arg, int i)
 	{
 		if (get_mode(arg[i]))
 			i += 1;
-		else if (!is_agrarg(arg[i]))
+		else
 		{
 			query[j] = ft_strdup(arg[i]);
 			++j;
