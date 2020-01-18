@@ -115,7 +115,7 @@ SRC = 	$(addprefix $(SRC_21SH), $(NAME_21SH))\
 		$(addprefix $(SRC_FLAGS), $(NAME_FLAGS))\
 
 
-#FLAG = -Wall -Werror -Wextra -g
+FLAG = -Wall -Werror -Wextra -g
 OBJ = $(SRC:.c=.o)
 OBJ = *.o
 
