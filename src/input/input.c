@@ -69,12 +69,10 @@ int		ft_readkey(t_history_session *h_session)
 		{
 			while (++i < ret)
 				print_ch(h_session, b[i]);
-	
 		}
 	}
 	if (ret == -1)
 		return (ret);
-
 	return (res);
 }
 

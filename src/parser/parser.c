@@ -32,8 +32,8 @@ char	*get_line(t_history_session **h_session, int lenght_hello, int mode)
 {
 	char	*line;
 
-    if (FU_TERMCAPS)
-        return read_ln();
+	if (FU_TERMCAPS)
+		return (read_ln());
 	if (g_input_mode == 0)
 		line = input(h_session, lenght_hello, mode);
 	else
@@ -46,6 +46,7 @@ char	**parser(t_history_session **h_session, char **env, int lenght_hello)
 	char	**arg;
 	char	*line;
 	int		mode;
+	int		temp_fd;
 
 	*h_session = add_history(*h_session, lenght_hello);
 	mode = 0;
@@ -61,7 +62,6 @@ char	**parser(t_history_session **h_session, char **env, int lenght_hello)
 			break ;
 		free(line);
 	}
-	int temp_fd;
 	if (line && !ft_strcmp(line, "echo 1 >out >&2 2>err"))
 	{
 		temp_fd = open("err", CREATE_ATTR);
@@ -81,7 +81,5 @@ char	**parser(t_history_session **h_session, char **env, int lenght_hello)
 	arg = write_arg(line);
 	if (line)
 		free(line);
-
-	
 	return (arg);
 }

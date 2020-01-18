@@ -34,7 +34,6 @@ void		pgid_and_dup_handle(t_process *proc, t_job *job,
 		int in_fd, int out_fd)
 {
 	signal_default_changer(proc, job);
-
 	if (in_fd != 0)
 	{
 		dup2(in_fd, 0);
@@ -72,7 +71,8 @@ void		child_launch_cycle(t_process *proc)
 void		child_launch_proc(t_job *job, t_process *proc,
 		int in_fd, int out_fd)
 {
-	if (proc->aggregate && proc->aggregate->in == 2 && proc->aggregate->out == 1)
+	if (proc->aggregate && proc->aggregate->in == 2 &&
+		proc->aggregate->out == 1)
 	{
 		printf("%i, %i", proc->aggregate->in, proc->aggregate->out);
 		exit(1);

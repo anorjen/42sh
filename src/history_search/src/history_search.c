@@ -14,7 +14,6 @@
 
 t_history_session	*search_all_str(t_history_session *h_session)
 {
-	// static t_history_session	*old_search;
 	t_history_session			*tmp;
 
 	if (!(tmp = h_session) || !h_session->line || h_session->line[0] == '\0')

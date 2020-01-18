@@ -47,8 +47,8 @@ int			echo_(t_process *proc)
 		return (0);
 	}
 	while (proc->query[i] &&
-		   (!ft_strcmp(proc->query[i], "-n")
-			|| !ft_strcmp(proc->query[i], "-e")))
+		(!ft_strcmp(proc->query[i], "-n")
+		|| !ft_strcmp(proc->query[i], "-e")))
 		n = !ft_strcmp(proc->query[i++], "-n") ? 1 : 0;
 	if (proc->query[i] &&
 		!ft_strcmp(proc->query[i], "-"))
@@ -62,7 +62,6 @@ int			echo_(t_process *proc)
 	}
 	write(proc->out_fdPIPE, "\n", 1);
 	return (0);
-
 }
 
 int			(*g_builtin_func[]) (t_process *) = {

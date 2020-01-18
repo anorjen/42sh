@@ -86,14 +86,13 @@ typedef struct			s_process
 	int					exec_mode;
 	struct s_process	*next;
 
-
-	int 				out_fdPIPE;
+	int					out_fdPIPE;
 	char				*input_path;
-	int 				is_input_fd;
+	int					is_input_fd;
 	char				**input_file;
 
 	char				**output_file;
-	int 				*is_output_fd;
+	int					*is_output_fd;
 	char				*output_path;
 
 }						t_process;
@@ -137,8 +136,8 @@ typedef struct			s_job_pid
 	int					exit_status;
 }						t_job_pid;
 
-t_shell_info				*g_sh;
-char                        **g_env_copy;
+t_shell_info			*g_sh;
+char					**g_env_copy;
 
 /*
 ** 				t_job handlers
@@ -234,7 +233,7 @@ int						check_access(char **files, int id);
 char					*str_join_her(char *s1, char *s2);
 void					print_error(char *error, char *name);
 
-int				fork_after_check_exist(t_process *proc);
-int				check_access_fd(char *fd);
+int						fork_after_check_exist(t_process *proc);
+int						check_access_fd(char *fd);
 
 #endif

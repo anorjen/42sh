@@ -28,7 +28,8 @@ int		lenght_argre(char **arg, int i)
 	int lenght;
 
 	lenght = 0;
-	while (arg[i] && ft_strcmp(arg[i], "|")) {
+	while (arg[i] && ft_strcmp(arg[i], "|"))
+	{
 		if (!ft_strcmp(arg[i], "<") || !ft_strcmp(arg[i], "<&"))
 			lenght++;
 		i++;
@@ -57,7 +58,8 @@ void	fill_inputpath(char **arg, int i, t_process *new_process)
 			new_process->input_file[k] = ft_strdup(arg[i + 1]);
 			if (new_process->input_path)
 				free(new_process->input_path);
-			new_process->is_input_fd = !ft_strcmp(arg[i], "<&") ? IS_INPUT_FD : 0;
+			new_process->is_input_fd = !ft_strcmp(arg[i], "<&") ?
+					IS_INPUT_FD : 0;
 			new_process->input_path = ft_strdup(new_process->input_file[k++]);
 		}
 		++i;

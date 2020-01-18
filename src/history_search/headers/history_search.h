@@ -16,15 +16,15 @@
 # include "libft.h"
 # include "input.h"
 
-typedef struct	s_fc
+typedef struct		s_fc
 {
-	int			e;
-	char		*editor;
-	int			l;
-	int			n;
-	int			r;
-	int			num;
-}				t_fc;
+	int				e;
+	char			*editor;
+	int				l;
+	int				n;
+	int				r;
+	int				num;
+}					t_fc;
 
 /*
 **	hi_search_history

@@ -53,7 +53,7 @@ static char	*brute_force_exec(char *query)
 	return (NULL);
 }
 
-int				fork_after_check_exist(t_process *proc)
+int			fork_after_check_exist(t_process *proc)
 {
 	char		*temp;
 	struct stat	buf;

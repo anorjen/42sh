@@ -35,18 +35,14 @@ int	spec_token(char *line, int j)
 		return (TOKEN_HEREDOK);
 	else if (line[j] == '<' && line[j + 1] != '&')
 		return (TOKEN_INPUTPATH);
-
-	else if (ft_isdigit(line[j]) && line[j + 1] == '<'  && line[j + 2] != '&')
+	else if (ft_isdigit(line[j]) && line[j + 1] == '<' && line[j + 2] != '&')
 		return (2);
-
 	else if (line[j] == '>' && line[j + 1] == '>')
 		return (TOKEN_UPPEND);
-	else if (line[j] == '>'  && line[j + 1] != '&')
+	else if (line[j] == '>' && line[j + 1] != '&')
 		return (TOKEN_OUTPUTPATH);
-
-	else if (ft_isdigit(line[j]) && line[j + 1] == '>'  && line[j + 2] != '&')
+	else if (ft_isdigit(line[j]) && line[j + 1] == '>' && line[j + 2] != '&')
 		return (2);
-		
 	else if (line[j] == '>' && line[j + 1] == '&')
 		return (2);
 	else if (line[j] == '<' && line[j + 1] == '&')

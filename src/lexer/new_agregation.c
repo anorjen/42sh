@@ -14,9 +14,9 @@
 
 int		is_agrarg(char *command)
 {
-	if (ft_isdigit(command[0]) && command[1] == '>'  && command[2] == '&')
+	if (ft_isdigit(command[0]) && command[1] == '>' && command[2] == '&')
 		return (1);
-	else if (ft_isdigit(command[0]) && command[1] == '<'  && command[2] == '&')
+	else if (ft_isdigit(command[0]) && command[1] == '<' && command[2] == '&')
 		return (1);
 	return (0);
 }

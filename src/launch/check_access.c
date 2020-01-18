@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags_parse.c                                      :+:      :+:    :+:   */
+/*   check_access.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcartwri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/18 18:09:24 by jcartwri          #+#    #+#             */
-/*   Updated: 2020/01/18 18:09:28 by jcartwri         ###   ########.fr       */
+/*   Created: 2020/01/18 18:22:21 by jcartwri          #+#    #+#             */
+/*   Updated: 2020/01/18 18:22:25 by jcartwri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
-char	*flags_parse(char **argv, int *i)
+int				check_access(char **files, int id)
 {
-	char	*flags;
-	char	*tmp;
+	int			i;
 
-	flags = NULL;
-	*i = 1;
-	while (argv[*i] && argv[*i][0] == '-' && argv[*i][1])
+	id = 0;
+	i = 0;
+	while (files[i])
 	{
-		tmp = flags;
-		flags = ft_strjoin(flags, argv[*i] + 1);
-		free(tmp);
-		(*i)++;
+		if (access(files[i], F_OK) == -1)
+		{
+			ft_printf("21sh: %s: No such file or directory\n", files[i]);
+			return (0);
+		}
+		++i;
 	}
-	return (flags);
+	return (1);
 }
