@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   job_process_status.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgorczan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbearded <sbearded@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 21:58:24 by mgorczan          #+#    #+#             */
-/*   Updated: 2019/11/23 18:12:28 by yharwyn-         ###   ########.fr       */
+/*   Updated: 2020/01/18 19:45:48 by sbearded         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
+
+static void		norme_func(t_job_pid *job_pids, int id)
+{
+	job_pids->status = -1;
+	set_process_status(job_pids->wait_pid, STATUS_SUSPENDED);
+	if (job_pids->wait_count == job_pids->proc_count)
+		print_job_status(id);
+}
 
 static int		wait_for_job_ext(t_job_pid *job_pids, int id)
 {
@@ -30,12 +38,7 @@ static int		wait_for_job_ext(t_job_pid *job_pids, int id)
 		else if (WIFSIGNALED(job_pids->status))
 			set_process_status(job_pids->wait_pid, STATUS_TERMINATED);
 		else if (WSTOPSIG(job_pids->status))
-		{
-			job_pids->status = -1;
-			set_process_status(job_pids->wait_pid, STATUS_SUSPENDED);
-			if (job_pids->wait_count == job_pids->proc_count)
-				print_job_status(id);
-		}
+			norme_func(job_pids, id);
 		else
 			set_process_status(job_pids->wait_pid, STATUS_DONE);
 	}
